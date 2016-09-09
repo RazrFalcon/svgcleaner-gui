@@ -1,0 +1,32 @@
+/* Trimmed version of the default docutils stylesheet. */
+
+.first {
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+object[type="image/svg+xml"] {
+  overflow: hidden;
+}
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+pre.literal-block, pre.code {
+  margin-left: 1em ;
+  margin-right: 1em }
+
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+
+span.pre {
+  white-space: pre }
+
+table.docutils {
+  margin-top: 0;
+  margin-bottom: 0 }

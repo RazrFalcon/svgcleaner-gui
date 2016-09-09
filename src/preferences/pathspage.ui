@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PathsPage</class>
+ <widget class="QWidget" name="PathsPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>476</width>
+    <height>319</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QCheckBox" name="chBoxTrimPaths">
+     <property name="text">
+      <string>Use compact notation for paths</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="WarningCheckBox" name="chBoxJoinArcToFlags">
+     <property name="text">
+      <string>Join ArcTo flags</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRmDuplCmd">
+     <property name="text">
+      <string>Remove subsequent segments commands from paths</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WarningCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>src/preferences/widgets/warningcheckbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

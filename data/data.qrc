@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>short_gplv2.txt</file>
+        <file>doc.dat</file>
+    </qresource>
+</RCC>

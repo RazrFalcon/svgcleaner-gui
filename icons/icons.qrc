@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>attributes.svgz</file>
+        <file>elements.svgz</file>
+        <file>output.svgz</file>
+        <file>paths.svgz</file>
+        <file>svgcleaner.svgz</file>
+        <file>check.svgz</file>
+        <file>error.svgz</file>
+        <file>warning.svgz</file>
+        <file>breeze/document-new.svgz</file>
+        <file>breeze/edit-clear-list.svgz</file>
+        <file>breeze/folder-new.svgz</file>
+        <file>breeze/help-about.svgz</file>
+        <file>breeze/media-playback-pause.svgz</file>
+        <file>breeze/media-playback-start.svgz</file>
+        <file>breeze/media-playback-stop.svgz</file>
+        <file>breeze/preferences-other.svgz</file>
+    </qresource>
+</RCC>

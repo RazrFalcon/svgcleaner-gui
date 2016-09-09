@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ElementsPage</class>
+ <widget class="QWidget" name="ElementsPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>485</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QCheckBox" name="chBoxRmComments">
+     <property name="text">
+      <string>Remove XML comments</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRmDeclaration">
+     <property name="text">
+      <string>Remove XML declaration</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRmNonSvg">
+     <property name="text">
+      <string>Remove non-SVG elements</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRmUnusedDefs">
+     <property name="text">
+      <string>Remove unused elements inside 'defs' element</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxConvertShapes">
+     <property name="text">
+      <string>Convert basic shapes into paths</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Remove invisible elements:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="layRmElems">
+     <item>
+      <widget class="QCheckBox" name="chBoxRmTitle">
+       <property name="text">
+        <string notr="true">title</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chBoxRmDesc">
+       <property name="text">
+        <string notr="true">desc</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chBoxRmMetadata">
+       <property name="text">
+        <string notr="true">metadata</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Remove duplicated elements:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="layRmDuplElems">
+     <item>
+      <widget class="QCheckBox" name="chBoxRmDuplLinearGrad">
+       <property name="text">
+        <string notr="true">linearGradient</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chBoxRmDuplRadialGrad">
+       <property name="text">
+        <string notr="true">radialGradient</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
