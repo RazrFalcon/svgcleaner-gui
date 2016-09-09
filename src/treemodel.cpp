@@ -50,7 +50,8 @@ void StatusDelegate::paint(QPainter *p, const QStyleOptionViewItem &opt,
     style->drawControl(QStyle::CE_ItemViewItem, &opt, p, opt.widget);
 
     if (!icon.isNull()) {
-        icon.paint(p, opt2.rect.adjusted(2, 2, -2, -2));
+        QIcon::Mode mode = index.flags() & Qt::ItemIsEnabled ? QIcon::Normal : QIcon::Disabled;
+        icon.paint(p, opt2.rect.adjusted(2, 2, -2, -2), Qt::AlignCenter, mode);
     }
 }
 
@@ -263,13 +264,20 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
 
     if (role == Qt::ForegroundRole && index.column() == Column::Ratio) {
         if (d.status == Status::Ok || d.status == Status::Warning || item->hasFolderStats()) {
+            QColor c;
             if (d.ratio >= 40.0f) {
-                return QColor(0, 168, 119);
+                c = QColor(0, 168, 119);
             } else if (d.ratio >= 20.0f) {
-                return QColor(255, 117, 56);
+                c = QColor(255, 117, 56);
             } else {
-                return QColor(242, 0, 60);
+                c = QColor(242, 0, 60);
             }
+
+            if (!item->isEnabled()) {
+                c = c.darker();
+            }
+
+            return c;
         }
     }
 
