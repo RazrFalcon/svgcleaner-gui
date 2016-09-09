@@ -1,4 +1,4 @@
-QT += core gui widgets concurrent
+QT += core gui widgets concurrent svg
 
 TARGET = SVGCleaner
 unix:!mac:TARGET = svgcleaner-gui

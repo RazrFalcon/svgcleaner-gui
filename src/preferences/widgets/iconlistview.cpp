@@ -11,14 +11,10 @@ public:
     explicit IconDelegate(QObject *parent = 0) : QStyledItemDelegate(parent) {}
 
     static int widthHint()
-    {
-        return iconSize + iconSpacing * 2;
-    }
+    { return iconSize + iconSpacing * 2; }
 
     static int heightHint(const QFontMetrics &fm)
-    {
-        return iconSize + fm.height() + iconSpacing * 3;
-    }
+    { return iconSize + fm.height() + iconSpacing * 3; }
 
 private:
     void paint(QPainter *p, const QStyleOptionViewItem &opt,
@@ -37,6 +33,7 @@ private:
             icon.paint(p, r);
         }
 
+        // TODO: change text color on mac
         p->drawText(opt.rect.adjusted(0, 0, 0, -iconSpacing), Qt::AlignHCenter | Qt::AlignBottom,
                     index.data().toString());
     }
@@ -48,6 +45,7 @@ private:
     }
 
 private:
+    // TODO: maybe depend on scale factor/dpi
     static constexpr int iconSize = 64;
     static constexpr int iconSpacing = 4;
 };
