@@ -89,6 +89,8 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent)
     resize(settings.value(SettingKey::PreferencesSize, QSize(640, 480)).toSize());
 
     m_listView->selectRow(settings.integer(SettingKey::PreferencesTab));
+
+    setWindowTitle(tr("Preferences"));
 }
 
 PreferencesDialog::~PreferencesDialog()

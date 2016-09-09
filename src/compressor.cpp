@@ -19,26 +19,24 @@ Compressor Compressor::fromName(const QString &aname)
     }
 }
 
-QString Compressor::levelToString(int v) const
+QString Compressor::levelToString(Level v) const
 {
-    Q_ASSERT(v >= 0 && v <= 4);
-
     if (m_type == SevenZip) {
         switch (v) {
-            case 0 : return "-mx1";
-            case 1 : return "-mx3";
-            case 2 : return "-mx5";
-            case 3 : return "-mx7";
-            case 4 : return "-mx9";
+            case Level::Lowest : return "-mx1";
+            case Level::Low : return "-mx3";
+            case Level::Normal : return "-mx5";
+            case Level::Optimal : return "-mx7";
+            case Level::Ultra : return "-mx9";
         default: break;
         }
     } else {
         switch (v) {
-            case 0 : return "--i1";
-            case 1 : return "--i15";
-            case 2 : return "--i50";
-            case 3 : return "--i100";
-            case 4 : return "--i500";
+            case Level::Lowest : return "--i1";
+            case Level::Low : return "--i15";
+            case Level::Normal : return "--i50";
+            case Level::Optimal : return "--i100";
+            case Level::Ultra : return "--i500";
         default: break;
         }
     }
@@ -83,7 +81,7 @@ bool Compressor::unzip(const QString &inFile, const QString &outFile)
     return writeFile(outFile, *res);
 }
 
-bool Compressor::zip(int lvl, const QString &inFile, const QString &outFile) const
+bool Compressor::zip(Level lvl, const QString &inFile, const QString &outFile) const
 {
     // remove previously created svgz file
     QFile(outFile).remove();

@@ -11,16 +11,17 @@ class Compressor
 {
 public:
     enum Type { None, SevenZip, Zopfli };
+    enum Level { Lowest, Low, Normal, Optimal, Ultra };
 
     Compressor(Type t) : m_type(t) {}
     static Compressor fromName(const QString &aname);
 
-    QString levelToString(int v) const;
+    QString levelToString(Level v) const;
     QString name() const;
     Type type() const
     { return m_type; }
 
-    bool zip(int lvl, const QString &inFile, const QString &outFile) const;
+    bool zip(Level lvl, const QString &inFile, const QString &outFile) const;
     static bool unzip(const QString &inFile, const QString &outFile);
 
 private:

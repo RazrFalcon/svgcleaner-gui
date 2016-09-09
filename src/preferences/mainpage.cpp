@@ -127,7 +127,7 @@ void MainPage::on_cmbBoxZipLevel_currentIndexChanged(int /*index*/)
 
 void MainPage::prepareZipLvlToolTip()
 {
-    int idx = ui->cmbBoxZipLevel->currentIndex();
+    auto idx = (Compressor::Level)ui->cmbBoxZipLevel->currentIndex();
     auto c = Compressor::fromName(ui->cmbBoxZip->currentData().toString());
     ui->cmbBoxZipLevel->setToolTip(tr("Represents: %1").arg(c.levelToString(idx)));
 }

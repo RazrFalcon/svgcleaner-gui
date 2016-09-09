@@ -336,7 +336,7 @@ void MainWindow::onStart()
     }
 
     Compressor::Type compressor = Compressor::None;
-    const int compressionLevel = settings.integer(SettingKey::CompressionLevel);
+    const auto compressionLevel = (Compressor::Level)settings.integer(SettingKey::CompressionLevel);
     const bool compressOnlySvgz = settings.flag(SettingKey::CompressOnlySvgz);
     // check that selected compressor is still exists
     if (settings.flag(SettingKey::UseCompression)) {

@@ -42,7 +42,7 @@ public:
         QStringList args;
         TreeItem *treeItem = 0;
         Compressor::Type compressor;
-        int compressionLevel = 4;
+        Compressor::Level compressionLevel = Compressor::Ultra;
         bool compressOnlySvgz = false;
     };
 
