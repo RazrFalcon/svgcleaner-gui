@@ -335,14 +335,14 @@ void MainWindow::onStart()
         }
     }
 
-    Compressor::Type compressor = Compressor::None;
+    Compressor::Type compressorType = Compressor::None;
     const auto compressionLevel = (Compressor::Level)settings.integer(SettingKey::CompressionLevel);
     const bool compressOnlySvgz = settings.flag(SettingKey::CompressOnlySvgz);
     // check that selected compressor is still exists
     if (settings.flag(SettingKey::UseCompression)) {
         const auto c = Compressor::fromName(settings.string(SettingKey::Compressor));
-        compressor = Compressor::fromName(settings.string(SettingKey::Compressor)).type();
-        if (compressor != Compressor::None && !QFile(c.name()).exists()) {
+        compressorType = c.type();
+        if (compressorType != Compressor::None && !c.isAvailable()) {
             QMessageBox::critical(this, tr("Error"),
                                   tr("Selected compressor is not found.\n"
                                      "Change it in Preferences."));
@@ -365,7 +365,7 @@ void MainWindow::onStart()
 
     for (Task::Config &conf : data) {
         conf.args = args;
-        conf.compressor = compressor;
+        conf.compressorType = compressorType;
         conf.compressionLevel = compressionLevel;
         conf.compressOnlySvgz = compressOnlySvgz;
     }

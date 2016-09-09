@@ -41,7 +41,7 @@ public:
         QString outputPath;
         QStringList args;
         TreeItem *treeItem = 0;
-        Compressor::Type compressor;
+        Compressor::Type compressorType;
         Compressor::Level compressionLevel = Compressor::Ultra;
         bool compressOnlySvgz = false;
     };

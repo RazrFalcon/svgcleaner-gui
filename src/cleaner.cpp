@@ -98,7 +98,7 @@ Task::Output Task::cleanFile(const Task::Config &config)
     QString outPath = config.outputPath;
 
     bool shouldCompress = false;
-    if (config.compressor != Compressor::None) {
+    if (config.compressorType != Compressor::None) {
         // compressor is set
         if (config.compressOnlySvgz) {
             // check that input file was SVGZ
@@ -112,7 +112,7 @@ Task::Output Task::cleanFile(const Task::Config &config)
 
     if (shouldCompress) {
         outPath += "z";
-        bool flag = Compressor(config.compressor)
+        bool flag = Compressor(config.compressorType)
                         .zip(config.compressionLevel, config.outputPath, outPath);
         if (!flag) {
             return Output::error(tr("Failed to compress the file."), config.treeItem);

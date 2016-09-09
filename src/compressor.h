@@ -16,6 +16,7 @@ public:
     Compressor(Type t) : m_type(t) {}
     static Compressor fromName(const QString &aname);
 
+    bool isAvailable() const;
     QString levelToString(Level v) const;
     QString name() const;
     Type type() const

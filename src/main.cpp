@@ -32,7 +32,6 @@
 
 bool findCleaner();
 QVersionNumber cleanerVersion();
-bool find7Zip();
 void exeErr(const QString &name);
 
 int main(int argc, char *argv[])
@@ -62,7 +61,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    if (!find7Zip()) {
+    if (!Compressor(Compressor::SevenZip).isAvailable()) {
         exeErr(CompressorName::SevenZip);
         return 1;
     }
@@ -90,16 +89,11 @@ QVersionNumber cleanerVersion()
     }
 }
 
-bool find7Zip()
-{
-    return !Process::run(CompressorName::SevenZip, { "-h" }, 1000).hasError();
-}
-
 void exeErr(const QString &name)
 {
     QMessageBox::critical(0, MainWindow::tr("Error"),
                           MainWindow::tr("The '%1' executable is not found.\n\n"
-                                         "It should be in the application folder or in the PATH.")
+                                         "It should be in the application folder.")
 #ifdef Q_OS_WIN
                                             .arg(name + ".exe"));
 #else

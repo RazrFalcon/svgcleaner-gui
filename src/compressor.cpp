@@ -19,6 +19,17 @@ Compressor Compressor::fromName(const QString &aname)
     }
 }
 
+bool Compressor::isAvailable() const
+{
+    if (m_type == SevenZip) {
+        return !Process::run(CompressorName::SevenZip, { "-h" }, 1000).hasError();
+    } else if (m_type == Zopfli) {
+        return !Process::run(CompressorName::Zopfli, { "-h" }, 1000).hasError();
+    } else {
+        Q_UNREACHABLE();
+    }
+}
+
 QString Compressor::levelToString(Level v) const
 {
     if (m_type == SevenZip) {
