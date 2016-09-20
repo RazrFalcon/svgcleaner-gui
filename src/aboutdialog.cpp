@@ -21,12 +21,12 @@
 ****************************************************************************/
 
 #include <QScrollBar>
+#include <QDesktopServices>
 
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
 // TODO: add changelog tab
-// TODO: add manual tab
 
 AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
@@ -36,6 +36,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->lblTitle->setText(qApp->applicationName() + " " + qApp->applicationVersion() + "-beta");
     ui->tabWidget->setCurrentIndex(0); // always show first tab
     fillAbout();
+    fillManual();
     fillAuthors();
     fillLicence();
 }
@@ -48,7 +49,18 @@ AboutDialog::~AboutDialog()
 void AboutDialog::fillAbout()
 {
     ui->lblAbout->setText(tr("This is a GUI for %1.")
-        .arg(genLink("svgcleaner", "https://github.com/RazrFalcon/svgcleaner")));
+                          .arg(genLink("svgcleaner", "https://github.com/RazrFalcon/svgcleaner")));
+}
+
+void AboutDialog::fillManual()
+{
+    QString link
+        = genLink("https://github.com/RazrFalcon/svgcleaner/blob/master/docs/svgcleaner.rst");
+    ui->textManual->setHtml(tr("You can find the complete documentation here: %1.").arg(link));
+
+    connect(ui->textManual, &QTextBrowser::anchorClicked, [](const QUrl &url){
+        QDesktopServices::openUrl(url);
+    });
 }
 
 void AboutDialog::fillAuthors()

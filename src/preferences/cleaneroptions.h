@@ -36,18 +36,28 @@ namespace CleanerKey {
         extern const QString RemoveMetadata;
         extern const QString RemoveDuplLinearGradient;
         extern const QString RemoveDuplRadialGradient;
+        extern const QString UngroupGroups;
+        extern const QString MergeGradients;
+        extern const QString RemoveInvisibleElements;
     }
 
     namespace Attributes {
+        extern const QString RemoveVersion;
         extern const QString RemoveNonSvgAttributes;
         extern const QString RemoveUnrefIds;
         extern const QString TrimIds;
         extern const QString RemoveTextAttributes;
+        extern const QString RemoveUnusedCoordinates;
         extern const QString RemoveDefaultAttributes;
         extern const QString RemoveXmlnsXlinkAttribute;
+        extern const QString RemoveNeedlessAttributes;
+        extern const QString MoveStylesToGroup;
+        extern const QString JoinStyleAttributes;
     }
 
     namespace Paths {
+        extern const QString PathsToRelative;
+        extern const QString RemoveUnusedSegments;
         extern const QString TrimPaths;
         extern const QString RemoveDuplCmdInPaths;
         extern const QString JoinArcToFlags;

@@ -32,12 +32,17 @@ AttributesPage::AttributesPage(QWidget *parent) :
     ui->setupUi(this);
 
     addOptWidgets({
+        { ui->chBoxRmVersion, Attributes::RemoveVersion },
         { ui->chBoxRmNonSvg, Attributes::RemoveNonSvgAttributes },
         { ui->chBoxRmUnrefIds, Attributes::RemoveUnrefIds },
         { ui->chBoxTrimIds, Attributes::TrimIds },
         { ui->chBoxRmTextAttrs, Attributes::RemoveTextAttributes },
+        { ui->chBoxRmCoord, Attributes::RemoveUnusedCoordinates },
         { ui->chBoxRmDefaultAttrs, Attributes::RemoveDefaultAttributes },
         { ui->chBoxXmlnsXlink, Attributes::RemoveXmlnsXlinkAttribute },
+        { ui->chBoxRmNeedlessAttrs, Attributes::RemoveNeedlessAttributes },
+        { ui->chBoxMoveStyles, Attributes::MoveStylesToGroup },
+        { ui->chBoxJoinStyles, Attributes::JoinStyleAttributes },
     });
 
     loadConfig();

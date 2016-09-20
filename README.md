@@ -39,7 +39,7 @@ make install
 
 ### Runtime dependencies
 
- - 7za(.exe)
+ - 7za(.exe) (part of 7-Zip)
  - svgcleaner(-cli)
  - zopfli (optional)
 

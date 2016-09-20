@@ -34,7 +34,12 @@ PathsPage::PathsPage(QWidget *parent) :
     ui->chBoxJoinArcToFlags->setStyleSheet(
         QString("WarningCheckBox { padding-left: %1 }").arg(leftMargin()));
 
+    ui->chBoxRmUnused->setStyleSheet(
+        QString("QCheckBox { padding-left: %1 }").arg(leftMargin()));
+
     addOptWidgets({
+        { ui->chBoxToRelative, Paths::PathsToRelative },
+        { ui->chBoxRmUnused, Paths::RemoveUnusedSegments },
         { ui->chBoxTrimPaths, Paths::TrimPaths },
         { ui->chBoxRmDuplCmd, Paths::RemoveDuplCmdInPaths },
         { ui->chBoxJoinArcToFlags, Paths::JoinArcToFlags },
@@ -53,6 +58,7 @@ void PathsPage::loadConfig()
 {
     BasePreferencesPage::loadConfig();
     on_chBoxTrimPaths_toggled(ui->chBoxTrimPaths->isChecked());
+    on_chBoxToRelative_toggled(ui->chBoxToRelative->isChecked());
 }
 
 void PathsPage::on_chBoxTrimPaths_toggled(bool checked)
@@ -60,4 +66,11 @@ void PathsPage::on_chBoxTrimPaths_toggled(bool checked)
     ui->chBoxJoinArcToFlags->setEnabled(checked);
     if (!checked)
         ui->chBoxJoinArcToFlags->setChecked(false);
+}
+
+void PathsPage::on_chBoxToRelative_toggled(bool checked)
+{
+    ui->chBoxRmUnused->setEnabled(checked);
+    if (!checked)
+        ui->chBoxRmUnused->setChecked(false);
 }

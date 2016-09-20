@@ -24,7 +24,7 @@
    <item>
     <widget class="QCheckBox" name="chBoxRmDeclaration">
      <property name="text">
-      <string>Remove XML declaration</string>
+      <string>Remove XML declarations</string>
      </property>
     </widget>
    </item>
@@ -38,7 +38,7 @@
    <item>
     <widget class="QCheckBox" name="chBoxRmUnusedDefs">
      <property name="text">
-      <string>Remove unused elements inside 'defs' element</string>
+      <string>Remove unused referenced elements</string>
      </property>
     </widget>
    </item>
@@ -105,6 +105,27 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxUngroupGroups">
+     <property name="text">
+      <string>Ungroup groups</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxMergeGradients">
+     <property name="text">
+      <string>Merge gradients</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRmInvisible">
+     <property name="text">
+      <string>Remove invisible elements</string>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">

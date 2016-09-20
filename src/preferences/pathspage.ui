@@ -15,6 +15,20 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QCheckBox" name="chBoxToRelative">
+     <property name="text">
+      <string>Convert path's segments into relative one</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRmUnused">
+     <property name="text">
+      <string>Remove unused path segments</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="chBoxTrimPaths">
      <property name="text">
       <string>Use compact notation for paths</string>

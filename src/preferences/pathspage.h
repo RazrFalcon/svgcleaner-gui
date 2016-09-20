@@ -39,6 +39,8 @@ public:
 private slots:
     void on_chBoxTrimPaths_toggled(bool checked);
 
+    void on_chBoxToRelative_toggled(bool checked);
+
 protected:
     void loadConfig() override;
 

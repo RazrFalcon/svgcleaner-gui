@@ -34,18 +34,28 @@ namespace CleanerKey {
         const QString RemoveMetadata            = "remove-metadata";
         const QString RemoveDuplLinearGradient  = "remove-dupl-lineargradient";
         const QString RemoveDuplRadialGradient  = "remove-dupl-radialgradient";
+        const QString UngroupGroups             = "ungroup-groups";
+        const QString MergeGradients            = "merge-gradients";
+        const QString RemoveInvisibleElements   = "remove-invisible-elements";
     }
 
     namespace Attributes {
+        const QString RemoveVersion             = "remove-version";
         const QString RemoveNonSvgAttributes    = "remove-nonsvg-attributes";
         const QString RemoveUnrefIds            = "remove-unreferenced-ids";
         const QString TrimIds                   = "trim-ids";
         const QString RemoveTextAttributes      = "remove-text-attributes";
+        const QString RemoveUnusedCoordinates   = "remove-unused-coordinates";
         const QString RemoveDefaultAttributes   = "remove-default-attributes";
         const QString RemoveXmlnsXlinkAttribute = "remove-xmlns-xlink-attribute";
+        const QString RemoveNeedlessAttributes  = "remove-needless-attributes";
+        const QString MoveStylesToGroup         = "move-styles-to-group";
+        const QString JoinStyleAttributes       = "join-style-attributes";
     }
 
     namespace Paths {
+        const QString PathsToRelative           = "paths-to-relative";
+        const QString RemoveUnusedSegments      = "remove-unused-segments";
         const QString TrimPaths                 = "trim-paths";
         const QString RemoveDuplCmdInPaths      = "remove-dupl-cmd-in-paths";
         const QString JoinArcToFlags            = "join-arcto-flags";
@@ -96,14 +106,24 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Elements::RemoveMetadata, true);
         hash.insert(Elements::RemoveDuplLinearGradient, true);
         hash.insert(Elements::RemoveDuplRadialGradient, true);
+        hash.insert(Elements::UngroupGroups, true);
+        hash.insert(Elements::MergeGradients, true);
+        hash.insert(Elements::RemoveInvisibleElements, true);
 
+        hash.insert(Attributes::RemoveVersion, true);
         hash.insert(Attributes::RemoveNonSvgAttributes, true);
         hash.insert(Attributes::RemoveUnrefIds, true);
         hash.insert(Attributes::TrimIds, true);
         hash.insert(Attributes::RemoveTextAttributes, true);
+        hash.insert(Attributes::RemoveUnusedCoordinates, true);
         hash.insert(Attributes::RemoveDefaultAttributes, true);
         hash.insert(Attributes::RemoveXmlnsXlinkAttribute, true);
+        hash.insert(Attributes::RemoveNeedlessAttributes, true);
+        hash.insert(Attributes::MoveStylesToGroup, true);
+        hash.insert(Attributes::JoinStyleAttributes, true);
 
+        hash.insert(Paths::PathsToRelative, true);
+        hash.insert(Paths::RemoveUnusedSegments, true);
         hash.insert(Paths::TrimPaths, true);
         hash.insert(Paths::RemoveDuplCmdInPaths, true);
         hash.insert(Paths::JoinArcToFlags, false);
@@ -159,14 +179,24 @@ QStringList CleanerOptions::genArgs()
     genFlag(Elements::RemoveMetadata, list);
     genFlag(Elements::RemoveDuplLinearGradient, list);
     genFlag(Elements::RemoveDuplRadialGradient, list);
+    genFlag(Elements::UngroupGroups, list);
+    genFlag(Elements::MergeGradients, list);
+    genFlag(Elements::RemoveInvisibleElements, list);
 
+    genFlag(Attributes::RemoveVersion, list);
     genFlag(Attributes::RemoveNonSvgAttributes, list);
     genFlag(Attributes::RemoveUnrefIds, list);
     genFlag(Attributes::TrimIds, list);
     genFlag(Attributes::RemoveTextAttributes, list);
+    genFlag(Attributes::RemoveUnusedCoordinates, list);
     genFlag(Attributes::RemoveDefaultAttributes, list);
     genFlag(Attributes::RemoveXmlnsXlinkAttribute, list);
+    genFlag(Attributes::RemoveNeedlessAttributes, list);
+    genFlag(Attributes::MoveStylesToGroup, list);
+    genFlag(Attributes::JoinStyleAttributes, list);
 
+    genFlag(Paths::PathsToRelative, list);
+    genFlag(Paths::RemoveUnusedSegments, list);
     genFlag(Paths::TrimPaths, list);
     genFlag(Paths::RemoveDuplCmdInPaths, list);
     genFlag(Paths::JoinArcToFlags, list);

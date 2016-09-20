@@ -6,14 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>426</width>
+    <height>502</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QCheckBox" name="chBoxRmVersion">
+     <property name="text">
+      <string>Remove 'version' and 'baseProfile' attributes</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QCheckBox" name="chBoxRmNonSvg">
      <property name="text">
@@ -43,6 +50,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="chBoxRmCoord">
+     <property name="text">
+      <string>Remove unused coordinate attributes</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="chBoxRmDefaultAttrs">
      <property name="text">
       <string>Remove attributes with default values</string>
@@ -53,6 +67,27 @@
     <widget class="QCheckBox" name="chBoxXmlnsXlink">
      <property name="text">
       <string>Remove an unused xmlns:xlink attribute</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRmNeedlessAttrs">
+     <property name="text">
+      <string>Remove attributes that doesn't belong to this element</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxMoveStyles">
+     <property name="text">
+      <string>Move presentational attributes to the parent group</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxJoinStyles">
+     <property name="text">
+      <string>Join presentational attributes</string>
      </property>
     </widget>
    </item>

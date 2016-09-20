@@ -45,6 +45,9 @@ ElementsPage::ElementsPage(QWidget *parent) :
         { ui->chBoxRmMetadata, Elements::RemoveMetadata },
         { ui->chBoxRmDuplLinearGrad, Elements::RemoveDuplLinearGradient },
         { ui->chBoxRmDuplRadialGrad, Elements::RemoveDuplRadialGradient },
+        { ui->chBoxUngroupGroups, Elements::UngroupGroups },
+        { ui->chBoxMergeGradients, Elements::MergeGradients },
+        { ui->chBoxRmInvisible, Elements::RemoveInvisibleElements },
     });
 
     loadConfig();
