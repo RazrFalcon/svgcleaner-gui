@@ -172,8 +172,18 @@ void MainWindow::on_actionAddFiles_triggered()
 
     AppSettings().setValue(SettingKey::LastPath, diag.directory().absolutePath());
 
+    bool hasSymlink = false;
+
     for (const QString &file : diag.selectedFiles()) {
-        addFile(file);
+        if (!QFileInfo(file).isSymLink()) {
+            addFile(file);
+        } else {
+            hasSymlink = true;
+        }
+    }
+
+    if (hasSymlink) {
+        QMessageBox::warning(this, tr("Warning"), tr("Symlinks are not supported."));
     }
 
     recalcTable();
@@ -183,6 +193,11 @@ void MainWindow::on_actionAddFolder_triggered()
 {
     const QString folder = QFileDialog::getExistingDirectory(this, tr("Add Folder"), lastPath());
     if (folder.isEmpty()) {
+        return;
+    }
+
+    if (QFileInfo(folder).isSymLink()) {
+        QMessageBox::warning(this, tr("Warning"), tr("Symlinks are not supported."));
         return;
     }
 

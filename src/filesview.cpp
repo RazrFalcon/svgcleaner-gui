@@ -44,7 +44,6 @@ void FilesView::dragMoveEvent(QDragMoveEvent *event)
 
 void FilesView::dropEvent(QDropEvent *event)
 {
-
     const QMimeData *mime = event->mimeData();
     if (!mime->hasUrls()) {
         event->ignore();
@@ -52,18 +51,25 @@ void FilesView::dropEvent(QDropEvent *event)
     }
 
     for (const QUrl &url : mime->urls()) {
-        if (url.isLocalFile()) {
-            QString path = url.toLocalFile();
-            if (QFileInfo(path).isDir()) {
-                emit folderDropped(path);
-            } else if (QFileInfo(path).isFile()) {
-                QString suffix = QFileInfo(path).suffix().toLower();
-                if (suffix == "svg" || suffix == "svgz") {
-                    emit fileDropped(path);
-                } else {
-                    QMessageBox::warning(this, tr("Warning"),
-                                         tr("You can drop only svg(z) files or folders."));
-                }
+        if (!url.isLocalFile()) {
+            continue;
+        }
+
+        QString path = url.toLocalFile();
+        QFileInfo fi = QFileInfo(path);
+        if (fi.isSymLink()) {
+            continue;
+        }
+
+        if (fi.isDir()) {
+            emit folderDropped(path);
+        } else if (fi.isFile()) {
+            QString suffix = QFileInfo(path).suffix().toLower();
+            if (suffix == "svg" || suffix == "svgz") {
+                emit fileDropped(path);
+            } else {
+                QMessageBox::warning(this, tr("Warning"),
+                                     tr("You can drop only svg(z) files or folders."));
             }
         }
     }

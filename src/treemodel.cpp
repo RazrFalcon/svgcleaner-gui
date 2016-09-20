@@ -427,7 +427,6 @@ int TreeModel::columnCount(const QModelIndex &) const
     return Column::LastColumn;
 }
 
-#include <QDebug>
 TreeModel::AddResult TreeModel::addFolder(const QString &path)
 {
     if (rootItem()->hasChild(path)) {
@@ -451,7 +450,8 @@ void TreeModel::scanFolder(const QString &path, TreeItem *parent)
 {
     static const QStringList filesFilter = { "*.svg", "*.svgz" };
 
-    const auto dirInfo = QDir(path).entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot, QDir::Name);
+    const auto flags = QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks;
+    const auto dirInfo = QDir(path).entryInfoList(flags, QDir::Name);
     for (const QFileInfo &fi : dirInfo) {
         TreeItem *dirItem = new TreeItem(fi.absoluteFilePath(), parent);
         scanFolder(fi.absoluteFilePath(), dirItem);
@@ -466,7 +466,8 @@ void TreeModel::scanFolder(const QString &path, TreeItem *parent)
         }
     }
 
-    for (const QFileInfo &fi : QDir(path).entryInfoList(filesFilter, QDir::Files, QDir::Name)) {
+    for (const QFileInfo &fi : QDir(path).entryInfoList(filesFilter, QDir::Files | QDir::NoSymLinks,
+                                                        QDir::Name)) {
         addFile(fi.absoluteFilePath(), parent);
     }
 }
