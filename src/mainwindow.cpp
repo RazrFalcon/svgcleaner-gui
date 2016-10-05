@@ -38,7 +38,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_model(new TreeModel())
+    m_model(new TreeModel(this))
 {
     ui->setupUi(this);
 #ifndef Q_OS_MAC
@@ -452,6 +452,12 @@ void MainWindow::onFinished()
     onStop();
     ui->progressBar->hide();
     m_model->calcFoldersStats();
+
+    // force update, because it not always invoked automatically
+    ui->treeView->resizeColumnToContents(Column::SizeBefore);
+    ui->treeView->resizeColumnToContents(Column::SizeAfter);
+    ui->treeView->resizeColumnToContents(Column::Ratio);
+    ui->treeView->resizeColumnToContents(Column::Time);
 }
 
 void MainWindow::onDoubleClick(const QModelIndex &index)

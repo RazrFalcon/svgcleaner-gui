@@ -57,12 +57,12 @@ make install
 
 V0.7.0
 
- - [ ] Translations.
  - [ ] Multipass.
 
 V0.8.0
 
- - [ ] Find different icon theme. I'm not a fan of a flat design...
+ - [ ] Translations, somehow.
+ - [ ] Find a different icon theme. I'm not a fan of a flat design...
  - [ ] Compare images via WebKit.
 
 ### Icons

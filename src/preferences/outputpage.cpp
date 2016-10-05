@@ -31,14 +31,10 @@ OutputPage::OutputPage(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->layNumPrecision->setContentsMargins(leftMargin(), 0, 0, 0);
-
     addOptWidgets({
         { ui->chBoxRGB, Output::TrimColors },
         { ui->chBoxSimplifyTransforms, Output::SimplifyTransforms },
         { ui->spinBoxIndent, Output::Indent },
-        { ui->spinBoxNPCoord, Output::PrecisionCoordinate },
-        { ui->spinBoxNPTransform, Output::PrecisionTransform },
     });
 
     loadConfig();

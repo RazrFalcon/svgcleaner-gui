@@ -225,6 +225,11 @@ TreeModel::TreeModel(QObject *parent)
 {
 }
 
+TreeModel::~TreeModel()
+{
+    delete m_rootItem;
+}
+
 QVariant TreeModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())

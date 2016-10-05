@@ -78,6 +78,13 @@
     </widget>
    </item>
    <item>
+    <widget class="WarningCheckBox" name="chBoxRemoveGradientAttributes">
+     <property name="text">
+      <string>Remove inheritable gradient attributes</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="chBoxMoveStyles">
      <property name="text">
       <string>Move presentational attributes to the parent group</string>
@@ -92,20 +99,45 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Apply transformations to:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="layTransform">
+     <item>
+      <widget class="QCheckBox" name="chBoxApplyTransformToGradients">
+       <property name="text">
+        <string>gradients</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>1</width>
+       <height>1</height>
       </size>
      </property>
     </spacer>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WarningCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>src/preferences/widgets/warningcheckbox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

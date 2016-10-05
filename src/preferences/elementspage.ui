@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>485</height>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -104,6 +104,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QCheckBox" name="chBoxRemoveDuplFeGaussianBlur">
+       <property name="text">
+        <string notr="true">feGaussianBlur</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -114,9 +121,30 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="chBoxUngroupDefs">
+     <property name="text">
+      <string>Ungroup 'defs' elements</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="chBoxMergeGradients">
      <property name="text">
       <string>Merge gradients</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRegroupGradientStops">
+     <property name="text">
+      <string>Regroup gradient 'stop' elements</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRemoveInvalidStops">
+     <property name="text">
+      <string>Remove invalid 'stop' elements</string>
      </property>
     </widget>
    </item>
@@ -134,8 +162,8 @@
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>1</width>
+       <height>1</height>
       </size>
      </property>
     </spacer>

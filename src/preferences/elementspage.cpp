@@ -34,6 +34,7 @@ ElementsPage::ElementsPage(QWidget *parent) :
     ui->layRmElems->setContentsMargins(leftMargin(), 0, 0, 0);
     ui->layRmDuplElems->setContentsMargins(leftMargin(), 0, 0, 0);
 
+    // TODO: maybe rename the same as settings options
     addOptWidgets({
         { ui->chBoxRmComments, Elements::RemoveComments },
         { ui->chBoxRmDeclaration, Elements::RemoveDeclaration },
@@ -45,8 +46,12 @@ ElementsPage::ElementsPage(QWidget *parent) :
         { ui->chBoxRmMetadata, Elements::RemoveMetadata },
         { ui->chBoxRmDuplLinearGrad, Elements::RemoveDuplLinearGradient },
         { ui->chBoxRmDuplRadialGrad, Elements::RemoveDuplRadialGradient },
+        { ui->chBoxRemoveDuplFeGaussianBlur, Elements::RemoveDuplFeGaussianBlur },
         { ui->chBoxUngroupGroups, Elements::UngroupGroups },
+        { ui->chBoxUngroupDefs, Elements::UngroupDefs },
         { ui->chBoxMergeGradients, Elements::MergeGradients },
+        { ui->chBoxRegroupGradientStops, Elements::RegroupGradientStops },
+        { ui->chBoxRemoveInvalidStops, Elements::RemoveInvalidStops },
         { ui->chBoxRmInvisible, Elements::RemoveInvisibleElements },
     });
 

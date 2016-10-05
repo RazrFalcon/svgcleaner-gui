@@ -25,6 +25,7 @@
 #include <QStackedWidget>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QScrollArea>
 
 #include "src/settings.h"
 #include "src/preferences/widgets/iconlistview.h"
@@ -57,11 +58,15 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent)
     };
 
     m_stackedWidget = new QStackedWidget();
-    m_stackedWidget->addWidget(mainPage);
-    m_stackedWidget->addWidget(elementsPage);
-    m_stackedWidget->addWidget(attributesPage);
-    m_stackedWidget->addWidget(pathsPage);
-    m_stackedWidget->addWidget(outputPage);
+
+    for (auto *page : m_pages) {
+        QScrollArea *area = new QScrollArea(this);
+        area->setWidget(page);
+        area->setWidgetResizable(true);
+        area->setFrameShape(QFrame::NoFrame);
+
+        m_stackedWidget->addWidget(area);
+    }
 
     m_btnGenArgs = new QPushButton();
     m_btnGenArgs->setText(tr("Generate command"));
@@ -78,9 +83,9 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent)
 
     QGridLayout *lay = new QGridLayout;
     lay->addWidget(m_listView, 0, 0, 2, 1);
-    lay->addWidget(m_stackedWidget, 0, 1, 2, 2);
+    lay->addWidget(m_stackedWidget, 0, 1, 1, 3);
     lay->addWidget(m_btnGenArgs, 1, 1);
-    lay->addWidget(m_btnBox, 1, 2);
+    lay->addWidget(m_btnBox, 1, 2, 1, 2);
     setLayout(lay);
 
     connect(m_listView, &IconListView::itemSelected, this, &PreferencesDialog::onChangePage);
@@ -135,6 +140,7 @@ void PreferencesDialog::onGenArgs()
         page->saveConfig();
     }
 
+    // TODO: custom dialog
     QMessageBox msg(QMessageBox::Information, tr("Command"), tr("Command is in details."),
                     QMessageBox::Ok, this);
     msg.setDetailedText(QString("svgcleaner in.svg out.svg %1")

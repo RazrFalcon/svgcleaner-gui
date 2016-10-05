@@ -31,6 +31,8 @@ AttributesPage::AttributesPage(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->layTransform->setContentsMargins(leftMargin(), 0, 0, 0);
+
     addOptWidgets({
         { ui->chBoxRmVersion, Attributes::RemoveVersion },
         { ui->chBoxRmNonSvg, Attributes::RemoveNonSvgAttributes },
@@ -41,8 +43,10 @@ AttributesPage::AttributesPage(QWidget *parent) :
         { ui->chBoxRmDefaultAttrs, Attributes::RemoveDefaultAttributes },
         { ui->chBoxXmlnsXlink, Attributes::RemoveXmlnsXlinkAttribute },
         { ui->chBoxRmNeedlessAttrs, Attributes::RemoveNeedlessAttributes },
+        { ui->chBoxRemoveGradientAttributes, Attributes::RemoveGradientAttributes },
         { ui->chBoxMoveStyles, Attributes::MoveStylesToGroup },
         { ui->chBoxJoinStyles, Attributes::JoinStyleAttributes },
+        { ui->chBoxApplyTransformToGradients, Attributes::ApplyTransformToGradients },
     });
 
     loadConfig();
