@@ -26,7 +26,8 @@ SOURCES += \
     src/process.cpp \
     src/compressor.cpp \
     src/filesview.cpp \
-    src/preferences/widgets/iconlistview.cpp
+    src/preferences/widgets/iconlistview.cpp \
+    src/detailsdialog.cpp
 
 HEADERS  += \
     src/mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS  += \
     src/process.h \
     src/compressor.h \
     src/filesview.h \
-    src/preferences/widgets/iconlistview.h
+    src/preferences/widgets/iconlistview.h \
+    src/detailsdialog.h
 
 FORMS    += \
     src/mainwindow.ui \
@@ -59,7 +61,8 @@ FORMS    += \
     src/preferences/outputpage.ui \
     src/aboutdialog.ui \
     src/preferences/pathspage.ui \
-    src/preferences/mainpage.ui
+    src/preferences/mainpage.ui \
+    src/detailsdialog.ui
 
 RESOURCES += icons/icons.qrc data/data.qrc
 

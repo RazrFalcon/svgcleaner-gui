@@ -53,7 +53,6 @@ struct FolderStats
 {
     qint64 sizeBefore = 0;
     qint64 sizeAfter = 0;
-    double time = 0; // in ms
 };
 
 struct TreeItemData {
@@ -161,10 +160,10 @@ public:
     void clear();
 
     void calcFoldersStats();
+    int calcFileCount();
 
 private:
     void scanFolder(const QString &path, TreeItem *parent);
-    void setCheckToChildren(Qt::CheckState state, TreeItem *parent);
 
 private:
     TreeItem * const m_rootItem;

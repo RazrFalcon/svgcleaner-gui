@@ -20,14 +20,16 @@
 **
 ****************************************************************************/
 
-#include <QMessageBox>
-#include <QGridLayout>
-#include <QStackedWidget>
 #include <QDialogButtonBox>
+#include <QGridLayout>
+#include <QMessageBox>
+#include <QPlainTextEdit>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QStackedWidget>
 
 #include "src/settings.h"
+#include "src/detailsdialog.h"
 #include "src/preferences/widgets/iconlistview.h"
 
 #include "mainpage.h"
@@ -140,10 +142,8 @@ void PreferencesDialog::onGenArgs()
         page->saveConfig();
     }
 
-    // TODO: custom dialog
-    QMessageBox msg(QMessageBox::Information, tr("Command"), tr("Command is in details."),
-                    QMessageBox::Ok, this);
-    msg.setDetailedText(QString("svgcleaner in.svg out.svg %1")
-                        .arg(CleanerOptions::genArgs().join(' ')));
-    msg.exec();
+    DetailsDialog diag;
+    diag.setDetails(QString("svgcleaner in.svg out.svg %1")
+                    .arg(CleanerOptions::genArgs().join(' ')));
+    diag.exec();
 }

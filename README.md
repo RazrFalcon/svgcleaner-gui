@@ -49,8 +49,6 @@ make install
 
 ### Usage notes
 
- - Time in folder item is just a sum of children items. It's not a total time spend for
-   cleaning since it doesn't count that we can use parallel jobs.
  - If an input file is SVGZ and output SVG you probably will get a negative cleaning ratio.
 
 ### Roadmap

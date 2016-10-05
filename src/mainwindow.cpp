@@ -26,6 +26,7 @@
 #include <QDesktopServices>
 #include <QtConcurrent/QtConcurrentMap>
 #include <QCloseEvent>
+#include <QTime>
 
 #include "settings.h"
 #include "aboutdialog.h"
@@ -60,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     resize(settings.value(SettingKey::WindowSize, QSize(640, 480)).toSize());
     ui->lineEditFolder->setText(settings.string(SettingKey::OutputFolder));
 
+    ui->lblTime->setText(QString());
     ui->progressBar->hide();
 }
 
@@ -238,6 +240,8 @@ void MainWindow::recalcTable()
     m_model->calcFoldersStats();
     ui->actionStart->setEnabled(!m_model->isEmpty());
     ui->treeView->expandAll();
+    ui->lblFiles->setText(tr("%1 file(s)").arg(m_model->calcFileCount()));
+    ui->lblTime->setText(QString());
 }
 
 void MainWindow::addFile(const QString &path)
@@ -338,6 +342,8 @@ void MainWindow::onStart()
         return;
     }
 
+    // TODO: check for img.svg + img.svgz + compress all
+
     AppSettings settings;
 
     const auto method = (AppSettings::SavingMethod)settings.integer(SettingKey::SavingMethod);
@@ -395,6 +401,8 @@ void MainWindow::onStart()
 
     QThreadPool::globalInstance()->setMaxThreadCount(settings.integer(SettingKey::Jobs));
     m_cleaningWatcher->setFuture(QtConcurrent::mapped(data, &Task::cleanFile));
+
+    m_etimer.start();
 }
 
 void MainWindow::onPause()
@@ -449,6 +457,21 @@ void MainWindow::onResultReadyAt(int idx)
 
 void MainWindow::onFinished()
 {
+    const auto elapsed = m_etimer.nsecsElapsed() / 1000000.0;
+
+    QString time;
+    if (elapsed > 60 * 1000) {
+        QTime t;
+        t = t.addMSecs(elapsed);
+        time = QLocale().toString(t);
+    } else if (elapsed > 1000) {
+        time = QLocale().toString(uint(elapsed / 1000)) + tr("s");
+    } else {
+        time = QLocale().toString(elapsed, 'f', 2) + tr("ms");
+    }
+
+    ui->lblTime->setText(QString(", cleaned by %1").arg(time));
+
     onStop();
     ui->progressBar->hide();
     m_model->calcFoldersStats();

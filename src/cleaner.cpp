@@ -86,12 +86,15 @@ Task::Output Task::cleanFile(const Task::Config &config)
     // process output
     const QString cleanerMsg = res.value().trimmed();
 
-    // TODO: errors and warnings can be mixed
     if (cleanerMsg.contains("Error:")) {
         // NOTE: have to keep it in sync with CLI
-        if (!cleanerMsg.contains("Cleaned file is bigger than original")) {
-            return Output::error(cleanerMsg, config.treeItem);
+        // TODO: option to allow bigger file
+        if (isInputFileCompressed) {
+            // remove decompressed file
+            QFile().remove(inputFile);
         }
+
+        return Output::error(cleanerMsg, config.treeItem);
     }
 
     // compress file

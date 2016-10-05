@@ -104,13 +104,11 @@ FolderStats TreeItem::calcFolderStats()
             FolderStats childStats = child->calcFolderStats();
             stats.sizeBefore += childStats.sizeBefore;
             stats.sizeAfter += childStats.sizeAfter;
-            stats.time += childStats.time;
         } else {
             const TreeItemData &d = child->data();
             stats.sizeBefore += d.sizeBefore;
             if (d.status != Status::Error) {
                 stats.sizeAfter += d.sizeAfter;
-                stats.time += d.time;
             }
         }
     }
@@ -118,7 +116,6 @@ FolderStats TreeItem::calcFolderStats()
     setSizeBefore(stats.sizeBefore);
     setSizeAfter(stats.sizeAfter);
     setRatio(Utils::cleanerRatio(stats.sizeBefore, stats.sizeAfter));
-    setTime(stats.time);
 
     return stats;
 }
@@ -197,8 +194,9 @@ int TreeItem::row() const
 Qt::ItemFlags TreeItem::flags() const
 {
     Qt::ItemFlags currFlags = Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
-    if (!m_isEnabled)
+    if (!m_isEnabled) {
         currFlags &= ~(Qt::ItemIsEnabled);
+    }
     return currFlags;
 }
 
@@ -232,8 +230,9 @@ TreeModel::~TreeModel()
 
 QVariant TreeModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return QVariant();
+    }
 
     TreeItem *item = static_cast<TreeItem*>(index.internalPointer());
     const TreeItemData &d = item->data();
@@ -297,25 +296,30 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         default: break;
     }
 
-    bool isShowFolderStats = false;
-    if (item->isFolder()) {
-        if (d.sizeAfter > 0) {
-            isShowFolderStats = true;
-        }
-    }
+    const bool isShowFolderStats = item->isFolder() && d.sizeAfter > 0;
 
     if (d.status == Status::Ok || d.status == Status::Warning || isShowFolderStats) {
         switch (index.column()) {
             case Column::SizeAfter : return d.sizeAfterText;
             case Column::Ratio : return d.ratioText;
-            case Column::Time : return d.timeText;
+            case Column::Time : return !isShowFolderStats ? d.timeText : "-";
             default: break;
         }
     } else {
-        return QString("-");
+        return "-";
     }
 
     return QVariant();
+}
+
+static void setCheckToChildren(Qt::CheckState state, TreeItem *parent)
+{
+    for (TreeItem *child : parent->childrenList()) {
+        child->setEnabled(state == Qt::Checked);
+        if (child->hasChildren() && child->checkState() == Qt::Checked) {
+            setCheckToChildren(state, child);
+        }
+    }
 }
 
 bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -335,17 +339,6 @@ bool TreeModel::setData(const QModelIndex &index, const QVariant &value, int rol
     return true;
 }
 
-void TreeModel::setCheckToChildren(Qt::CheckState state, TreeItem *parent)
-{
-    for (TreeItem *child : parent->childrenList()) {
-//        child->setCheckState(state);
-        child->setEnabled(state == Qt::Checked);
-        if (child->hasChildren()) {
-            setCheckToChildren(state, child);
-        }
-    }
-}
-
 Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid()) {
@@ -360,12 +353,12 @@ QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int rol
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
         switch (section) {
-            case Column::Name : return tr("Name");
-            case Column::SizeBefore : return tr("Size before");
-            case Column::SizeAfter : return tr("Size after");
-            case Column::Ratio : return tr("Ratio");
-            case Column::Time : return tr("Time");
-            case Column::Status : return tr("Status");
+            case Column::Name :         return tr("Name");
+            case Column::SizeBefore :   return tr("Size before");
+            case Column::SizeAfter :    return tr("Size after");
+            case Column::Ratio :        return tr("Ratio");
+            case Column::Time :         return tr("Time");
+            case Column::Status :       return tr("Status");
         default: break;
         }
     }
@@ -388,10 +381,11 @@ QModelIndex TreeModel::index(int row, int column, const QModelIndex &parent) con
     }
 
     TreeItem *childItem = parentItem->child(row);
-    if (childItem)
+    if (childItem) {
         return createIndex(row, column, childItem);
-    else
+    } else {
         return QModelIndex();
+    }
 }
 
 QModelIndex TreeModel::index(TreeItem *item) const
@@ -401,14 +395,16 @@ QModelIndex TreeModel::index(TreeItem *item) const
 
 QModelIndex TreeModel::parent(const QModelIndex &index) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return QModelIndex();
+    }
 
     TreeItem *childItem = static_cast<TreeItem*>(index.internalPointer());
     TreeItem *parentItem = childItem->parent();
 
-    if (parentItem == m_rootItem)
+    if (parentItem == m_rootItem) {
         return QModelIndex();
+    }
 
     return createIndex(parentItem->row(), 0, parentItem);
 }
@@ -416,13 +412,15 @@ QModelIndex TreeModel::parent(const QModelIndex &index) const
 int TreeModel::rowCount(const QModelIndex &parent) const
 {
     TreeItem *parentItem;
-    if (parent.column() > 0)
+    if (parent.column() > 0) {
         return 0;
+    }
 
-    if (!parent.isValid())
+    if (!parent.isValid()) {
         parentItem = m_rootItem;
-    else
+    } else {
         parentItem = static_cast<TreeItem*>(parent.internalPointer());
+    }
 
     return parentItem->childCount();
 }
@@ -499,8 +497,9 @@ TreeItem* TreeModel::addFile(const QString &path, TreeItem *parent)
 
 TreeItem *TreeModel::itemByIndex(const QModelIndex &index) const
 {
-    if (!index.isValid())
+    if (!index.isValid()) {
         return nullptr;
+    }
     return static_cast<TreeItem*>(index.internalPointer());
 }
 
@@ -521,6 +520,24 @@ void TreeModel::calcFoldersStats()
             item->calcFolderStats();
         }
     }
+}
+
+static int _calcFileCount(TreeItem *item)
+{
+    int c = 0;
+    for (TreeItem *child : item->childrenList()) {
+        if (child->isFolder()) {
+            c += _calcFileCount(child);
+        } else {
+            c++;
+        }
+    }
+    return c;
+}
+
+int TreeModel::calcFileCount()
+{
+    return _calcFileCount(rootItem());
 }
 
 void TreeModel::itemEditFinished(TreeItem *item)
