@@ -29,6 +29,8 @@
 namespace SettingKey {
     const QString LastPath = "LastPath";
     const QString OutputFolder = "OutputFolder";
+    const QString FilePrefix = "FilePrefix";
+    const QString FileSuffix = "FileSuffix";
     const QString WindowSize = "WindowSize";
     const QString PreferencesSize = "PreferencesSize";
     const QString PreferencesTab = "PreferencesTab";
@@ -66,6 +68,7 @@ QVariant AppSettings::defaultValue(const QString &key)
     if (hash.isEmpty()) {
         hash.insert(SettingKey::LastPath, QDir::homePath());
         hash.insert(SettingKey::OutputFolder, QDir::homePath());
+        hash.insert(SettingKey::FileSuffix, "_cleaned");
         hash.insert(SettingKey::PreferencesTab, 0);
         hash.insert(SettingKey::SavingMethod, SavingMethod::SelectFolder);
         hash.insert(SettingKey::Jobs, QThread::idealThreadCount());

@@ -45,6 +45,8 @@ private:
     void initToolBar();
     void initTree();
     void initWatcher();
+    void loadSettings();
+    void saveSettings();
     void updateOutputWidget();
     void setPauseBtnVisible(bool flag);
     void setEnableGui(bool flag);

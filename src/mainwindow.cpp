@@ -46,20 +46,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btnSelectFolder->setFixedWidth(ui->btnSelectFolder->height() * 1.4);
 #endif
 
-    ui->verticalLayout->setContentsMargins(
-        ui->verticalLayout->contentsMargins() * 0.5);
+    ui->verticalLayout->setContentsMargins(ui->verticalLayout->contentsMargins() * 0.5);
 
     initWatcher();
     initToolBar();
     initTree();
     updateOutputWidget();
 
+    QRegExp rx("[^\\\\/:?%\"<>\\|\\*]{1,32}");
+    ui->lineEditFilePrefix->setValidator(new QRegExpValidator(rx, this));
+    ui->lineEditFileSuffix->setValidator(new QRegExpValidator(rx, this));
+
     new QShortcut(QKeySequence::Open, this, SLOT(onAddFiles()));
     new QShortcut(QKeySequence::Quit, this, SLOT(close()));
 
-    AppSettings settings;
-    resize(settings.value(SettingKey::WindowSize, QSize(640, 480)).toSize());
-    ui->lineEditFolder->setText(settings.string(SettingKey::OutputFolder));
+    loadSettings();
 
     ui->lblTime->setText(QString());
     ui->progressBar->hide();
@@ -67,8 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    AppSettings settings;
-    settings.setValue(SettingKey::WindowSize, size());
+    saveSettings();
 
     delete ui;
 }
@@ -105,7 +105,7 @@ void MainWindow::initToolBar()
 
     connect(ui->actionStart, &QAction::triggered, this, &MainWindow::onStart);
     connect(ui->actionPause, &QAction::triggered, this, &MainWindow::onPause);
-    connect(ui->actionStop, &QAction::triggered, this, &MainWindow::onStop);
+    connect(ui->actionStop,  &QAction::triggered, this, &MainWindow::onStop);
 }
 
 void MainWindow::initTree()
@@ -147,10 +147,31 @@ void MainWindow::initWatcher()
             this, &MainWindow::onFinished);
 }
 
+void MainWindow::loadSettings()
+{
+    AppSettings settings;
+    resize(settings.value(SettingKey::WindowSize, QSize(640, 480)).toSize());
+    ui->lineEditFolder->setText(settings.string(SettingKey::OutputFolder));
+
+    ui->lineEditFilePrefix->setText(settings.string(SettingKey::FilePrefix));
+    ui->lineEditFileSuffix->setText(settings.string(SettingKey::FileSuffix));
+}
+
+void MainWindow::saveSettings()
+{
+    AppSettings settings;
+    settings.setValue(SettingKey::WindowSize, size());
+    settings.setValue(SettingKey::FilePrefix, ui->lineEditFilePrefix->text());
+    settings.setValue(SettingKey::FileSuffix, ui->lineEditFileSuffix->text());
+}
+
 void MainWindow::updateOutputWidget()
 {
-    bool flag = AppSettings().integer(SettingKey::SavingMethod) == AppSettings::SelectFolder;
-    ui->widgetOutputFolder->setVisible(flag);
+    bool flag1 = AppSettings().integer(SettingKey::SavingMethod) == AppSettings::SelectFolder;
+    ui->widgetOutputFolder->setVisible(flag1);
+
+    bool flag2 = AppSettings().integer(SettingKey::SavingMethod) == AppSettings::SameFolder;
+    ui->widgetSameFolder->setVisible(flag2);
 }
 
 static QString lastPath()
@@ -268,19 +289,32 @@ static QString genOutputPath(const QString &outFolder,
                              AppSettings::SavingMethod method)
 {
     QString outPath;
-    if (method == AppSettings::SelectFolder) {
-        outPath += outFolder;
-        if (rootFolder.isEmpty()) {
+    switch (method) {
+        case AppSettings::SelectFolder : {
+            outPath += outFolder;
+            if (rootFolder.isEmpty()) {
+                outPath += QDir::separator();
+                outPath += QFileInfo(path).fileName();
+            } else {
+                outPath += QDir::separator();
+                outPath += QDir(rootFolder).dirName();
+                outPath += QDir::separator();
+                outPath += QDir(rootFolder).relativeFilePath(path);
+            }
+        } break;
+        case AppSettings::SameFolder : {
+            AppSettings settings;
+
+            outPath += QFileInfo(path).absolutePath();
             outPath += QDir::separator();
-            outPath += QFileInfo(path).fileName();
-        } else {
-            outPath += QDir::separator();
-            outPath += QDir(rootFolder).dirName();
-            outPath += QDir::separator();
-            outPath += QDir(rootFolder).relativeFilePath(path);
-        }
-    } else {
-        outPath = path;
+            outPath += settings.string(SettingKey::FilePrefix);
+            outPath += QFileInfo(path).completeBaseName();
+            outPath += settings.string(SettingKey::FileSuffix);
+            outPath += ".svg";
+        } break;
+        case AppSettings::Overwrite : {
+            outPath = path;
+        } break;
     }
 
     // remove SVGZ extension
@@ -342,6 +376,9 @@ void MainWindow::onStart()
         return;
     }
 
+    // save a file prefix and suffix
+    saveSettings();
+
     // TODO: check for img.svg + img.svgz + compress all
 
     AppSettings settings;
@@ -351,9 +388,21 @@ void MainWindow::onStart()
 
     if (method == AppSettings::SelectFolder) {
         if (outFolder.isEmpty() || !QFileInfo(outFolder).isDir() || !QFileInfo(outFolder).exists()) {
-            QMessageBox::critical(this, tr("Error"), tr("Invalid output folder."));
+            QMessageBox::warning(this, tr("Error"), tr("Invalid output folder."));
             return;
         }
+    } else if (method == AppSettings::SameFolder) {
+        QString prefix = ui->lineEditFilePrefix->text();
+        QString suffix = ui->lineEditFileSuffix->text();
+
+        if (prefix.isEmpty() && suffix.isEmpty()) {
+            QMessageBox::warning(this, tr("Error"), tr("You must set a prefix and/or suffix."));
+            return;
+        }
+
+//        if (prefix.contains(QRegExp("\\/:?\"<>|"))) {
+
+//        }
     }
 
     Compressor::Type compressorType = Compressor::None;
@@ -364,7 +413,7 @@ void MainWindow::onStart()
         const auto c = Compressor::fromName(settings.string(SettingKey::Compressor));
         compressorType = c.type();
         if (compressorType != Compressor::None && !c.isAvailable()) {
-            QMessageBox::critical(this, tr("Error"),
+            QMessageBox::warning(this, tr("Error"),
                                   tr("Selected compressor is not found.\n"
                                      "Change it in Preferences."));
             return;
@@ -380,7 +429,7 @@ void MainWindow::onStart()
     genCleanData(m_model->rootItem(), method, outFolder, rootPath, data);
 
     if (data.isEmpty()) {
-        QMessageBox::critical(this, tr("Error"), tr("No files are selected."));
+        QMessageBox::warning(this, tr("Error"), tr("No files are selected."));
         return;
     }
 

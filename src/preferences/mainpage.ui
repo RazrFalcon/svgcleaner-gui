@@ -46,6 +46,13 @@
       <item>
        <widget class="QRadioButton" name="rBtnSave2">
         <property name="text">
+         <string>save cleaned files into the current folder</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rBtnSave3">
+        <property name="text">
          <string>overwrite original files</string>
         </property>
        </widget>

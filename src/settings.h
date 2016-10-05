@@ -27,6 +27,8 @@
 namespace SettingKey {
     extern const QString LastPath;
     extern const QString OutputFolder;
+    extern const QString FilePrefix;
+    extern const QString FileSuffix;
     extern const QString WindowSize;
     extern const QString PreferencesSize;
     extern const QString PreferencesTab;
@@ -44,7 +46,7 @@ class AppSettings : public QSettings
 public:
     AppSettings(QObject *parent = Q_NULLPTR);
 
-    enum SavingMethod { SelectFolder = 1, Overwrite };
+    enum SavingMethod { SelectFolder = 1, SameFolder, Overwrite };
 
     bool flag(const QString &key);
     int integer(const QString &key);

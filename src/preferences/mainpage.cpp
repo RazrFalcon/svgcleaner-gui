@@ -79,7 +79,8 @@ void MainPage::loadConfig()
 
     switch (settings.integer(SettingKey::SavingMethod)) {
         case AppSettings::SelectFolder : ui->rBtnSave1->setChecked(true); break;
-        case AppSettings::Overwrite : ui->rBtnSave2->setChecked(true); break;
+        case AppSettings::SameFolder : ui->rBtnSave2->setChecked(true); break;
+        case AppSettings::Overwrite : ui->rBtnSave3->setChecked(true); break;
     default: ui->rBtnSave1->setChecked(true); break;
     }
 
@@ -97,6 +98,8 @@ void MainPage::saveConfig()
 
     int method = AppSettings::SelectFolder;
     if (ui->rBtnSave2->isChecked()) {
+        method = AppSettings::SameFolder;
+    } else if (ui->rBtnSave3->isChecked()) {
         method = AppSettings::Overwrite;
     }
     settings.setValue(SettingKey::SavingMethod, method);
