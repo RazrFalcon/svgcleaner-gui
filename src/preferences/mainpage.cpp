@@ -32,7 +32,7 @@
 
 namespace CompressorTitle {
     static const QString SevenZip = "7-Zip";
-    static const QString Zopfli = "Zopfli";
+    static const QString Zopfli   = "Zopfli";
 }
 
 MainPage::MainPage(QWidget *parent) :
@@ -75,6 +75,8 @@ void MainPage::loadConfig()
     ui->cmbBoxZipLevel->setCurrentIndex(settings.integer(SettingKey::CompressionLevel));
     ui->chBoxSvgzOnly->setChecked(settings.flag(SettingKey::CompressOnlySvgz));
 
+    ui->chBoxMultipass->setChecked(CleanerOptions().flag(CleanerKey::Other::Multipass));
+
     switch (settings.integer(SettingKey::SavingMethod)) {
         case AppSettings::SelectFolder : ui->rBtnSave1->setChecked(true); break;
         case AppSettings::Overwrite : ui->rBtnSave2->setChecked(true); break;
@@ -98,6 +100,8 @@ void MainPage::saveConfig()
         method = AppSettings::Overwrite;
     }
     settings.setValue(SettingKey::SavingMethod, method);
+
+    CleanerOptions().setValue(CleanerKey::Other::Multipass, ui->chBoxMultipass->isChecked());
 }
 
 void MainPage::restoreDefaults()
@@ -112,6 +116,8 @@ void MainPage::restoreDefaults()
     QString compressor = settings.defaultValue(SettingKey::Compressor).toString();
     int compressorIdx = ui->cmbBoxZip->findData(compressor);
     ui->cmbBoxZip->setCurrentIndex(compressorIdx);
+
+    ui->chBoxMultipass->setChecked(CleanerOptions().defaultFlag(CleanerKey::Other::Multipass));
 }
 
 void MainPage::on_cmbBoxZip_currentTextChanged(const QString &text)

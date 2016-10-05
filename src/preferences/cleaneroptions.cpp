@@ -72,6 +72,10 @@ namespace CleanerKey {
         const QString SimplifyTransforms        = "simplify-transforms";
         const QString Indent                    = "indent";
     }
+
+    namespace Other {
+        const QString Multipass                 = "multipass";
+    }
 }
 
 CleanerOptions::CleanerOptions(QObject *parent) :
@@ -141,6 +145,8 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Output::TrimColors, true);
         hash.insert(Output::SimplifyTransforms, true);
         hash.insert(Output::Indent, -1);
+
+        hash.insert(Other::Multipass, false);
     }
 
     Q_ASSERT(hash.contains(key) == true);
@@ -234,6 +240,8 @@ QStringList CleanerOptions::genArgs()
     genFlag(Output::TrimColors, list);
     genFlag(Output::SimplifyTransforms, list);
     genNumFlag(Output::Indent, list);
+
+    genFlag(Other::Multipass, list);
 
     return list;
 }

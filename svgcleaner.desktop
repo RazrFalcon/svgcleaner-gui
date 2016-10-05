@@ -5,4 +5,4 @@ Comment=Batch, tunable SVG cleaning program
 Exec=svgcleaner-gui
 Icon=svgcleaner
 Type=Application
-Categories=Qt;Graphics;
+Categories=Graphics;

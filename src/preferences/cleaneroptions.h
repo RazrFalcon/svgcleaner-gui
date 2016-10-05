@@ -74,6 +74,10 @@ namespace CleanerKey {
         extern const QString SimplifyTransforms;
         extern const QString Indent;
     }
+
+    namespace Other {
+        extern const QString Multipass;
+    }
 }
 
 class CleanerOptions : public QSettings

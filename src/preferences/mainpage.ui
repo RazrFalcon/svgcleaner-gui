@@ -94,6 +94,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="chBoxMultipass">
+     <property name="toolTip">
+      <string>Clean a file multiple times</string>
+     </property>
+     <property name="text">
+      <string>Multipass</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer_3">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
