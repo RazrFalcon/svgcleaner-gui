@@ -55,7 +55,7 @@ private:
             icon.paint(p, r);
         }
 
-        // TODO: change text color on mac
+        p->setPen(opt.palette.color(QPalette::HighlightedText));
         p->drawText(opt.rect.adjusted(0, 0, 0, -iconSpacing), Qt::AlignHCenter | Qt::AlignBottom,
                     index.data().toString());
     }

@@ -379,8 +379,6 @@ void MainWindow::onStart()
     // save a file prefix and suffix
     saveSettings();
 
-    // TODO: check for img.svg + img.svgz + compress all
-
     AppSettings settings;
 
     const auto method = (AppSettings::SavingMethod)settings.integer(SettingKey::SavingMethod);
@@ -399,10 +397,6 @@ void MainWindow::onStart()
             QMessageBox::warning(this, tr("Error"), tr("You must set a prefix and/or suffix."));
             return;
         }
-
-//        if (prefix.contains(QRegExp("\\/:?\"<>|"))) {
-
-//        }
     }
 
     Compressor::Type compressorType = Compressor::None;
@@ -432,6 +426,38 @@ void MainWindow::onStart()
         QMessageBox::warning(this, tr("Error"), tr("No files are selected."));
         return;
     }
+
+    {
+        // We must check that same folder doesn't have files with the same names,
+        // but with different extensions: svg and svgz.
+        // The problem is when we unzip SVG we will get two files with the same name and
+        // one of them will be overwritten. Which is bad.
+        // It can only appear in a multithreaded mode.
+
+        QString duplFile;
+        QSet<QString> set;
+        for (const auto &t : data) {
+            QString path = t.inputPath;
+            if (path.endsWith('z') || path.endsWith('Z')) {
+                path.chop(1);
+            }
+
+            if (set.contains(path)) {
+                duplFile = path;
+                break;
+            }
+            set.insert(path);
+        }
+
+        if (!duplFile.isEmpty()) {
+            QMessageBox::warning(this, tr("Error"),
+                tr("You can't have both SVG and SVGZ files with the same name in the one dir.\n\n"
+                   "%1\n%2").arg(duplFile, duplFile + "z"));
+            return;
+        }
+    }
+
+    return;
 
     for (Task::Config &conf : data) {
         conf.args = args;

@@ -27,8 +27,6 @@
 #include "cleaner.h"
 #include "process.h"
 
-// TODO: multipass
-
 Task::Output Task::cleanFile(const Task::Config &config)
 {
     Q_ASSERT(config.inputPath.isEmpty() == false);
@@ -88,7 +86,7 @@ Task::Output Task::cleanFile(const Task::Config &config)
 
     if (cleanerMsg.contains("Error:")) {
         // NOTE: have to keep it in sync with CLI
-        // TODO: option to allow bigger file
+        // TODO: option to allow bigger files
         if (isInputFileCompressed) {
             // remove decompressed file
             QFile().remove(inputFile);

@@ -141,8 +141,6 @@ bool Compressor::zip(Level lvl, const QString &inFile, const QString &outFile) c
         Q_UNREACHABLE();
     }
 
-    // TODO: if we have two file with the same name, but with different extensions
-    //       and compression is enabled - we will get one file, instead of two
     // remove svg file
     QFile(inFile).remove();
 

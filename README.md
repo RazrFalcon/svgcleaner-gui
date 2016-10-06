@@ -47,15 +47,11 @@ make install
  - This is only a GUI. You have to build [svgcleaner](https://github.com/RazrFalcon/svgcleaner) separately.
  - On Windows and macOS you should rename `svgcleaner` (CLI) executable to `svgcleaner-cli`.
 
-### Usage notes
-
- - If an input file is SVGZ and output SVG you probably will get a negative cleaning ratio.
-
 ### Roadmap
 
 V0.7.0
 
- - [ ] Multipass.
+ - [x] Multipass.
 
 V0.8.0
 
