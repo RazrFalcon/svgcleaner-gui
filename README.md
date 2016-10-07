@@ -47,18 +47,6 @@ make install
  - This is only a GUI. You have to build [svgcleaner](https://github.com/RazrFalcon/svgcleaner) separately.
  - On Windows and macOS you should rename `svgcleaner` (CLI) executable to `svgcleaner-cli`.
 
-### Roadmap
-
-V0.7.0
-
- - [x] Multipass.
-
-V0.8.0
-
- - [ ] Translations, somehow.
- - [ ] Find a different icon theme. I'm not a fan of a flat design...
- - [ ] Compare images via WebKit.
-
 ### Icons
 
  - Icons in the title bar are from KDE Breeze theme.

@@ -267,8 +267,8 @@ void MainWindow::recalcTable()
 
 void MainWindow::addFile(const QString &path)
 {
-    auto item = m_model->addFile(path);
-    if (!item) {
+    auto res = m_model->addFile(path);
+    if (res == TreeModel::AddResult::FileExists) {
         QMessageBox::warning(this, tr("Warning"), tr("File is already in the tree."));
     }
 }
@@ -276,7 +276,7 @@ void MainWindow::addFile(const QString &path)
 void MainWindow::addFolder(const QString &path)
 {
     auto res = m_model->addFolder(path);
-    if (res == TreeModel::AddResult::AlreadyExists) {
+    if (res == TreeModel::AddResult::FolderExists) {
         QMessageBox::warning(this, tr("Warning"), tr("Folder is already in the tree."));
     } else if (res == TreeModel::AddResult::Empty) {
         QMessageBox::warning(this, tr("Warning"), tr("The folder does not contain any SVG files."));

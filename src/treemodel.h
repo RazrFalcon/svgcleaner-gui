@@ -132,7 +132,7 @@ private:
 class TreeModel : public QAbstractItemModel
 {
 public:
-    enum class AddResult { Ok, AlreadyExists, Empty };
+    enum class AddResult { Ok, FileExists, FolderExists, Empty };
 
     explicit TreeModel(QObject *parent = 0);
     ~TreeModel();
@@ -151,7 +151,7 @@ public:
     void itemEditFinished(TreeItem *item);
 
     AddResult addFolder(const QString &path);
-    TreeItem *addFile(const QString &path, TreeItem *parent = nullptr);
+    AddResult addFile(const QString &path, TreeItem *parent = nullptr);
 
     TreeItem *itemByIndex(const QModelIndex &index) const;
     TreeItem *rootItem() const;

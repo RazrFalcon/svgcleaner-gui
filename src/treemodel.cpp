@@ -292,8 +292,13 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     switch (index.column()) {
         case Column::Name : return d.title;
         case Column::SizeBefore : return d.sizeBeforeText;
+        case Column::Time : return d.timeText;
         case Column::Status : return (int)d.status;
         default: break;
+    }
+
+    if (d.status == Status::Error) {
+        return "-";
     }
 
     const bool isShowFolderStats = item->isFolder() && d.sizeAfter > 0;
@@ -302,11 +307,8 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         switch (index.column()) {
             case Column::SizeAfter : return d.sizeAfterText;
             case Column::Ratio : return d.ratioText;
-            case Column::Time : return !isShowFolderStats ? d.timeText : "-";
             default: break;
         }
-    } else {
-        return "-";
     }
 
     return QVariant();
@@ -433,16 +435,14 @@ int TreeModel::columnCount(const QModelIndex &) const
 TreeModel::AddResult TreeModel::addFolder(const QString &path)
 {
     if (rootItem()->hasChild(path)) {
-        return AddResult::AlreadyExists;
+        return AddResult::FolderExists;
     }
 
-    TreeItem *dirItem = new TreeItem(path, rootItem());
-    scanFolder(path, dirItem);
+    int count1 = calcFileCount();
+    scanFolder(path, rootItem());
+    int count2 = calcFileCount();
 
-    if (dirItem->hasChildren()) {
-        rootItem()->appendChild(dirItem);
-    } else {
-        delete dirItem;
+    if (count1 == count2) {
         return AddResult::Empty;
     }
 
@@ -475,10 +475,10 @@ void TreeModel::scanFolder(const QString &path, TreeItem *parent)
     }
 }
 
-TreeItem* TreeModel::addFile(const QString &path, TreeItem *parent)
+TreeModel::AddResult TreeModel::addFile(const QString &path, TreeItem *parent)
 {
     if (rootItem()->hasChild(path)) {
-        return nullptr;
+        return AddResult::FileExists;
     }
 
     if (!parent) {
@@ -492,7 +492,7 @@ TreeItem* TreeModel::addFile(const QString &path, TreeItem *parent)
 
     endInsertRows();
 
-    return item;
+    return AddResult::Ok;
 }
 
 TreeItem *TreeModel::itemByIndex(const QModelIndex &index) const
