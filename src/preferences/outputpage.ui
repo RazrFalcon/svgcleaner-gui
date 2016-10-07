@@ -17,14 +17,14 @@
    <item>
     <widget class="QCheckBox" name="chBoxRGB">
      <property name="text">
-      <string>Use #RGB notation when possible</string>
+      <string>Use #RGB notation</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QCheckBox" name="chBoxSimplifyTransforms">
      <property name="text">
-      <string>Simplify transform matrices when possible</string>
+      <string>Simplify transform matrices</string>
      </property>
     </widget>
    </item>

@@ -457,8 +457,6 @@ void MainWindow::onStart()
         }
     }
 
-    return;
-
     for (Task::Config &conf : data) {
         conf.args = args;
         conf.compressorType = compressorType;

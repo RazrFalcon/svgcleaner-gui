@@ -103,7 +103,9 @@
    <item>
     <widget class="QCheckBox" name="chBoxMultipass">
      <property name="toolTip">
-      <string>Clean a file multiple times</string>
+      <string>Clean a file multiple times.
+
+It will decrease cleaning time at least twice, but can increase a cleaning ratio a little bit.</string>
      </property>
      <property name="text">
       <string>Multipass</string>

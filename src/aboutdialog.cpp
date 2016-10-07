@@ -33,7 +33,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-    ui->lblTitle->setText(qApp->applicationName() + " " + qApp->applicationVersion() + "-beta");
+    ui->lblTitle->setText(qApp->applicationName() + " " + qApp->applicationVersion());
     ui->tabWidget->setCurrentIndex(0); // always show first tab
     fillAbout();
     fillManual();
