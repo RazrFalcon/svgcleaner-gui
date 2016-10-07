@@ -438,11 +438,13 @@ TreeModel::AddResult TreeModel::addFolder(const QString &path)
         return AddResult::FolderExists;
     }
 
-    int count1 = calcFileCount();
-    scanFolder(path, rootItem());
-    int count2 = calcFileCount();
+    TreeItem *dirItem = new TreeItem(path, rootItem());
+    scanFolder(path, dirItem);
 
-    if (count1 == count2) {
+    if (dirItem->hasChildren()) {
+        rootItem()->appendChild(dirItem);
+    } else {
+        delete dirItem;
         return AddResult::Empty;
     }
 
