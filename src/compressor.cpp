@@ -56,20 +56,20 @@ QString Compressor::levelToString(Level v) const
 {
     if (m_type == SevenZip) {
         switch (v) {
-            case Level::Lowest : return "-mx1";
-            case Level::Low : return "-mx3";
-            case Level::Normal : return "-mx5";
-            case Level::Optimal : return "-mx7";
-            case Level::Ultra : return "-mx9";
+            case Level::Lowest :    return "-mx1";
+            case Level::Low :       return "-mx3";
+            case Level::Normal :    return "-mx5";
+            case Level::Optimal :   return "-mx7";
+            case Level::Ultra :     return "-mx9";
         default: break;
         }
     } else {
         switch (v) {
-            case Level::Lowest : return "--i1";
-            case Level::Low : return "--i15";
-            case Level::Normal : return "--i50";
-            case Level::Optimal : return "--i100";
-            case Level::Ultra : return "--i500";
+            case Level::Lowest :    return "--i1";
+            case Level::Low :       return "--i15";
+            case Level::Normal :    return "--i50";
+            case Level::Optimal :   return "--i100";
+            case Level::Ultra :     return "--i500";
         default: break;
         }
     }
@@ -129,7 +129,7 @@ bool Compressor::zip(Level lvl, const QString &inFile, const QString &outFile) c
     } else if (m_type == Zopfli) {
         // TODO: generate stat to find max --i value that is actually make sense
 
-        auto res = Process::run(name(), { "-c", lvlStr, inFile }, 300000); // 5min
+        auto res = Process::run(name(), { "-c", lvlStr, inFile }, 600000); // 10min
         if (!res) {
             return false;
         }

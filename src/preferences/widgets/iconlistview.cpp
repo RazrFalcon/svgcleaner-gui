@@ -55,7 +55,10 @@ private:
             icon.paint(p, r);
         }
 
-        p->setPen(opt.palette.color(QPalette::HighlightedText));
+        if (opt.state & QStyle::State_Selected) {
+            p->setPen(opt.palette.color(QPalette::HighlightedText));
+        }
+
         p->drawText(opt.rect.adjusted(0, 0, 0, -iconSpacing), Qt::AlignHCenter | Qt::AlignBottom,
                     index.data().toString());
     }
