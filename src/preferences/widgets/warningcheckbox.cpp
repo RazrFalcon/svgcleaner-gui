@@ -28,8 +28,8 @@
 
 WarningCheckBox::WarningCheckBox(QWidget *parent)
     : QFrame(parent),
-      m_chbox(new QCheckBox(this)),
-      m_lbl(new QLabel(this))
+      m_chbox(new QCheckBox()),
+      m_lbl(new QLabel())
 {
     m_chbox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 

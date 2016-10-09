@@ -57,6 +57,8 @@ private:
 
         if (opt.state & QStyle::State_Selected) {
             p->setPen(opt.palette.color(QPalette::HighlightedText));
+        } else {
+            p->setPen(opt.palette.color(QPalette::Text));
         }
 
         p->drawText(opt.rect.adjusted(0, 0, 0, -iconSpacing), Qt::AlignHCenter | Qt::AlignBottom,
