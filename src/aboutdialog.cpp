@@ -54,7 +54,7 @@ void AboutDialog::fillManual()
 {
     QString link
         = genLink("here", "https://github.com/RazrFalcon/svgcleaner/blob/master/docs/svgcleaner.rst");
-    ui->textManual->setHtml(tr("You can find the complete documentation %1.").arg(link));
+    ui->textManual->setHtml(tr("You can find a complete documentation %1.").arg(link));
 
     connect(ui->textManual, &QTextBrowser::anchorClicked, [](const QUrl &url){
         QDesktopServices::openUrl(url);
