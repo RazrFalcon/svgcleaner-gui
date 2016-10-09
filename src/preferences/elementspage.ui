@@ -123,7 +123,7 @@
    <item>
     <widget class="QCheckBox" name="chBoxUngroupDefs">
      <property name="text">
-      <string>Ungroup 'defs' elements</string>
+      <string>Ungroup 'defs' element</string>
      </property>
     </widget>
    </item>
