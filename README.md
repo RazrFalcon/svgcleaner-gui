@@ -37,7 +37,7 @@ make
 make install
 ```
 
-### Runtime dependencies
+#### Runtime dependencies
 
  - 7za(.exe) (part of 7-Zip)
  - svgcleaner(-cli)
