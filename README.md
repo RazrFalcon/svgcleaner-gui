@@ -20,8 +20,6 @@ This GUI adds support for:
 
 ![Alt text](.github/mac.png)
 
-\* cleaning time is big because screenshots were taken in VM.
-
 ### Build dependencies
 
 **OS**: Linux, macOS, Windows
