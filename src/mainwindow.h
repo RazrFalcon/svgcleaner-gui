@@ -24,7 +24,6 @@
 
 #include <QMainWindow>
 #include <QFutureWatcher>
-#include <QElapsedTimer>
 
 #include "cleaner.h"
 #include "treemodel.h"
@@ -76,5 +75,4 @@ private:
     Ui::MainWindow *ui;
     TreeModel * const m_model;
     QFutureWatcher<Task::Output> *m_cleaningWatcher;
-    QElapsedTimer m_etimer;
 };

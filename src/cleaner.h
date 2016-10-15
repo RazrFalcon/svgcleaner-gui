@@ -51,7 +51,6 @@ public:
         struct OkData {
             float ratio = 0;
             qint64 outSize = 0;
-            double elapsed = 0;
             QString outputPath;
         };
 

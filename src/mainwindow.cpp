@@ -26,7 +26,6 @@
 #include <QDesktopServices>
 #include <QtConcurrent/QtConcurrentMap>
 #include <QCloseEvent>
-#include <QTime>
 
 #include "settings.h"
 #include "aboutdialog.h"
@@ -62,7 +61,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     loadSettings();
 
-    ui->lblTime->setText(QString());
     ui->progressBar->hide();
 }
 
@@ -115,7 +113,6 @@ void MainWindow::initTree()
     ui->treeView->header()->setSectionResizeMode(Column::SizeBefore, QHeaderView::ResizeToContents);
     ui->treeView->header()->setSectionResizeMode(Column::SizeAfter, QHeaderView::ResizeToContents);
     ui->treeView->header()->setSectionResizeMode(Column::Ratio, QHeaderView::ResizeToContents);
-    ui->treeView->header()->setSectionResizeMode(Column::Time, QHeaderView::ResizeToContents);
     ui->treeView->header()->setSectionResizeMode(Column::Status, QHeaderView::Fixed);
     ui->treeView->header()->setSectionsMovable(false);
 
@@ -262,7 +259,6 @@ void MainWindow::recalcTable()
     ui->actionStart->setEnabled(!m_model->isEmpty());
     ui->treeView->expandAll();
     ui->lblFiles->setText(tr("%1 file(s)").arg(m_model->calcFileCount()));
-    ui->lblTime->setText(QString());
 }
 
 void MainWindow::addFile(const QString &path)
@@ -474,8 +470,6 @@ void MainWindow::onStart()
 
     QThreadPool::globalInstance()->setMaxThreadCount(settings.integer(SettingKey::Jobs));
     m_cleaningWatcher->setFuture(QtConcurrent::mapped(data, &Task::cleanFile));
-
-    m_etimer.start();
 }
 
 void MainWindow::onPause()
@@ -512,7 +506,6 @@ void MainWindow::onResultReadyAt(int idx)
     item->setStatus(Status::Ok);
     item->setSizeAfter(d.outSize);
     item->setRatio(d.ratio);
-    item->setTime(d.elapsed);
     item->setOutputPath(d.outputPath);
 
     if (res.type() == Status::Ok) {
@@ -530,21 +523,6 @@ void MainWindow::onResultReadyAt(int idx)
 
 void MainWindow::onFinished()
 {
-    const auto elapsed = m_etimer.nsecsElapsed() / 1000000.0;
-
-    QString time;
-    if (elapsed > 60 * 1000) {
-        QTime t;
-        t = t.addMSecs(elapsed);
-        time = QLocale().toString(t);
-    } else if (elapsed > 1000) {
-        time = QLocale().toString(uint(elapsed / 1000)) + tr("s");
-    } else {
-        time = QLocale().toString(elapsed, 'f', 2) + tr("ms");
-    }
-
-    ui->lblTime->setText(QString(", cleaned by %1").arg(time));
-
     onStop();
     ui->progressBar->hide();
     m_model->calcFoldersStats();
@@ -553,7 +531,6 @@ void MainWindow::onFinished()
     ui->treeView->resizeColumnToContents(Column::SizeBefore);
     ui->treeView->resizeColumnToContents(Column::SizeAfter);
     ui->treeView->resizeColumnToContents(Column::Ratio);
-    ui->treeView->resizeColumnToContents(Column::Time);
 }
 
 void MainWindow::onDoubleClick(const QModelIndex &index)

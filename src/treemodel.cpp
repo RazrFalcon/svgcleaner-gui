@@ -156,16 +156,6 @@ void TreeItem::setRatio(float ratio)
     m_d.ratioText = QLocale().toString(ratio, 'f', 2) + '%';
 }
 
-void TreeItem::setTime(double time)
-{
-    m_d.time = time;
-    if (time > 1000.0) {
-        m_d.timeText = QLocale().toString(uint(time / 1000.0)) + TreeModel::tr("s");
-    } else {
-        m_d.timeText = QLocale().toString(time, 'f', 2) + TreeModel::tr("ms");
-    }
-}
-
 void TreeItem::resetCleanerData()
 {
     m_d.outPath.clear();
@@ -175,9 +165,6 @@ void TreeItem::resetCleanerData()
 
     m_d.ratio = 0;
     m_d.ratioText.clear();
-
-    m_d.time = 0;
-    m_d.timeText.clear();
 
     m_d.status = Status::None;
     m_d.statusText.clear();
@@ -261,8 +248,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     if (role == Qt::TextAlignmentRole) {
         if (   index.column() == Column::SizeBefore
             || index.column() == Column::SizeAfter
-            || index.column() == Column::Ratio
-            || index.column() == Column::Time)
+            || index.column() == Column::Ratio)
         return QVariant(Qt::AlignRight | Qt::AlignVCenter);
     }
 
@@ -292,7 +278,6 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     switch (index.column()) {
         case Column::Name : return d.title;
         case Column::SizeBefore : return d.sizeBeforeText;
-        case Column::Time : return d.timeText;
         case Column::Status : return (int)d.status;
         default: break;
     }
@@ -359,7 +344,6 @@ QVariant TreeModel::headerData(int section, Qt::Orientation orientation, int rol
             case Column::SizeBefore :   return tr("Size before");
             case Column::SizeAfter :    return tr("Size after");
             case Column::Ratio :        return tr("Ratio");
-            case Column::Time :         return tr("Time");
             case Column::Status :       return tr("Status");
         default: break;
         }

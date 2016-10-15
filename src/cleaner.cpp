@@ -21,7 +21,6 @@
 ****************************************************************************/
 
 #include <QDir>
-#include <QElapsedTimer>
 
 #include "utils.h"
 #include "cleaner.h"
@@ -32,9 +31,6 @@ Task::Output Task::cleanFile(const Task::Config &config)
     Q_ASSERT(config.inputPath.isEmpty() == false);
     Q_ASSERT(config.outputPath.isEmpty() == false);
     Q_ASSERT(config.treeItem != nullptr);
-
-    QElapsedTimer timer;
-    timer.start();
 
     const QString outFolder = QFileInfo(config.outputPath).absolutePath();
     if (!QFileInfo().exists(outFolder)) {
@@ -121,7 +117,6 @@ Task::Output Task::cleanFile(const Task::Config &config)
     }
 
     Output::OkData okData;
-    okData.elapsed = timer.nsecsElapsed() / 1000000.0;
     okData.outSize = QFile(outPath).size();
     okData.ratio = Utils::cleanerRatio(inSize, okData.outSize);
     okData.outputPath = outPath;

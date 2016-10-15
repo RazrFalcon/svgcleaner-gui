@@ -33,7 +33,6 @@ namespace Column {
         SizeBefore,
         SizeAfter,
         Ratio,
-        Time,
         Status,
         LastColumn,
     };
@@ -70,9 +69,6 @@ struct TreeItemData {
     float ratio = 0;
     QString ratioText;
 
-    double time = 0; // in ms
-    QString timeText;
-
     Status status = Status::None;
     QString statusText;
 };
@@ -105,7 +101,6 @@ public:
     void setSizeAfter(qint64 bytes);
     void setRatio(float ratio);
     void setStatus(Status status)               { m_d.status = status; }
-    void setTime(double time);
     void setStatusText(const QString &text)     { m_d.statusText = text; }
     void setOutputPath(const QString &path)     { m_d.outPath = path; }
     const TreeItemData& data() const            { return m_d; }
