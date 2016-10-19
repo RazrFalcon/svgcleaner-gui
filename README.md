@@ -18,7 +18,7 @@ This GUI adds support for:
 
 \* application uses default theme on Linux
 
-![Alt text](.github/mac.png)
+![Alt text](.github/win.png)
 
 ### Build dependencies
 
