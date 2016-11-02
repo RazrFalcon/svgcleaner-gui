@@ -39,6 +39,7 @@ public:
 private:
     void fillAbout();
     void fillManual();
+    void fillChangelog();
     void fillAuthors();
     void fillLicence();
     QString genLink(const QString &link);

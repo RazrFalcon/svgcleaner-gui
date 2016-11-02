@@ -35,6 +35,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->tabWidget->setCurrentIndex(0); // always show first tab
     fillAbout();
     fillManual();
+    fillChangelog();
     fillAuthors();
     fillLicence();
 }
@@ -59,6 +60,13 @@ void AboutDialog::fillManual()
     connect(ui->textManual, &QTextBrowser::anchorClicked, [](const QUrl &url){
         QDesktopServices::openUrl(url);
     });
+}
+
+void AboutDialog::fillChangelog()
+{
+    QFile file(":/changelog.txt");
+    file.open(QFile::ReadOnly);
+    ui->textChangelog->setPlainText(file.readAll());
 }
 
 void AboutDialog::fillAuthors()
@@ -99,5 +107,6 @@ QString AboutDialog::genLink(const QString &link)
 void AboutDialog::showEvent(QShowEvent *)
 {
     ui->textAuthors->verticalScrollBar()->setValue(0);
+    ui->textChangelog->verticalScrollBar()->setValue(0);
     ui->textLicense->verticalScrollBar()->setValue(0);
 }

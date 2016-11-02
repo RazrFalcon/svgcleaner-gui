@@ -1,0 +1,16 @@
+0.7.1
+
+Added:
+ - (svgcleaner): 'Remove invisible elements' now removes default 'feColorMatrix' element.
+ - (svgcleaner-gui): Changelog tab with this text.
+
+Fixed:
+ - (libsvgdom): CSS processing when style defined multiple times.
+ - (libsvgdom): 'px' removing from the <list-of-lengths>.
+
+Removed:
+ - (svgcleaner-gui): Time column.
+
+0.7.0
+
+ - Initial release.
