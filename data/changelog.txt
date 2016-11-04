@@ -1,8 +1,12 @@
 0.7.1
 
 Added:
- - (svgcleaner): 'Remove invisible elements' now removes default 'feColorMatrix' element.
+ - (svgcleaner): 'Remove unresolved classes from 'class' attributes' option.
  - (svgcleaner-gui): Changelog tab with this text.
+
+Changed:
+ - (svgcleaner): 'Remove invisible elements' now removes default 'feColorMatrix' element.
+ - (svgcleaner-gui): gzip compression is enabled by default.
 
 Fixed:
  - (libsvgdom): CSS processing when style defined multiple times.

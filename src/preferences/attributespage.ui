@@ -66,7 +66,7 @@
    <item>
     <widget class="QCheckBox" name="chBoxXmlnsXlink">
      <property name="text">
-      <string>Remove an unused xmlns:xlink attribute</string>
+      <string>Remove an unused 'xmlns:xlink' attribute</string>
      </property>
     </widget>
    </item>
@@ -115,6 +115,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxRemoveUnresolvedClasses">
+     <property name="text">
+      <string>Remove unresolved classes from 'class' attributes</string>
+     </property>
+    </widget>
    </item>
    <item>
     <spacer name="verticalSpacer">

@@ -59,6 +59,7 @@ namespace CleanerKey {
         extern const QString MoveStylesToGroup;
         extern const QString JoinStyleAttributes;
         extern const QString ApplyTransformToGradients;
+        extern const QString RemoveUnresolvedClasses;
     }
 
     namespace Paths {

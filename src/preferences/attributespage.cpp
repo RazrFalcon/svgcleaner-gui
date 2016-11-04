@@ -47,6 +47,7 @@ AttributesPage::AttributesPage(QWidget *parent) :
         { ui->chBoxMoveStyles, Attributes::MoveStylesToGroup },
         { ui->chBoxJoinStyles, Attributes::JoinStyleAttributes },
         { ui->chBoxApplyTransformToGradients, Attributes::ApplyTransformToGradients },
+        { ui->chBoxRemoveUnresolvedClasses, Attributes::RemoveUnresolvedClasses },
     });
 
     loadConfig();

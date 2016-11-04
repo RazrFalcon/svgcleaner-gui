@@ -72,10 +72,10 @@ QVariant AppSettings::defaultValue(const QString &key)
         hash.insert(SettingKey::PreferencesTab, 0);
         hash.insert(SettingKey::SavingMethod, SavingMethod::SelectFolder);
         hash.insert(SettingKey::Jobs, QThread::idealThreadCount());
-        hash.insert(SettingKey::UseCompression, false);
+        hash.insert(SettingKey::UseCompression, true);
         hash.insert(SettingKey::Compressor, CompressorName::SevenZip);
         hash.insert(SettingKey::CompressionLevel, 4);
-        hash.insert(SettingKey::CompressOnlySvgz, false);
+        hash.insert(SettingKey::CompressOnlySvgz, true);
     }
 
     return hash.value(key);

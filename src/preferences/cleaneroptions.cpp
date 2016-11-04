@@ -57,6 +57,7 @@ namespace CleanerKey {
         const QString MoveStylesToGroup         = "move-styles-to-group";
         const QString JoinStyleAttributes       = "join-style-attributes";
         const QString ApplyTransformToGradients = "apply-transform-to-gradients";
+        const QString RemoveUnresolvedClasses   = "remove-unresolved-classes";
     }
 
     namespace Paths {
@@ -135,6 +136,7 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Attributes::MoveStylesToGroup, true);
         hash.insert(Attributes::JoinStyleAttributes, true);
         hash.insert(Attributes::ApplyTransformToGradients, true);
+        hash.insert(Attributes::RemoveUnresolvedClasses, true);
 
         hash.insert(Paths::PathsToRelative, true);
         hash.insert(Paths::RemoveUnusedSegments, true);
@@ -221,6 +223,7 @@ QStringList CleanerOptions::genArgs()
         Attributes::MoveStylesToGroup,
         Attributes::JoinStyleAttributes,
         Attributes::ApplyTransformToGradients,
+        Attributes::RemoveUnresolvedClasses,
     };
     for (const QString &name : attrList) {
         genFlag(name, list);
