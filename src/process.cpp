@@ -63,15 +63,15 @@ QString ProcessException::explain() const
         case Type::FailedToStart : {
             return qApp->translate("ProcessException", "Process '%1' failed to start.")
                         .arg(m_name);
-        } break;
+        }
         case Type::Timeout : {
             return qApp->translate("ProcessException", "Process '%1' was shutdown by timeout.")
                         .arg(m_name);
-        } break;
+        }
         case Type::NonZeroExitCode :
         case Type::Crashed : {
             return qApp->translate("ProcessException", "Process '%1' was crashed:\n%2")
                         .arg(m_name).arg(m_output);
-        } break;
+        }
     }
 }

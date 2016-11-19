@@ -28,10 +28,10 @@ QString IoException::explain() const {
     switch (m_type) {
         case Type::WriteFailed : {
             return qApp->translate("IoException", "Failed to write a file: '%1'.").arg(m_text);
-        } break;
+        }
         case Type::MkdirFailed : {
             return qApp->translate("IoException", "Failed to create an output folder: '%1'.")
                        .arg(m_text);
-        } break;
+        }
     }
 }

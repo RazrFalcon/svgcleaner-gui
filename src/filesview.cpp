@@ -84,6 +84,7 @@ void FilesView::dropEvent(QDropEvent *event)
             }
         }
     }
+
     event->acceptProposedAction();
 }
 
