@@ -236,12 +236,12 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         }
 
         if (index.column() == Column::SizeBefore) {
-            return tr("Double-click to open input file.");
+            return tr("Double-click to open an input file.");
         }
 
         if (index.column() == Column::SizeAfter
                 && (d.status == Status::Ok || d.status == Status::Warning)) {
-            return tr("Double-click to open output file.");
+            return tr("Double-click to open an output file.");
         }
     }
 

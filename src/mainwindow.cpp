@@ -480,11 +480,9 @@ void MainWindow::onPause()
 
 void MainWindow::onStop()
 {
-    setEnableGui(true);
-    setPauseBtnVisible(false);
     ui->actionStop->setEnabled(false);
+    ui->progressBar->setMaximum(0); // enable wait animation
     m_cleaningWatcher->cancel();
-    m_cleaningWatcher->waitForFinished();
 }
 
 void MainWindow::onResultReadyAt(int idx)
@@ -531,6 +529,9 @@ void MainWindow::onFinished()
     ui->treeView->resizeColumnToContents(Column::SizeBefore);
     ui->treeView->resizeColumnToContents(Column::SizeAfter);
     ui->treeView->resizeColumnToContents(Column::Ratio);
+
+    setEnableGui(true);
+    setPauseBtnVisible(false);
 }
 
 void MainWindow::onDoubleClick(const QModelIndex &index)
