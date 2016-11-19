@@ -251,6 +251,7 @@ void MainWindow::setEnableGui(bool flag)
     ui->actionPreferences->setEnabled(flag);
     ui->actionAbout->setEnabled(flag);
     ui->widgetOutputFolder->setEnabled(flag);
+    ui->treeView->setReadOnly(!flag);
 }
 
 void MainWindow::recalcTable()

@@ -31,6 +31,8 @@ class FilesView : public QTreeView
 public:
     explicit FilesView(QWidget *parent = 0);
 
+    void setReadOnly(bool flag);
+
 signals:
     void folderDropped(QString);
     void fileDropped(QString);
@@ -39,4 +41,8 @@ protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dragMoveEvent(QDragMoveEvent *event);
     void dropEvent(QDropEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event);
+
+private:
+    bool m_readOnly = false;
 };
