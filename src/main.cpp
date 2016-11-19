@@ -74,19 +74,23 @@ int main(int argc, char *argv[])
 
 bool findCleaner()
 {
-    return !Process::run(Cleaner::Name, { "-V" }).hasError();
+    try {
+        Process::run(Cleaner::Name, { "-V" });
+        return true;
+    } catch (...) {
+        return false;
+    }
 }
 
 QVersionNumber cleanerVersion()
 {
-    auto res = Process::run(Cleaner::Name, { "-V" });
-    if (!res) {
-        return QVersionNumber();
-    } else {
-        QString out = QString::fromUtf8(*res);
+    try {
+        QString out = Process::run(Cleaner::Name, { "-V" });
         out.remove("svgcleaner ");
         return QVersionNumber::fromString(out);
-    }
+    } catch (...) { }
+
+    return QVersionNumber();
 }
 
 void exeErr(const QString &name)

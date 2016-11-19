@@ -20,34 +20,18 @@
 **
 ****************************************************************************/
 
-#pragma once
+#include <QCoreApplication>
 
-#include <QString>
+#include "exceptions.h"
 
-namespace CompressorName {
-    extern const QString SevenZip;
-    extern const QString Zopfli;
+QString IoException::explain() const {
+    switch (m_type) {
+        case Type::WriteFailed : {
+            return qApp->translate("IoException", "Failed to write a file: '%1'.").arg(m_text);
+        } break;
+        case Type::MkdirFailed : {
+            return qApp->translate("IoException", "Failed to create an output folder: '%1'.")
+                       .arg(m_text);
+        } break;
+    }
 }
-
-class Compressor
-{
-public:
-    enum Type { None, SevenZip, Zopfli };
-    enum Level { Lowest, Low, Normal, Optimal, Ultra };
-
-    Compressor(Type t) : m_type(t) {}
-    static Compressor fromName(const QString &aname) noexcept;
-
-    bool isAvailable() const;
-    QString levelToString(Level v) const noexcept;
-    QString name() const noexcept;
-    Type type() const noexcept
-    { return m_type; }
-
-    void zip(Level lvl, const QString &inFile, const QString &outFile) const;
-    static void unzip(const QString &inFile, const QString &outFile);
-
-private:
-    Type m_type = None;
-};
-

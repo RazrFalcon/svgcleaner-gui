@@ -24,27 +24,30 @@
 
 #include <QStringList>
 
-#include "result.h"
+class ProcessException : public std::exception
+{
+public:
+    enum Type {
+        FailedToStart,
+        Timeout,
+        NonZeroExitCode,
+        Crashed,
+    };
+
+    ProcessException(const Type &e, const QString &name, const QString &text = QString())
+        : m_type(e), m_name(name), m_output(text) {}
+
+    QString explain() const;
+
+private:
+    const Type m_type;
+    const QString m_name;
+    const QString m_output;
+};
 
 class Process
 {
 public:
-    struct Error {
-        enum class Type {
-            None,
-            FailedToStart,
-            Timeout,
-            NonZeroExitCode,
-            Crashed,
-        };
-
-        Error() : err(Type::None) {}
-        Error(const Type &e, const QString &amsg) : err(e), msg(amsg) {}
-
-        Type err;
-        QString msg;
-    };
-
-    static Result<QByteArray, Error> run(const QString &name, const QStringList &args,
-                                         int timeout = 30000, bool mergeChannels = false);
+    static QByteArray run(const QString &name, const QStringList &args, int timeout = 30000,
+                          bool mergeChannels = false);
 };

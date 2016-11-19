@@ -527,7 +527,7 @@ void MainWindow::onFinished()
     ui->progressBar->hide();
     m_model->calcFoldersStats();
 
-    // force update, because it not always invoked automatically
+    // force update, because it's not always invoked automatically
     ui->treeView->resizeColumnToContents(Column::SizeBefore);
     ui->treeView->resizeColumnToContents(Column::SizeAfter);
     ui->treeView->resizeColumnToContents(Column::Ratio);

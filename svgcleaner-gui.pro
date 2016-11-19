@@ -27,7 +27,8 @@ SOURCES += \
     src/compressor.cpp \
     src/filesview.cpp \
     src/preferences/widgets/iconlistview.cpp \
-    src/detailsdialog.cpp
+    src/detailsdialog.cpp \
+    src/exceptions.cpp
 
 HEADERS  += \
     src/mainwindow.h \
@@ -47,12 +48,12 @@ HEADERS  += \
     src/utils.h \
     src/doc.h \
     src/preferences/widgets/warningcheckbox.h \
-    src/result.h \
     src/process.h \
     src/compressor.h \
     src/filesview.h \
     src/preferences/widgets/iconlistview.h \
-    src/detailsdialog.h
+    src/detailsdialog.h \
+    src/exceptions.h
 
 FORMS    += \
     src/mainwindow.ui \

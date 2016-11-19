@@ -22,33 +22,21 @@
 
 #pragma once
 
-// Stupid alternative to Rust's 'Result' type.
+#include <QString>
 
-template <typename T, typename E>
-class Result
+class IoException : public std::exception
 {
 public:
-    Result(const T &at) : t(at) {}
-    Result(const E &ae) : e(ae) {}
-    Result(const typename E::Type &ae)
-    { e.err = ae; }
+    enum Type {
+        WriteFailed,
+        MkdirFailed,
+    };
 
-    bool hasError() const
-    { return e.err != E::Type::None; }
+    IoException(const Type &e, const QString &text = QString()) : m_type(e), m_text(text) {}
 
-    const E& error() const
-    { return e; }
-
-    const T& value() const
-    { Q_ASSERT(hasError() == false); return t; }
-
-    const T& operator*() const
-    { return value(); }
-
-    operator bool () const
-    { return !hasError(); }
+    QString explain() const;
 
 private:
-    T t;
-    E e;
+    const Type m_type;
+    const QString m_text;
 };

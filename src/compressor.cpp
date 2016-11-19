@@ -22,6 +22,7 @@
 
 #include <QFile>
 
+#include "exceptions.h"
 #include "process.h"
 #include "compressor.h"
 
@@ -30,7 +31,7 @@ namespace CompressorName {
     const QString Zopfli = "zopfli";
 }
 
-Compressor Compressor::fromName(const QString &aname)
+Compressor Compressor::fromName(const QString &aname) noexcept
 {
     if (aname == Compressor(SevenZip).name()) {
         return Compressor(SevenZip);
@@ -44,15 +45,25 @@ Compressor Compressor::fromName(const QString &aname)
 bool Compressor::isAvailable() const
 {
     if (m_type == SevenZip) {
-        return !Process::run(CompressorName::SevenZip, { "-h" }, 1000).hasError();
+        try {
+            Process::run(CompressorName::SevenZip, { "-h" }, 1000);
+        } catch (...) {
+            return false;
+        }
     } else if (m_type == Zopfli) {
-        return !Process::run(CompressorName::Zopfli, { "-h" }, 1000).hasError();
+        try {
+            Process::run(CompressorName::Zopfli, { "-h" }, 1000);
+        } catch (...) {
+            return false;
+        }
     } else {
         Q_UNREACHABLE();
     }
+
+    return true;
 }
 
-QString Compressor::levelToString(Level v) const
+QString Compressor::levelToString(Level v) const noexcept
 {
     if (m_type == SevenZip) {
         switch (v) {
@@ -78,7 +89,7 @@ QString Compressor::levelToString(Level v) const
     return QString();
 }
 
-QString Compressor::name() const
+QString Compressor::name() const noexcept
 {
     switch (m_type) {
         case None : Q_UNREACHABLE();
@@ -88,61 +99,44 @@ QString Compressor::name() const
     Q_UNREACHABLE();
 }
 
-static bool writeFile(const QString &path, const QByteArray &data)
+static void writeFile(const QString &path, const QByteArray &data)
 {
     QFile file(path);
     if (file.open(QFile::WriteOnly)) {
         const qint64 size = file.write(data);
         if (size != data.size()) {
-            return false;
+            throw IoException(IoException::WriteFailed, path);
         }
     } else {
-        return false;
+        throw IoException(IoException::WriteFailed, path);
     }
-
-    return true;
 }
 
 // only 7za can unzip files
-bool Compressor::unzip(const QString &inFile, const QString &outFile)
+void Compressor::unzip(const QString &inFile, const QString &outFile)
 {
-    auto res = Process::run(Compressor(SevenZip).name(), { "e", "-so", inFile });
-    if (!res) {
-        return false;
-    }
-
-    return writeFile(outFile, *res);
+    const QByteArray &text = Process::run(Compressor(SevenZip).name(), { "e", "-so", inFile });
+    writeFile(outFile, text);
 }
 
-bool Compressor::zip(Level lvl, const QString &inFile, const QString &outFile) const
+void Compressor::zip(Level lvl, const QString &inFile, const QString &outFile) const
 {
     // remove previously created svgz file
     QFile(outFile).remove();
 
     const QString lvlStr = levelToString(lvl);
     if (m_type == SevenZip) {
-        auto res = Process::run(name(), { "a", "-tgzip", "-y", lvlStr,
-                                          outFile, inFile });
-        if (!res) {
-            return false;
-        }
+        Process::run(name(), { "a", "-tgzip", "-y", lvlStr, outFile, inFile });
     } else if (m_type == Zopfli) {
         // TODO: generate stat to find max --i value that is actually make sense
 
-        auto res = Process::run(name(), { "-c", lvlStr, inFile }, 600000); // 10min
-        if (!res) {
-            return false;
-        }
-
-        if (!writeFile(outFile, *res)) {
-            return false;
-        }
+        // we save zopfli output manually, because it doesn't support setting an output file name
+        const QByteArray ba = Process::run(name(), { "-c", lvlStr, inFile }, 600000); // 10min
+        writeFile(outFile, ba);
     } else {
         Q_UNREACHABLE();
     }
 
     // remove svg file
     QFile(inFile).remove();
-
-    return true;
 }

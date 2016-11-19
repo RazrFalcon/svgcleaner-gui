@@ -58,8 +58,11 @@ void MainPage::initZip()
 {
     ui->cmbBoxZip->addItem(CompressorTitle::SevenZip, CompressorName::SevenZip);
 
-    if (!Process::run(CompressorName::Zopfli, { "-h" }, 1000).hasError()) {
+    try {
+        Process::run(CompressorName::Zopfli, { "-h" }, 1000);
         ui->cmbBoxZip->addItem(CompressorTitle::Zopfli, CompressorName::Zopfli);
+    } catch (...) {
+        // ignore
     }
 }
 

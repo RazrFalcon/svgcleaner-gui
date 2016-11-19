@@ -25,8 +25,8 @@
 
 #include "process.h"
 
-Result<QByteArray, Process::Error> Process::run(const QString &name, const QStringList &args,
-                                                int timeout, bool mergeChannels)
+QByteArray Process::run(const QString &name, const QStringList &args,
+                        int timeout, bool mergeChannels)
 {
     QString path = QCoreApplication::applicationDirPath() + "/" + name;
 
@@ -37,22 +37,41 @@ Result<QByteArray, Process::Error> Process::run(const QString &name, const QStri
 
     proc.start(path, args);
     if (!proc.waitForStarted()) {
-        return Error::Type::FailedToStart;
+        throw ProcessException(ProcessException::Type::FailedToStart, name);
     }
 
     if (!proc.waitForFinished(timeout)) {
-        return Error::Type::Timeout;
+        throw ProcessException(ProcessException::Type::Timeout, name);
     }
 
     const QByteArray output = proc.readAll();
 
     if (proc.exitCode() != 0) {
-        return Error(Error::Type::NonZeroExitCode, output);
+        throw ProcessException(ProcessException::Type::NonZeroExitCode, name, output);
     }
 
     if (proc.exitStatus() != QProcess::NormalExit) {
-        return Error(Error::Type::Crashed, output);
+        throw ProcessException(ProcessException::Type::Crashed, name, output);
     }
 
     return output;
+}
+
+QString ProcessException::explain() const
+{
+    switch (m_type) {
+        case Type::FailedToStart : {
+            return qApp->translate("ProcessException", "Process '%1' failed to start.")
+                        .arg(m_name);
+        } break;
+        case Type::Timeout : {
+            return qApp->translate("ProcessException", "Process '%1' was shutdown by timeout.")
+                        .arg(m_name);
+        } break;
+        case Type::NonZeroExitCode :
+        case Type::Crashed : {
+            return qApp->translate("ProcessException", "Process '%1' was crashed:\n%2")
+                        .arg(m_name).arg(m_output);
+        } break;
+    }
 }

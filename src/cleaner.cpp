@@ -22,6 +22,7 @@
 
 #include <QDir>
 
+#include "exceptions.h"
 #include "utils.h"
 #include "cleaner.h"
 #include "process.h"
@@ -32,11 +33,26 @@ Task::Output Task::cleanFile(const Task::Config &config)
     Q_ASSERT(config.outputPath.isEmpty() == false);
     Q_ASSERT(config.treeItem != nullptr);
 
+    // We do not rethrow exception to the main thread,
+    // because we depend on TreeItem pointer.
+
+    try {
+        return _cleanFile(config);
+    } catch (const IoException &e) {
+        return Output::error(e.explain(), config.treeItem);
+    } catch (const ProcessException &e) {
+        return Output::error(e.explain(), config.treeItem);
+    }
+}
+
+Task::Output Task::_cleanFile(const Task::Config &config)
+{
+    // TODO: create dir structure before running threads
     const QString outFolder = QFileInfo(config.outputPath).absolutePath();
     if (!QFileInfo().exists(outFolder)) {
         const bool flag = QDir().mkpath(outFolder);
         if (!flag) {
-            return Output::error(tr("Failed to create output folder."), config.treeItem);
+            throw IoException(IoException::MkdirFailed, outFolder);
         }
     }
 
@@ -48,10 +64,7 @@ Task::Output Task::cleanFile(const Task::Config &config)
     const bool isInputFileCompressed = QFileInfo(config.inputPath).suffix().toLower() == "svgz";
     if (isInputFileCompressed) {
         inputFile = config.outputPath;
-        bool flag = Compressor::unzip(config.inputPath, inputFile);
-        if (!flag) {
-            return Output::error(tr("Failed to decompress the file."), config.treeItem);
-        }
+        Compressor::unzip(config.inputPath, inputFile);
     }
 
     // clean file
@@ -60,26 +73,10 @@ Task::Output Task::cleanFile(const Task::Config &config)
     args << config.args << inputFile << config.outputPath << "--quiet=true";
 
     // TODO: make timeout optional
-    auto res = Process::run(Cleaner::Name, args, 300000, true); // 5min
-    if (!res) {
-        QString msg;
-        QString cmdOut = res.error().msg;
-        switch (res.error().err) {
-            case Process::Error::Type::None : Q_UNREACHABLE();
-            case Process::Error::Type::FailedToStart:
-                msg = tr("Failed to start 'svgcleaner'."); break;
-            case Process::Error::Type::Timeout :
-                msg = tr("'svgcleaner' was shutdown by timeout."); break;
-            case Process::Error::Type::NonZeroExitCode :
-            case Process::Error::Type::Crashed :
-                msg = tr("'svgcleaner' was crashed:\n%1").arg(cmdOut); break;
-        }
-        return Output::error(msg, config.treeItem);
-    }
+    QString cleanerMsg = Process::run(Cleaner::Name, args, 300000, true);
+    cleanerMsg = cleanerMsg.trimmed();
 
     // process output
-    const QString cleanerMsg = res.value().trimmed();
-
     if (cleanerMsg.contains("Error:")) {
         // NOTE: have to keep it in sync with CLI
         // TODO: option to allow bigger files
@@ -109,11 +106,7 @@ Task::Output Task::cleanFile(const Task::Config &config)
 
     if (shouldCompress) {
         outPath += "z";
-        bool flag = Compressor(config.compressorType)
-                        .zip(config.compressionLevel, config.outputPath, outPath);
-        if (!flag) {
-            return Output::error(tr("Failed to compress the file."), config.treeItem);
-        }
+        Compressor(config.compressorType).zip(config.compressionLevel, config.outputPath, outPath);
     }
 
     Output::OkData okData;

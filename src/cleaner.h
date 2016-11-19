@@ -123,4 +123,7 @@ public:
     };
 
     static Output cleanFile(const Config &config);
+
+private:
+    static Output _cleanFile(const Config &config);
 };
