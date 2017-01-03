@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>545</height>
+    <height>601</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -128,6 +128,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="chBoxGroupByStyle">
+     <property name="text">
+      <string>Group elements by equal styles</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="chBoxMergeGradients">
      <property name="text">
       <string>Merge gradients</string>
@@ -152,6 +159,13 @@
     <widget class="QCheckBox" name="chBoxRmInvisible">
      <property name="text">
       <string>Remove invisible elements</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxResolveUse">
+     <property name="text">
+      <string>Resolve 'use' elements</string>
      </property>
     </widget>
    </item>

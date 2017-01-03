@@ -17,16 +17,27 @@
    <item>
     <widget class="QCheckBox" name="chBoxToRelative">
      <property name="text">
-      <string>Convert path's segments into relative one</string>
+      <string>Convert path segments into relative ones</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="chBoxRmUnused">
-     <property name="text">
-      <string>Remove unused path segments</string>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="laySegments">
+     <item>
+      <widget class="QCheckBox" name="chBoxRmUnused">
+       <property name="text">
+        <string>Remove unused path segments</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chBoxConvertSegments">
+       <property name="text">
+        <string>Convert path segments into shorter ones</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QCheckBox" name="chBoxTrimPaths">
@@ -46,6 +57,13 @@
     <widget class="QCheckBox" name="chBoxRmDuplCmd">
      <property name="text">
       <string>Remove subsequent segments commands from paths</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxUseImplicitCommands">
+     <property name="text">
+      <string>Use implicit LineTo commands</string>
      </property>
     </widget>
    </item>

@@ -85,13 +85,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="chBoxMoveStyles">
-     <property name="text">
-      <string>Move presentational attributes to the parent group</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QCheckBox" name="chBoxJoinStyles">
      <property name="text">
       <string>Join presentational attributes</string>
@@ -111,6 +104,13 @@
       <widget class="QCheckBox" name="chBoxApplyTransformToGradients">
        <property name="text">
         <string>gradients</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="chBoxApplyTransformToShapes">
+       <property name="text">
+        <string>shapes</string>
        </property>
       </widget>
      </item>

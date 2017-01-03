@@ -34,7 +34,8 @@ OutputPage::OutputPage(QWidget *parent) :
     addOptWidgets({
         { ui->chBoxRGB, Output::TrimColors },
         { ui->chBoxSimplifyTransforms, Output::SimplifyTransforms },
-        { ui->spinBoxIndent, Output::Indent },
+        { ui->spinBoxPathsPrecision, Output::PathsPrecision },
+        { ui->spinBoxIndent, Output::Indent },                      
     });
 
     loadConfig();

@@ -44,9 +44,9 @@ AttributesPage::AttributesPage(QWidget *parent) :
         { ui->chBoxXmlnsXlink, Attributes::RemoveXmlnsXlinkAttribute },
         { ui->chBoxRmNeedlessAttrs, Attributes::RemoveNeedlessAttributes },
         { ui->chBoxRemoveGradientAttributes, Attributes::RemoveGradientAttributes },
-        { ui->chBoxMoveStyles, Attributes::MoveStylesToGroup },
         { ui->chBoxJoinStyles, Attributes::JoinStyleAttributes },
         { ui->chBoxApplyTransformToGradients, Attributes::ApplyTransformToGradients },
+        { ui->chBoxApplyTransformToShapes, Attributes::ApplyTransformToShapes },
         { ui->chBoxRemoveUnresolvedClasses, Attributes::RemoveUnresolvedClasses },
     });
 

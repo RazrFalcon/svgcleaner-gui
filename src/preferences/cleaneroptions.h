@@ -39,10 +39,12 @@ namespace CleanerKey {
         extern const QString RemoveDuplFeGaussianBlur;
         extern const QString UngroupGroups;
         extern const QString UngroupDefs;
+        extern const QString GroupByStyle;
         extern const QString MergeGradients;
         extern const QString RegroupGradientStops;
         extern const QString RemoveInvalidStops;
         extern const QString RemoveInvisibleElements;
+        extern const QString ResolveUse;
     }
 
     namespace Attributes {
@@ -56,23 +58,26 @@ namespace CleanerKey {
         extern const QString RemoveXmlnsXlinkAttribute;
         extern const QString RemoveNeedlessAttributes;
         extern const QString RemoveGradientAttributes;
-        extern const QString MoveStylesToGroup;
         extern const QString JoinStyleAttributes;
         extern const QString ApplyTransformToGradients;
+        extern const QString ApplyTransformToShapes;
         extern const QString RemoveUnresolvedClasses;
     }
 
     namespace Paths {
         extern const QString PathsToRelative;
         extern const QString RemoveUnusedSegments;
+        extern const QString ConvertSegments;
         extern const QString TrimPaths;
         extern const QString RemoveDuplCmdInPaths;
         extern const QString JoinArcToFlags;
+        extern const QString UseImplicitCommands;
     }
 
     namespace Output {
         extern const QString TrimColors;
         extern const QString SimplifyTransforms;
+        extern const QString PathsPrecision;
         extern const QString Indent;
     }
 

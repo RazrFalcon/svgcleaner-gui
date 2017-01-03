@@ -49,10 +49,12 @@ ElementsPage::ElementsPage(QWidget *parent) :
         { ui->chBoxRemoveDuplFeGaussianBlur, Elements::RemoveDuplFeGaussianBlur },
         { ui->chBoxUngroupGroups, Elements::UngroupGroups },
         { ui->chBoxUngroupDefs, Elements::UngroupDefs },
+        { ui->chBoxGroupByStyle, Elements::GroupByStyle },
         { ui->chBoxMergeGradients, Elements::MergeGradients },
         { ui->chBoxRegroupGradientStops, Elements::RegroupGradientStops },
         { ui->chBoxRemoveInvalidStops, Elements::RemoveInvalidStops },
         { ui->chBoxRmInvisible, Elements::RemoveInvisibleElements },
+        { ui->chBoxResolveUse, Elements::ResolveUse },
     });
 
     loadConfig();

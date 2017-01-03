@@ -37,10 +37,12 @@ namespace CleanerKey {
         const QString RemoveDuplFeGaussianBlur  = "remove-dupl-fegaussianblur";
         const QString UngroupGroups             = "ungroup-groups";
         const QString UngroupDefs               = "ungroup-defs";
+        const QString GroupByStyle              = "group-by-style";
         const QString MergeGradients            = "merge-gradients";
         const QString RegroupGradientStops      = "regroup-gradient-stops";
         const QString RemoveInvalidStops        = "remove-invalid-stops";
         const QString RemoveInvisibleElements   = "remove-invisible-elements";
+        const QString ResolveUse                = "resolve-use";
     }
 
     namespace Attributes {
@@ -54,23 +56,26 @@ namespace CleanerKey {
         const QString RemoveXmlnsXlinkAttribute = "remove-xmlns-xlink-attribute";
         const QString RemoveNeedlessAttributes  = "remove-needless-attributes";
         const QString RemoveGradientAttributes  = "remove-gradient-attributes";
-        const QString MoveStylesToGroup         = "move-styles-to-group";
         const QString JoinStyleAttributes       = "join-style-attributes";
         const QString ApplyTransformToGradients = "apply-transform-to-gradients";
+        const QString ApplyTransformToShapes    = "apply-transform-to-shapes";
         const QString RemoveUnresolvedClasses   = "remove-unresolved-classes";
     }
 
     namespace Paths {
         const QString PathsToRelative           = "paths-to-relative";
         const QString RemoveUnusedSegments      = "remove-unused-segments";
+        const QString ConvertSegments           = "convert-segments";
         const QString TrimPaths                 = "trim-paths";
         const QString RemoveDuplCmdInPaths      = "remove-dupl-cmd-in-paths";
         const QString JoinArcToFlags            = "join-arcto-flags";
+        const QString UseImplicitCommands       = "use-implicit-cmds";
     }
 
     namespace Output {
         const QString TrimColors                = "trim-colors";
         const QString SimplifyTransforms        = "simplify-transforms";
+        const QString PathsPrecision            = "paths-coordinates-precision";
         const QString Indent                    = "indent";
     }
 
@@ -118,10 +123,12 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Elements::RemoveDuplFeGaussianBlur, true);
         hash.insert(Elements::UngroupGroups, true);
         hash.insert(Elements::UngroupDefs, true);
+        hash.insert(Elements::GroupByStyle, true);
         hash.insert(Elements::MergeGradients, true);
         hash.insert(Elements::RegroupGradientStops, true);
         hash.insert(Elements::RemoveInvalidStops, true);
         hash.insert(Elements::RemoveInvisibleElements, true);
+        hash.insert(Elements::ResolveUse, true);
 
         hash.insert(Attributes::RemoveVersion, true);
         hash.insert(Attributes::RemoveNonSvgAttributes, true);
@@ -133,19 +140,22 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Attributes::RemoveXmlnsXlinkAttribute, true);
         hash.insert(Attributes::RemoveNeedlessAttributes, true);
         hash.insert(Attributes::RemoveGradientAttributes, false);
-        hash.insert(Attributes::MoveStylesToGroup, true);
         hash.insert(Attributes::JoinStyleAttributes, true);
         hash.insert(Attributes::ApplyTransformToGradients, true);
+        hash.insert(Attributes::ApplyTransformToShapes, true);
         hash.insert(Attributes::RemoveUnresolvedClasses, true);
 
         hash.insert(Paths::PathsToRelative, true);
         hash.insert(Paths::RemoveUnusedSegments, true);
+        hash.insert(Paths::ConvertSegments, true);
         hash.insert(Paths::TrimPaths, true);
         hash.insert(Paths::RemoveDuplCmdInPaths, true);
         hash.insert(Paths::JoinArcToFlags, false);
+        hash.insert(Paths::UseImplicitCommands, true);
 
         hash.insert(Output::TrimColors, true);
         hash.insert(Output::SimplifyTransforms, true);
+        hash.insert(Output::PathsPrecision, 8);
         hash.insert(Output::Indent, -1);
 
         hash.insert(Other::Multipass, false);
@@ -200,10 +210,12 @@ QStringList CleanerOptions::genArgs()
         Elements::RemoveDuplFeGaussianBlur,
         Elements::UngroupGroups,
         Elements::UngroupDefs,
+        Elements::GroupByStyle,
         Elements::MergeGradients,
         Elements::RegroupGradientStops,
         Elements::RemoveInvalidStops,
         Elements::RemoveInvisibleElements,
+        Elements::ResolveUse,
     };
     for (const QString &name : elemList) {
         genFlag(name, list);
@@ -220,9 +232,9 @@ QStringList CleanerOptions::genArgs()
         Attributes::RemoveXmlnsXlinkAttribute,
         Attributes::RemoveNeedlessAttributes,
         Attributes::RemoveGradientAttributes,
-        Attributes::MoveStylesToGroup,
         Attributes::JoinStyleAttributes,
         Attributes::ApplyTransformToGradients,
+        Attributes::ApplyTransformToShapes,
         Attributes::RemoveUnresolvedClasses,
     };
     for (const QString &name : attrList) {
@@ -232,9 +244,11 @@ QStringList CleanerOptions::genArgs()
     const auto pathList = {
         Paths::PathsToRelative,
         Paths::RemoveUnusedSegments,
+        Paths::ConvertSegments,
         Paths::TrimPaths,
         Paths::RemoveDuplCmdInPaths,
         Paths::JoinArcToFlags,
+        Paths::UseImplicitCommands,
     };
     for (const QString &name : pathList) {
         genFlag(name, list);
@@ -242,6 +256,7 @@ QStringList CleanerOptions::genArgs()
 
     genFlag(Output::TrimColors, list);
     genFlag(Output::SimplifyTransforms, list);
+    genNumFlag(Output::PathsPrecision, list);
     genNumFlag(Output::Indent, list);
 
     genFlag(Other::Multipass, list);
