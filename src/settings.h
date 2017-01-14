@@ -39,6 +39,9 @@ namespace SettingKey {
     extern const QString Compressor;
     extern const QString CompressionLevel;
     extern const QString CompressOnlySvgz;
+
+    extern const QString CheckUpdates;
+    extern const QString LastUpdatesCheck;
 }
 
 class AppSettings : public QSettings

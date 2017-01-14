@@ -47,6 +47,11 @@ MainPage::MainPage(QWidget *parent) :
     initZip();
 
     loadConfig();
+
+#ifndef WITH_CHECK_UPDATES
+    ui->chBoxCheckUpdates->hide();
+    ui->btnCheckUpdates->hide();
+#endif
 }
 
 MainPage::~MainPage()
@@ -78,6 +83,8 @@ void MainPage::loadConfig()
     ui->cmbBoxZipLevel->setCurrentIndex(settings.integer(SettingKey::CompressionLevel));
     ui->chBoxSvgzOnly->setChecked(settings.flag(SettingKey::CompressOnlySvgz));
 
+    ui->chBoxCheckUpdates->setChecked(settings.flag(SettingKey::CheckUpdates));
+
     ui->chBoxMultipass->setChecked(CleanerOptions().flag(CleanerKey::Other::Multipass));
 
     switch (settings.integer(SettingKey::SavingMethod)) {
@@ -98,6 +105,7 @@ void MainPage::saveConfig()
     settings.setValue(SettingKey::Compressor, ui->cmbBoxZip->currentData());
     settings.setValue(SettingKey::CompressionLevel, ui->cmbBoxZipLevel->currentIndex());
     settings.setValue(SettingKey::CompressOnlySvgz, ui->chBoxSvgzOnly->isChecked());
+    settings.setValue(SettingKey::CheckUpdates, ui->chBoxCheckUpdates->isChecked());
 
     int method = AppSettings::SelectFolder;
     if (ui->rBtnSave2->isChecked()) {
@@ -142,4 +150,9 @@ void MainPage::prepareZipLvlToolTip()
     auto idx = (Compressor::Level)ui->cmbBoxZipLevel->currentIndex();
     auto c = Compressor::fromName(ui->cmbBoxZip->currentData().toString());
     ui->cmbBoxZipLevel->setToolTip(tr("Represents: %1").arg(c.levelToString(idx)));
+}
+
+void MainPage::on_btnCheckUpdates_clicked()
+{
+    emit checkUpdates();
 }

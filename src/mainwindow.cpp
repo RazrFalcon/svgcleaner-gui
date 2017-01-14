@@ -20,12 +20,13 @@
 **
 ****************************************************************************/
 
+#include <QCloseEvent>
+#include <QDate>
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QShortcut>
-#include <QDesktopServices>
 #include <QtConcurrent/QtConcurrentMap>
-#include <QCloseEvent>
 
 #include "settings.h"
 #include "aboutdialog.h"
@@ -39,6 +40,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_model(new TreeModel(this))
+#ifdef WITH_CHECK_UPDATES
+    , m_updater(new Updater(this))
+#endif
 {
     ui->setupUi(this);
 #ifndef Q_OS_MAC
@@ -62,6 +66,11 @@ MainWindow::MainWindow(QWidget *parent) :
     loadSettings();
 
     ui->progressBar->hide();
+
+#ifdef WITH_CHECK_UPDATES
+    connect(m_updater, &Updater::updatesFound, this, &MainWindow::onUpdatesFound);
+    checkUpdates(false);
+#endif
 }
 
 MainWindow::~MainWindow()
@@ -161,6 +170,41 @@ void MainWindow::saveSettings()
     settings.setValue(SettingKey::FilePrefix, ui->lineEditFilePrefix->text());
     settings.setValue(SettingKey::FileSuffix, ui->lineEditFileSuffix->text());
 }
+
+#ifdef WITH_CHECK_UPDATES
+void MainWindow::checkUpdates(bool force)
+{
+    if (!force) {
+        AppSettings settings;
+        if (!settings.flag(SettingKey::CheckUpdates)) {
+            return;
+        }
+
+        const QDate currDate = QDate::currentDate();
+        const QDate date = settings.value(SettingKey::LastUpdatesCheck).toDate();
+        // check once a day
+        if (date == currDate) {
+            return;
+        }
+
+        settings.setValue(SettingKey::LastUpdatesCheck, currDate);
+    }
+
+    m_updater->checkUpdates();
+}
+
+void MainWindow::onUpdatesFound()
+{
+    int ans = QMessageBox::information(this, tr("Update available"),
+                                       tr("A new version has been published.\n"
+                                          "Proceed to the downloads page?"),
+                                       QMessageBox::Yes | QMessageBox::No);
+    if (ans == QMessageBox::Yes) {
+        // do not download file directly, but open a webpage with releases
+        QDesktopServices::openUrl(QUrl("https://github.com/RazrFalcon/svgcleaner-gui/releases"));
+    }
+}
+#endif
 
 void MainWindow::updateOutputWidget()
 {
@@ -560,6 +604,11 @@ void MainWindow::onDoubleClick(const QModelIndex &index)
 void MainWindow::on_actionPreferences_triggered()
 {
     PreferencesDialog diag(this);
+#ifdef WITH_CHECK_UPDATES
+    connect(&diag, &PreferencesDialog::checkUpdates, [this](){
+        checkUpdates(true);
+    });
+#endif
     if (diag.exec()) {
         updateOutputWidget();
     }

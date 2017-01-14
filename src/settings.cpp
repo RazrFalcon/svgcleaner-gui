@@ -41,6 +41,9 @@ namespace SettingKey {
     const QString Compressor = "Compressor";
     const QString CompressionLevel = "CompressionLevel";
     const QString CompressOnlySvgz = "CompressOnlySvgz";
+
+    const QString CheckUpdates = "CheckUpdates";
+    const QString LastUpdatesCheck = "LastUpdatesCheck";
 }
 
 AppSettings::AppSettings(QObject *parent) :
@@ -76,6 +79,7 @@ QVariant AppSettings::defaultValue(const QString &key)
         hash.insert(SettingKey::Compressor, CompressorName::SevenZip);
         hash.insert(SettingKey::CompressionLevel, 4);
         hash.insert(SettingKey::CompressOnlySvgz, true);
+        hash.insert(SettingKey::CheckUpdates, true);
     }
 
     return hash.value(key);

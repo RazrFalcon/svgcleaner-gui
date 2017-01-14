@@ -28,6 +28,10 @@
 #include "cleaner.h"
 #include "treemodel.h"
 
+#ifdef WITH_CHECK_UPDATES
+#include "updater.h"
+#endif
+
 namespace Ui {
 class MainWindow;
 }
@@ -45,13 +49,17 @@ private:
     void initTree();
     void initWatcher();
     void loadSettings();
-    void saveSettings();
+    void saveSettings();    
     void updateOutputWidget();
     void setPauseBtnVisible(bool flag);
     void setEnableGui(bool flag);
     void recalcTable();
     void addFile(const QString &path);
     void addFolder(const QString &path);
+
+#ifdef WITH_CHECK_UPDATES
+    void checkUpdates(bool force);
+#endif
 
 private slots:
     void onAddFiles();
@@ -68,6 +76,10 @@ private slots:
     void on_btnSelectFolder_clicked();
     void on_actionClearTree_triggered();
 
+#ifdef WITH_CHECK_UPDATES
+    void onUpdatesFound();
+#endif
+
 protected:
     void closeEvent(QCloseEvent *e);
 
@@ -75,4 +87,8 @@ private:
     Ui::MainWindow *ui;
     TreeModel * const m_model;
     QFutureWatcher<Task::Output> *m_cleaningWatcher;
+
+#ifdef WITH_CHECK_UPDATES
+    Updater * const m_updater;
+#endif
 };

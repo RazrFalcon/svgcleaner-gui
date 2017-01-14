@@ -22,39 +22,26 @@
 
 #pragma once
 
-#include <QDialog>
+#include <QObject>
 
-class QAbstractButton;
-class QStackedWidget;
-class QDialogButtonBox;
+class QNetworkAccessManager;
+class QNetworkReply;
 
-class IconListView;
-class BasePreferencesPage;
-
-class PreferencesDialog : public QDialog
+class Updater : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit PreferencesDialog(QWidget *parent = 0);
-    ~PreferencesDialog();
+    Updater(QObject *parent = Q_NULLPTR);
 
-signals:
     void checkUpdates();
 
-private:
-    void initList();
-    void onChangePage(int row);
+signals:
+    void updatesFound();
 
 private slots:
-    void onBtnClicked(QAbstractButton *button);
-    void onGenArgs();
+    void onRequestFinished(QNetworkReply *reply);
 
 private:
-    IconListView *m_listView;
-    QStackedWidget *m_stackedWidget;
-    QPushButton *m_btnGenArgs;
-    QDialogButtonBox *m_btnBox;
-
-    QVector<BasePreferencesPage*> m_pages;
+    QNetworkAccessManager * const m_manager;
 };

@@ -24,7 +24,7 @@ This GUI adds support for:
 
 **OS**: Linux, macOS, Windows
 
-**Libraries**: Qt 5
+**Libraries**: Qt >=5.6
 
 #### Building
 
@@ -33,6 +33,14 @@ qmake
 make
 # optional for Linux
 make install
+```
+
+Build options:
+ - `WITH_CHECK_UPDATES` - enable updates checking (default: disabled)
+
+You can use it like this:
+```bash
+qmake DEFINES+=WITH_CHECK_UPDATES
 ```
 
 #### Runtime dependencies

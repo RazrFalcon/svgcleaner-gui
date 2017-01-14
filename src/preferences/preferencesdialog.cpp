@@ -51,6 +51,8 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent)
     PathsPage *pathsPage = new PathsPage(this);
     OutputPage *outputPage = new OutputPage(this);
 
+    connect(mainPage, &MainPage::checkUpdates, this, &PreferencesDialog::checkUpdates);
+
     m_pages = {
         mainPage,
         elementsPage,

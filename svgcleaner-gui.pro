@@ -1,5 +1,9 @@
 QT += core gui widgets concurrent svg
 
+contains(DEFINES, WITH_CHECK_UPDATES) {
+    QT += network
+}
+
 TARGET = SVGCleaner
 unix:!mac:TARGET = svgcleaner-gui
 
@@ -64,6 +68,11 @@ FORMS    += \
     src/preferences/pathspage.ui \
     src/preferences/mainpage.ui \
     src/detailsdialog.ui
+
+contains(DEFINES, WITH_CHECK_UPDATES) {
+    SOURCES += src/updater.cpp
+    HEADERS += src/updater.h
+}
 
 RESOURCES += icons/icons.qrc data/data.qrc
 

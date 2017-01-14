@@ -39,6 +39,9 @@ public:
     void saveConfig() override;
     void restoreDefaults() override;
 
+signals:
+    void checkUpdates();
+
 private:
     void initZip();
     void prepareZipLvlToolTip();
@@ -49,6 +52,8 @@ protected:
 private slots:
     void on_cmbBoxZip_currentTextChanged(const QString &arg1);
     void on_cmbBoxZipLevel_currentIndexChanged(int index);
+
+    void on_btnCheckUpdates_clicked();
 
 private:
     Ui::MainPage *ui;

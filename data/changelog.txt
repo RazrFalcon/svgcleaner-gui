@@ -1,4 +1,4 @@
-0.7.2
+0.8
 
 Added:
  - Elements -> Group elements by equal styles.
@@ -8,9 +8,12 @@ Added:
  - Paths -> Convert path segments into shorter ones.
  - Output -> Path's coordinates numeric precision.
  - Support for universal and id CSS selectors.
+ - Updates checking support.
 
 Changed:
  - Default numeric precision is 12 instead of 8.
+ - Files TreeView is read-only during cleaning now.
+ - Stop button doesn't block GUI now.
 
 Removed:
  - Attributes -> Move presentational attributes to the parent group.
