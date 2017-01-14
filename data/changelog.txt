@@ -1,4 +1,4 @@
-0.8
+0.8.0
 
 Added:
  - Elements -> Group elements by equal styles.
