@@ -1,3 +1,13 @@
+0.8.1
+
+Added:
+ - 'Group elements by equal styles' can group by 'transform' now.
+ - 'overflow' attribute cleaning.
+
+Fixed:
+ - Incorrect grouping in 'Group elements by equal styles'.
+ - Processing gradients with one stop children.
+
 0.8.0
 
 Added:
