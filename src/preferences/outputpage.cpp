@@ -35,6 +35,7 @@ OutputPage::OutputPage(QWidget *parent) :
         { ui->chBoxRGB, Output::TrimColors },
         { ui->chBoxSimplifyTransforms, Output::SimplifyTransforms },
         { ui->spinBoxPathsPrecision, Output::PathsPrecision },
+        { ui->cmbBoxIndent, Output::Indent },
     });
 
     ui->cmbBoxIndent->addItem(tr("None"), "none");
@@ -52,30 +53,4 @@ OutputPage::OutputPage(QWidget *parent) :
 OutputPage::~OutputPage()
 {
     delete ui;
-}
-
-void OutputPage::saveConfig()
-{
-    BasePreferencesPage::saveConfig();
-
-    CleanerOptions().setValue(CleanerKey::Output::Indent, ui->cmbBoxIndent->currentData());
-}
-
-void OutputPage::restoreDefaults()
-{
-    BasePreferencesPage::restoreDefaults();
-
-    ui->cmbBoxIndent->setCurrentIndex(0);
-}
-
-void OutputPage::loadConfig()
-{
-    BasePreferencesPage::loadConfig();
-
-    int idx = ui->cmbBoxIndent->findData(CleanerOptions().string(CleanerKey::Output::Indent));
-    if (idx == -1) {
-        idx = 0;
-    }
-
-    ui->cmbBoxIndent->setCurrentIndex(idx);
 }

@@ -44,11 +44,15 @@ AttributesPage::AttributesPage(QWidget *parent) :
         { ui->chBoxXmlnsXlink, Attributes::RemoveXmlnsXlinkAttribute },
         { ui->chBoxRmNeedlessAttrs, Attributes::RemoveNeedlessAttributes },
         { ui->chBoxRemoveGradientAttributes, Attributes::RemoveGradientAttributes },
-        { ui->chBoxJoinStyles, Attributes::JoinStyleAttributes },
+        { ui->cmbBoxJoinStyleAttributes, Attributes::JoinStyleAttributes },
         { ui->chBoxApplyTransformToGradients, Attributes::ApplyTransformToGradients },
         { ui->chBoxApplyTransformToShapes, Attributes::ApplyTransformToShapes },
         { ui->chBoxRemoveUnresolvedClasses, Attributes::RemoveUnresolvedClasses },
     });
+
+    ui->cmbBoxJoinStyleAttributes->addItem(tr("No"), "no");
+    ui->cmbBoxJoinStyleAttributes->addItem(tr("Some"), "some");
+    ui->cmbBoxJoinStyleAttributes->addItem(tr("All"), "all");
 
     loadConfig();
     setupToolTips();

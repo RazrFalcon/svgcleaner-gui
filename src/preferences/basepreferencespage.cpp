@@ -23,6 +23,8 @@
 #include <QCheckBox>
 #include <QSpinBox>
 #include <QStyle>
+#include <QComboBox>
+#include <QDebug>
 
 #include "widgets/warningcheckbox.h"
 #include "basepreferencespage.h"
@@ -49,6 +51,17 @@ int BasePreferencesPage::leftMargin() const
     return style()->pixelMetric(QStyle::PM_LayoutLeftMargin) * factor;
 }
 
+static void findCmbBoxItem(QComboBox *cmbBox, const QString &value)
+{
+    int idx = cmbBox->findData(value);
+    if (idx == -1) {
+        qDebug() << "Warning: combobox doesn't support such value:" << value;
+        idx = 0;
+    }
+
+    cmbBox->setCurrentIndex(idx);
+}
+
 void BasePreferencesPage::loadConfig()
 {
     CleanerOptions opt;
@@ -60,6 +73,9 @@ void BasePreferencesPage::loadConfig()
             qobject_cast<WarningCheckBox *>(w)->setChecked(opt.flag(key));
         } else if (w->inherits("QSpinBox")) {
             qobject_cast<QSpinBox *>(w)->setValue(opt.integer(key));
+        } else if (w->inherits("QComboBox")) {
+            QComboBox *cmbBox = qobject_cast<QComboBox *>(w);
+            findCmbBoxItem(cmbBox, opt.string(key));
         } else {
             Q_UNREACHABLE();
         }
@@ -77,6 +93,8 @@ void BasePreferencesPage::saveConfig()
             opt.setValue(key, qobject_cast<WarningCheckBox *>(w)->isChecked());
         } else if (w->inherits("QSpinBox")) {
             opt.setValue(key, qobject_cast<QSpinBox *>(w)->value());
+        } else if (w->inherits("QComboBox")) {
+            opt.setValue(key, qobject_cast<QComboBox *>(w)->currentData());
         } else {
             Q_UNREACHABLE();
         }
@@ -103,6 +121,9 @@ void BasePreferencesPage::restoreDefaults()
             qobject_cast<WarningCheckBox *>(w)->setChecked(opt.defaultFlag(key));
         } else if (w->inherits("QSpinBox")) {
             qobject_cast<QSpinBox *>(w)->setValue(opt.defaultInt(key));
+        } else if (w->inherits("QComboBox")) {
+            QComboBox *cmbBox = qobject_cast<QComboBox *>(w);
+            findCmbBoxItem(cmbBox, opt.defaultValue(key).toString());
         } else {
             Q_UNREACHABLE();
         }

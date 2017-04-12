@@ -140,7 +140,7 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Attributes::RemoveXmlnsXlinkAttribute, true);
         hash.insert(Attributes::RemoveNeedlessAttributes, true);
         hash.insert(Attributes::RemoveGradientAttributes, false);
-        hash.insert(Attributes::JoinStyleAttributes, true);
+        hash.insert(Attributes::JoinStyleAttributes, "some");
         hash.insert(Attributes::ApplyTransformToGradients, true);
         hash.insert(Attributes::ApplyTransformToShapes, true);
         hash.insert(Attributes::RemoveUnresolvedClasses, true);
@@ -176,6 +176,11 @@ int CleanerOptions::defaultInt(const QString &key)
     return defaultValue(key).toInt();
 }
 
+QString CleanerOptions::defaultString(const QString &key)
+{
+    return defaultValue(key).toString();
+}
+
 static void genValue(const QString &key, const QString &value, QStringList &list)
 {
     list << ("--" + key + "=" + value);
@@ -183,15 +188,25 @@ static void genValue(const QString &key, const QString &value, QStringList &list
 
 static void genFlag(const QString &key, QStringList &list)
 {
-    if (CleanerOptions::defaultFlag(key) != CleanerOptions().flag(key)) {
-        genValue(key, CleanerOptions().flag(key) ? "true" : "false", list);
+    const bool f = CleanerOptions().flag(key);
+    if (CleanerOptions::defaultFlag(key) != f) {
+        genValue(key, f ? "true" : "false", list);
     }
 }
 
 static void genNumFlag(const QString &key, QStringList &list)
 {
-    if (CleanerOptions::defaultInt(key) != CleanerOptions().integer(key)) {
-        genValue(key, QString::number(CleanerOptions().integer(key)), list);
+    const int v = CleanerOptions().integer(key);
+    if (CleanerOptions::defaultInt(key) != v) {
+        genValue(key, QString::number(v), list);
+    }
+}
+
+static void genStringFlag(const QString &key, QStringList &list)
+{
+    const QString v = CleanerOptions().string(key);
+    if (CleanerOptions::defaultString(key) != v) {
+        genValue(key, v, list);
     }
 }
 
@@ -237,7 +252,6 @@ QStringList CleanerOptions::genArgs()
         Attributes::RemoveXmlnsXlinkAttribute,
         Attributes::RemoveNeedlessAttributes,
         Attributes::RemoveGradientAttributes,
-        Attributes::JoinStyleAttributes,
         Attributes::ApplyTransformToGradients,
         Attributes::ApplyTransformToShapes,
         Attributes::RemoveUnresolvedClasses,
@@ -245,6 +259,7 @@ QStringList CleanerOptions::genArgs()
     for (const QString &name : attrList) {
         genFlag(name, list);
     }
+    genStringFlag(Attributes::JoinStyleAttributes, list);
 
     const auto pathList = {
         Paths::PathsToRelative,
@@ -262,21 +277,7 @@ QStringList CleanerOptions::genArgs()
     genFlag(Output::TrimColors, list);
     genFlag(Output::SimplifyTransforms, list);
     genNumFlag(Output::PathsPrecision, list);
-
-    {
-        const QString indent = CleanerOptions().string(Output::Indent);
-        if (indent == "none") {
-            genValue(Output::Indent, "0", list);
-        } else if (indent == "tabs") {
-            genValue(Output::Indent, "tabs", list);
-        } else {
-            bool ok = true;
-            const int v = indent.toUInt(&ok);
-            Q_ASSERT(ok);
-
-            genValue(Output::Indent, QString::number(v), list);
-        }
-    }
+    genStringFlag(Output::Indent, list);
 
     genFlag(Other::Multipass, list);
 

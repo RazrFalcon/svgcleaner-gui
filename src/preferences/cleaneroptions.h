@@ -98,6 +98,7 @@ public:
     static QVariant defaultValue(const QString &key);
     static bool defaultFlag(const QString &key);
     static int defaultInt(const QString &key);
+    static QString defaultString(const QString &key);
 
     static QStringList genArgs();
 };
