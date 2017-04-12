@@ -42,6 +42,7 @@ private:
     void fillChangelog();
     void fillAuthors();
     void fillLicence();
+    void fillBuiltWith();
     QString genLink(const QString &link);
     QString genLink(const QString &name, const QString &link);
 

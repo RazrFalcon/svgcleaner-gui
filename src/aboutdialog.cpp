@@ -38,6 +38,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     fillChangelog();
     fillAuthors();
     fillLicence();
+    fillBuiltWith();
 }
 
 AboutDialog::~AboutDialog()
@@ -89,6 +90,27 @@ void AboutDialog::fillLicence()
     QFile file(":/short_gplv2.txt");
     file.open(QFile::ReadOnly);
     ui->textLicense->setPlainText(file.readAll());
+}
+
+void AboutDialog::fillBuiltWith()
+{
+    QString text;
+    text += "<ul>";
+    text += "<li>" + genLink("svgcleaner", "https://github.com/RazrFalcon/svgcleaner") + "</li>";
+    text += "<ul>";
+    text += "<li>" + genLink("libsvgdom", "https://github.com/RazrFalcon/libsvgdom") + "</li>";
+    text += "<li>" + genLink("libsvgparser", "https://github.com/RazrFalcon/libsvgparser") + "</li>";
+    text += "</ul>";
+    text += "<li>" + genLink("Qt", "https://www.qt.io/") + "</li>";
+    text += "<li>" + genLink("7-Zip", "http://www.7-zip.org/") + "</li>";
+    text += "<li>" + genLink("Zopfli", "https://github.com/google/zopfli") + "</li>";
+    text += "</ul>";
+
+    ui->textBuiltWith->append(text);
+
+    connect(ui->textBuiltWith, &QTextBrowser::anchorClicked, [](const QUrl &url){
+        QDesktopServices::openUrl(url);
+    });
 }
 
 QString AboutDialog::genLink(const QString &name, const QString &link)
