@@ -36,6 +36,12 @@ public:
     explicit OutputPage(QWidget *parent = 0);
     ~OutputPage();
 
+    void saveConfig() override;
+    void restoreDefaults() override;
+
+protected:
+    void loadConfig() override;
+
 private:
     Ui::OutputPage *ui;
 };

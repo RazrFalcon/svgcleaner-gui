@@ -156,7 +156,7 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Output::TrimColors, true);
         hash.insert(Output::SimplifyTransforms, true);
         hash.insert(Output::PathsPrecision, 8);
-        hash.insert(Output::Indent, -1);
+        hash.insert(Output::Indent, "none");
 
         hash.insert(Other::Multipass, false);
     }
@@ -176,17 +176,22 @@ int CleanerOptions::defaultInt(const QString &key)
     return defaultValue(key).toInt();
 }
 
+static void genValue(const QString &key, const QString &value, QStringList &list)
+{
+    list << ("--" + key + "=" + value);
+}
+
 static void genFlag(const QString &key, QStringList &list)
 {
     if (CleanerOptions::defaultFlag(key) != CleanerOptions().flag(key)) {
-        list << ("--" + key + "=" + (CleanerOptions().flag(key) ? "true" : "false"));
+        genValue(key, CleanerOptions().flag(key) ? "true" : "false", list);
     }
 }
 
 static void genNumFlag(const QString &key, QStringList &list)
 {
     if (CleanerOptions::defaultInt(key) != CleanerOptions().integer(key)) {
-        list << ("--" + key + "=" + QString::number(CleanerOptions().integer(key)));
+        genValue(key, QString::number(CleanerOptions().integer(key)), list);
     }
 }
 
@@ -257,7 +262,21 @@ QStringList CleanerOptions::genArgs()
     genFlag(Output::TrimColors, list);
     genFlag(Output::SimplifyTransforms, list);
     genNumFlag(Output::PathsPrecision, list);
-    genNumFlag(Output::Indent, list);
+
+    {
+        const QString indent = CleanerOptions().string(Output::Indent);
+        if (indent == "none") {
+            genValue(Output::Indent, "0", list);
+        } else if (indent == "tabs") {
+            genValue(Output::Indent, "tabs", list);
+        } else {
+            bool ok = true;
+            const int v = indent.toUInt(&ok);
+            Q_ASSERT(ok);
+
+            genValue(Output::Indent, QString::number(v), list);
+        }
+    }
 
     genFlag(Other::Multipass, list);
 

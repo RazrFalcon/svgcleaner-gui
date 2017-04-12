@@ -35,8 +35,15 @@ OutputPage::OutputPage(QWidget *parent) :
         { ui->chBoxRGB, Output::TrimColors },
         { ui->chBoxSimplifyTransforms, Output::SimplifyTransforms },
         { ui->spinBoxPathsPrecision, Output::PathsPrecision },
-        { ui->spinBoxIndent, Output::Indent },                      
     });
+
+    ui->cmbBoxIndent->addItem(tr("None"), "none");
+    ui->cmbBoxIndent->addItem(tr("No spaces"), "0");
+    ui->cmbBoxIndent->addItem(tr("1 space"), "1");
+    ui->cmbBoxIndent->addItem(tr("2 spaces"), "2");
+    ui->cmbBoxIndent->addItem(tr("3 spaces"), "3");
+    ui->cmbBoxIndent->addItem(tr("4 spaces"), "4");
+    ui->cmbBoxIndent->addItem(tr("Tabs"), "tabs");
 
     loadConfig();
     setupToolTips();
@@ -45,4 +52,30 @@ OutputPage::OutputPage(QWidget *parent) :
 OutputPage::~OutputPage()
 {
     delete ui;
+}
+
+void OutputPage::saveConfig()
+{
+    BasePreferencesPage::saveConfig();
+
+    CleanerOptions().setValue(CleanerKey::Output::Indent, ui->cmbBoxIndent->currentData());
+}
+
+void OutputPage::restoreDefaults()
+{
+    BasePreferencesPage::restoreDefaults();
+
+    ui->cmbBoxIndent->setCurrentIndex(0);
+}
+
+void OutputPage::loadConfig()
+{
+    BasePreferencesPage::loadConfig();
+
+    int idx = ui->cmbBoxIndent->findData(CleanerOptions().string(CleanerKey::Output::Indent));
+    if (idx == -1) {
+        idx = 0;
+    }
+
+    ui->cmbBoxIndent->setCurrentIndex(idx);
 }

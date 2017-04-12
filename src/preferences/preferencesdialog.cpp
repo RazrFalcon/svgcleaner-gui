@@ -148,5 +148,6 @@ void PreferencesDialog::onGenArgs()
     diag.setWindowTitle(tr("Command"));
     diag.setDetails(QString("svgcleaner in.svg out.svg %1")
                     .arg(CleanerOptions::genArgs().join(' ')));
+
     diag.exec();
 }

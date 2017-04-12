@@ -31,10 +31,8 @@ PathsPage::PathsPage(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->chBoxJoinArcToFlags->setStyleSheet(
-        QString("WarningCheckBox { padding-left: %1 }").arg(leftMargin()));
-
     ui->laySegments->setContentsMargins(leftMargin(), 0, 0, 0);
+    ui->layArcTo->setContentsMargins(leftMargin(), 0, 0, 0);
 
     addOptWidgets({
         { ui->chBoxToRelative, Paths::PathsToRelative },

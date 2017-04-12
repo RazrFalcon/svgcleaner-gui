@@ -47,11 +47,15 @@
     </widget>
    </item>
    <item>
-    <widget class="WarningCheckBox" name="chBoxJoinArcToFlags">
-     <property name="text">
-      <string>Join ArcTo flags</string>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="layArcTo">
+     <item>
+      <widget class="WarningCheckBox" name="chBoxJoinArcToFlags">
+       <property name="text">
+        <string>Join ArcTo flags</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QCheckBox" name="chBoxRmDuplCmd">

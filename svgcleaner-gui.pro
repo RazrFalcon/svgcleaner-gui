@@ -7,6 +7,8 @@ contains(DEFINES, WITH_CHECK_UPDATES) {
 TARGET = SVGCleaner
 unix:!mac:TARGET = svgcleaner-gui
 
+DEFINES += QT_NO_FOREACH
+
 TEMPLATE = app
 
 SOURCES += \

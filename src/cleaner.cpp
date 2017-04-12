@@ -70,7 +70,7 @@ Task::Output Task::_cleanFile(const Task::Config &config)
     // clean file
     QStringList args;
     args.reserve(config.args.size() + 3);
-    args << config.args << inputFile << config.outputPath << "--quiet=true";
+    args << config.args << inputFile << config.outputPath << "--quiet";
 
     // TODO: make timeout optional
     QString cleanerMsg = Process::run(Cleaner::Name, args, 300000, true);
