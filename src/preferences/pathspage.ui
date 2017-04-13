@@ -37,6 +37,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QCheckBox" name="chBoxApplyTransformToPaths">
+       <property name="text">
+        <string>Apply transformations to paths</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

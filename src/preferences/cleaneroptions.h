@@ -68,6 +68,7 @@ namespace CleanerKey {
         extern const QString PathsToRelative;
         extern const QString RemoveUnusedSegments;
         extern const QString ConvertSegments;
+        extern const QString ApplyTransformToPaths;
         extern const QString TrimPaths;
         extern const QString RemoveDuplCmdInPaths;
         extern const QString JoinArcToFlags;

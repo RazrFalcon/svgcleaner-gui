@@ -1,3 +1,8 @@
+0.8.2
+
+Added:
+ - Paths -> Apply transformations to paths.
+
 0.8.1
 
 Added:

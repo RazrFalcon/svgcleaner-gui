@@ -66,6 +66,7 @@ namespace CleanerKey {
         const QString PathsToRelative           = "paths-to-relative";
         const QString RemoveUnusedSegments      = "remove-unused-segments";
         const QString ConvertSegments           = "convert-segments";
+        const QString ApplyTransformToPaths     = "apply-transform-to-paths";
         const QString TrimPaths                 = "trim-paths";
         const QString RemoveDuplCmdInPaths      = "remove-dupl-cmd-in-paths";
         const QString JoinArcToFlags            = "join-arcto-flags";
@@ -148,6 +149,7 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Paths::PathsToRelative, true);
         hash.insert(Paths::RemoveUnusedSegments, true);
         hash.insert(Paths::ConvertSegments, true);
+        hash.insert(Paths::ApplyTransformToPaths, false);
         hash.insert(Paths::TrimPaths, true);
         hash.insert(Paths::RemoveDuplCmdInPaths, true);
         hash.insert(Paths::JoinArcToFlags, false);
@@ -265,6 +267,7 @@ QStringList CleanerOptions::genArgs()
         Paths::PathsToRelative,
         Paths::RemoveUnusedSegments,
         Paths::ConvertSegments,
+        Paths::ApplyTransformToPaths,
         Paths::TrimPaths,
         Paths::RemoveDuplCmdInPaths,
         Paths::JoinArcToFlags,

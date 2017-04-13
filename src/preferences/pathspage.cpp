@@ -38,6 +38,7 @@ PathsPage::PathsPage(QWidget *parent) :
         { ui->chBoxToRelative, Paths::PathsToRelative },
         { ui->chBoxRmUnused, Paths::RemoveUnusedSegments },
         { ui->chBoxConvertSegments, Paths::ConvertSegments },
+        { ui->chBoxApplyTransformToPaths, Paths::ApplyTransformToPaths },
         { ui->chBoxTrimPaths, Paths::TrimPaths },
         { ui->chBoxRmDuplCmd, Paths::RemoveDuplCmdInPaths },
         { ui->chBoxJoinArcToFlags, Paths::JoinArcToFlags },
