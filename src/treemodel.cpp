@@ -112,6 +112,9 @@ FolderStats TreeItem::calcFolderStats()
             stats.sizeBefore += d.sizeBefore;
             if (d.status != Status::Error) {
                 stats.sizeAfter += d.sizeAfter;
+            } else {
+                // use original size on error
+                stats.sizeAfter += d.sizeBefore;
             }
         }
     }
@@ -237,7 +240,8 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
     if (role == Qt::ToolTipRole) {
         if (index.column() == Column::Status) {
             if (d.status == Status::Warning || d.status == Status::Error) {
-                return d.statusText;
+                return   d.statusText + "\n\n"
+                       + tr("Double-click to show this text in a message box.");
             }
         }
 

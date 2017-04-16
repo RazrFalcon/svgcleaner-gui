@@ -27,23 +27,23 @@
 #include "settings.h"
 
 namespace SettingKey {
-    const QString LastPath = "LastPath";
-    const QString OutputFolder = "OutputFolder";
-    const QString FilePrefix = "FilePrefix";
-    const QString FileSuffix = "FileSuffix";
-    const QString WindowSize = "WindowSize";
-    const QString PreferencesSize = "PreferencesSize";
-    const QString PreferencesTab = "PreferencesTab";
+    const QString LastPath              = "LastPath";
+    const QString OutputFolder          = "OutputFolder";
+    const QString FilePrefix            = "FilePrefix";
+    const QString FileSuffix            = "FileSuffix";
+    const QString WindowSize            = "WindowSize";
+    const QString PreferencesSize       = "PreferencesSize";
+    const QString PreferencesTab        = "PreferencesTab";
 
-    const QString SavingMethod = "SavingMethod";
-    const QString Jobs = "Jobs";
-    const QString UseCompression = "UseCompression";
-    const QString Compressor = "Compressor";
-    const QString CompressionLevel = "CompressionLevel";
-    const QString CompressOnlySvgz = "CompressOnlySvgz";
+    const QString SavingMethod          = "SavingMethod";
+    const QString Jobs                  = "Jobs";
+    const QString UseCompression        = "UseCompression";
+    const QString Compressor            = "Compressor";
+    const QString CompressionLevel      = "CompressionLevel";
+    const QString CompressOnlySvgz      = "CompressOnlySvgz";
 
-    const QString CheckUpdates = "CheckUpdates";
-    const QString LastUpdatesCheck = "LastUpdatesCheck";
+    const QString CheckUpdates          = "CheckUpdates";
+    const QString LastUpdatesCheck      = "LastUpdatesCheck";
 }
 
 AppSettings::AppSettings(QObject *parent) :

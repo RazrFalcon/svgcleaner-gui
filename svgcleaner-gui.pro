@@ -4,6 +4,14 @@ contains(DEFINES, WITH_CHECK_UPDATES) {
     QT += network
 }
 
+equals(QT_MAJOR_VERSION, 4) {
+    error("SVG Cleaner depend on Qt >= 5.6")
+}
+
+equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 6) {
+    error("SVG Cleaner depend on Qt >= 5.6")
+}
+
 TARGET = SVGCleaner
 unix:!mac:TARGET = svgcleaner-gui
 
