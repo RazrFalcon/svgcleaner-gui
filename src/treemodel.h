@@ -41,7 +41,7 @@ namespace Column {
 class StatusDelegate : public QStyledItemDelegate
 {
 public:
-    explicit StatusDelegate(QObject *parent = 0) : QStyledItemDelegate(parent) {}
+    explicit StatusDelegate(QObject *parent = 0) : QStyledItemDelegate(parent) { }
 
 private:
     void paint(QPainter *p, const QStyleOptionViewItem &opt,

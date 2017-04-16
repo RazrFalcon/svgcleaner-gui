@@ -22,6 +22,7 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QPixmapCache>
 
 #include "utils.h"
 #include "treemodel.h"
@@ -38,18 +39,20 @@ void StatusDelegate::paint(QPainter *p, const QStyleOptionViewItem &opt,
 
     const Status status = (Status)index.data().toInt();
 
-    QIcon icon;
+    QPixmap pix;
+
     switch (status) {
         case Status::None    : break;
-        case Status::Ok      : icon = QIcon(":/check.svgz"); break;
-        case Status::Warning : icon = QIcon(":/warning.svgz"); break;
-        case Status::Error   : icon = QIcon(":/error.svgz"); break;
+        case Status::Ok      : QPixmapCache::find("check.svgz", &pix); break;
+        case Status::Warning : QPixmapCache::find("warning.svgz", &pix); break;
+        case Status::Error   : QPixmapCache::find("error.svgz", &pix); break;
     }
 
     QStyle *style = QApplication::style();
     style->drawControl(QStyle::CE_ItemViewItem, &opt, p, opt.widget);
 
-    if (!icon.isNull()) {
+    if (!pix.isNull()) {
+        QIcon icon(pix);
         QIcon::Mode mode = index.flags() & Qt::ItemIsEnabled ? QIcon::Normal : QIcon::Disabled;
         icon.paint(p, opt2.rect.adjusted(2, 2, -2, -2), Qt::AlignCenter, mode);
     }
@@ -208,6 +211,9 @@ TreeModel::TreeModel(QObject *parent)
     : QAbstractItemModel(parent),
       m_rootItem(new TreeItem("Root"))
 {
+    QPixmapCache::insert("check.svgz", QPixmap(":/check.svgz"));
+    QPixmapCache::insert("warning.svgz", QPixmap(":/warning.svgz"));
+    QPixmapCache::insert("error.svgz", QPixmap(":/error.svgz"));
 }
 
 TreeModel::~TreeModel()
