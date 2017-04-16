@@ -58,7 +58,7 @@ private:
     void addFolder(const QString &path);
 
 #ifdef WITH_CHECK_UPDATES
-    void checkUpdates(bool force);
+    void checkUpdates(bool manual);
 #endif
 
 private slots:
@@ -78,6 +78,8 @@ private slots:
 
 #ifdef WITH_CHECK_UPDATES
     void onUpdatesFound();
+    void onNoUpdates();
+    void onUpdaterError(const QString &msg);
 #endif
 
 protected:

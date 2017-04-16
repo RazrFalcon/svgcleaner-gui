@@ -34,14 +34,17 @@ class Updater : public QObject
 public:
     Updater(QObject *parent = Q_NULLPTR);
 
-    void checkUpdates();
+    void checkUpdates(bool manual);
 
 signals:
     void updatesFound();
+    void noUpdates();
+    void errorOccurred(QString);
 
 private slots:
     void onRequestFinished(QNetworkReply *reply);
 
 private:
     QNetworkAccessManager * const m_manager;
+    bool m_isManual = false;
 };

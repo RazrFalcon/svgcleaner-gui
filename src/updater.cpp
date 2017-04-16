@@ -37,8 +37,10 @@ Updater::Updater(QObject *parent) :
             this, &Updater::onRequestFinished);
 }
 
-void Updater::checkUpdates()
+void Updater::checkUpdates(bool manual)
 {
+    m_isManual = manual;
+
     const QUrl url("https://api.github.com/repos/RazrFalcon/svgcleaner-gui/releases/latest");
     m_manager->get(QNetworkRequest(url));
 }
@@ -46,7 +48,9 @@ void Updater::checkUpdates()
 void Updater::onRequestFinished(QNetworkReply *reply)
 {
     if (reply->error() != QNetworkReply::NoError) {
-        // do nothing on error
+        if (m_isManual) {
+            emit errorOccurred(reply->errorString());
+        }
         return;
     }
 
@@ -70,5 +74,8 @@ void Updater::onRequestFinished(QNetworkReply *reply)
 
     if (newVer > currVer) {
         emit updatesFound();
+    } else if (m_isManual) {
+        // send this signal only when we checking updates from PreferencesDialog
+        emit noUpdates();
     }
 }

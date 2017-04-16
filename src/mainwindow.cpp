@@ -69,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 #ifdef WITH_CHECK_UPDATES
     connect(m_updater, &Updater::updatesFound, this, &MainWindow::onUpdatesFound);
+    connect(m_updater, &Updater::noUpdates, this, &MainWindow::onNoUpdates);
+    connect(m_updater, &Updater::errorOccurred, this, &MainWindow::onUpdaterError);
     checkUpdates(false);
 #endif
 }
@@ -172,9 +174,9 @@ void MainWindow::saveSettings()
 }
 
 #ifdef WITH_CHECK_UPDATES
-void MainWindow::checkUpdates(bool force)
+void MainWindow::checkUpdates(bool manual)
 {
-    if (!force) {
+    if (!manual) {
         AppSettings settings;
         if (!settings.flag(SettingKey::CheckUpdates)) {
             return;
@@ -190,7 +192,7 @@ void MainWindow::checkUpdates(bool force)
         settings.setValue(SettingKey::LastUpdatesCheck, currDate);
     }
 
-    m_updater->checkUpdates();
+    m_updater->checkUpdates(manual);
 }
 
 void MainWindow::onUpdatesFound()
@@ -203,6 +205,18 @@ void MainWindow::onUpdatesFound()
         // do not download file directly, but open a webpage with releases
         QDesktopServices::openUrl(QUrl("https://github.com/RazrFalcon/svgcleaner-gui/releases"));
     }
+}
+
+void MainWindow::onNoUpdates()
+{
+    QMessageBox::information(this, tr("No updates"),
+                             tr("You are using the latest version."));
+}
+
+void MainWindow::onUpdaterError(const QString &msg)
+{
+    QMessageBox::critical(this, tr("Error"),
+                          tr("An error occurred during updates checking:\n\n%1.").arg(msg));
 }
 #endif
 
