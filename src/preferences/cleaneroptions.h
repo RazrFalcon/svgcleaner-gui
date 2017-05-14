@@ -84,6 +84,8 @@ namespace CleanerKey {
 
     namespace Other {
         extern const QString Multipass;
+        extern const QString AllowBiggerFile;
+        extern const QString CopyOnError;
     }
 }
 

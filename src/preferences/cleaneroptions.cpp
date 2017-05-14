@@ -82,6 +82,8 @@ namespace CleanerKey {
 
     namespace Other {
         const QString Multipass                 = "multipass";
+        const QString AllowBiggerFile           = "allow-bigger-file";
+        const QString CopyOnError               = "copy-on-error";
     }
 }
 
@@ -161,6 +163,8 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Output::Indent, "none");
 
         hash.insert(Other::Multipass, false);
+        hash.insert(Other::AllowBiggerFile, false);
+        hash.insert(Other::CopyOnError, false);
     }
 
     Q_ASSERT(hash.contains(key) == true);
@@ -186,6 +190,13 @@ QString CleanerOptions::defaultString(const QString &key)
 static void genValue(const QString &key, const QString &value, QStringList &list)
 {
     list << ("--" + key + "=" + value);
+}
+static void genSimpleFlag(const QString &key, QStringList &list)
+{
+    const bool f = CleanerOptions().flag(key);
+    if (CleanerOptions::defaultFlag(key) != f) {
+        list << ("--" + key);
+    }
 }
 
 static void genFlag(const QString &key, QStringList &list)
@@ -282,7 +293,9 @@ QStringList CleanerOptions::genArgs()
     genNumFlag(Output::PathsPrecision, list);
     genStringFlag(Output::Indent, list);
 
-    genFlag(Other::Multipass, list);
+    genSimpleFlag(Other::Multipass, list);
+    genSimpleFlag(Other::AllowBiggerFile, list);
+    genSimpleFlag(Other::CopyOnError, list);
 
     return list;
 }

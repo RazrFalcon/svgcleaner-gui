@@ -2,6 +2,8 @@
 
 Added:
  - Option changes are highlighted now.
+ - Main -> Copy on error
+ - Main -> Allow bigger files
  - Paths -> Apply transformations to paths.
 
 0.8.1

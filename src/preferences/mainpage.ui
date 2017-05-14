@@ -126,6 +126,27 @@ It will decrease cleaning time at least twice, but can increase a cleaning ratio
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="chBoxAllowBigger">
+     <property name="toolTip">
+      <string>By default, if cleaned file is bigger that original it an error,
+but sometimes this should be allowed.</string>
+     </property>
+     <property name="text">
+      <string>Allow bigger files</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chBoxCopyOnError">
+     <property name="toolTip">
+      <string>Copy an original file to the destination if an error occurred during the file cleaning.</string>
+     </property>
+     <property name="text">
+      <string>Copy on error</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer_3">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

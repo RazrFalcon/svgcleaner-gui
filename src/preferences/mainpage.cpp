@@ -83,7 +83,10 @@ void MainPage::loadConfig()
 
     ui->chBoxCheckUpdates->setChecked(settings.flag(SettingKey::CheckUpdates));
 
-    ui->chBoxMultipass->setChecked(CleanerOptions().flag(CleanerKey::Other::Multipass));
+    CleanerOptions opt;
+    ui->chBoxMultipass->setChecked(opt.flag(CleanerKey::Other::Multipass));
+    ui->chBoxAllowBigger->setChecked(opt.flag(CleanerKey::Other::AllowBiggerFile));
+    ui->chBoxCopyOnError->setChecked(opt.flag(CleanerKey::Other::CopyOnError));
 
     switch (settings.integer(SettingKey::SavingMethod)) {
         case AppSettings::SelectFolder : ui->rBtnSave1->setChecked(true); break;
@@ -113,7 +116,10 @@ void MainPage::saveConfig()
     }
     settings.setValue(SettingKey::SavingMethod, method);
 
-    CleanerOptions().setValue(CleanerKey::Other::Multipass, ui->chBoxMultipass->isChecked());
+    CleanerOptions opt;
+    opt.setValue(CleanerKey::Other::Multipass, ui->chBoxMultipass->isChecked());
+    opt.setValue(CleanerKey::Other::AllowBiggerFile, ui->chBoxAllowBigger->isChecked());
+    opt.setValue(CleanerKey::Other::CopyOnError, ui->chBoxCopyOnError->isChecked());
 }
 
 void MainPage::restoreDefaults()
@@ -129,7 +135,10 @@ void MainPage::restoreDefaults()
     int compressorIdx = ui->cmbBoxZip->findData(compressor);
     ui->cmbBoxZip->setCurrentIndex(compressorIdx);
 
-    ui->chBoxMultipass->setChecked(CleanerOptions().defaultFlag(CleanerKey::Other::Multipass));
+    CleanerOptions opt;
+    ui->chBoxMultipass->setChecked(opt.defaultFlag(CleanerKey::Other::Multipass));
+    ui->chBoxAllowBigger->setChecked(opt.defaultFlag(CleanerKey::Other::AllowBiggerFile));
+    ui->chBoxCopyOnError->setChecked(opt.defaultFlag(CleanerKey::Other::CopyOnError));
 }
 
 void MainPage::on_cmbBoxZip_currentTextChanged(const QString &text)
