@@ -36,7 +36,7 @@ class PreferencesDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit PreferencesDialog(QWidget *parent = 0);
+    explicit PreferencesDialog(QWidget *parent = nullptr);
     ~PreferencesDialog();
 
 signals:
@@ -49,12 +49,13 @@ private:
 private slots:
     void onBtnClicked(QAbstractButton *button);
     void onGenArgs();
+    void onHasChanges(bool flag);
 
 private:
-    IconListView *m_listView;
-    QStackedWidget *m_stackedWidget;
-    QPushButton *m_btnGenArgs;
-    QDialogButtonBox *m_btnBox;
+    IconListView * const m_listView;
+    QStackedWidget * const m_stackedWidget;
+    QPushButton * const m_btnGenArgs;
+    QDialogButtonBox * const m_btnBox;
 
     QVector<BasePreferencesPage*> m_pages;
 };

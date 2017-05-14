@@ -46,8 +46,6 @@ MainPage::MainPage(QWidget *parent) :
     ui->widgetZopfliWarning->hide();
     initZip();
 
-    loadConfig();
-
 #ifndef WITH_CHECK_UPDATES
     ui->chBoxCheckUpdates->hide();
     ui->btnCheckUpdates->hide();

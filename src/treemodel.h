@@ -41,7 +41,7 @@ namespace Column {
 class StatusDelegate : public QStyledItemDelegate
 {
 public:
-    explicit StatusDelegate(QObject *parent = 0) : QStyledItemDelegate(parent) { }
+    explicit StatusDelegate(QObject *parent = nullptr) : QStyledItemDelegate(parent) { }
 
 private:
     void paint(QPainter *p, const QStyleOptionViewItem &opt,
@@ -115,13 +115,12 @@ private:
     static QString prepareSize(qint64 bytes);
 
 private:
+    TreeItem * const m_parentItem;
+
     TreeItemData m_d;
-
-    TreeItem *m_parentItem;
     QVector<TreeItem*> m_childItems;
-
     bool m_isEnabled = true;
-    Qt::CheckState m_checkState;
+    Qt::CheckState m_checkState = Qt::Checked;
 };
 
 class TreeModel : public QAbstractItemModel
@@ -129,7 +128,7 @@ class TreeModel : public QAbstractItemModel
 public:
     enum class AddResult { Ok, FileExists, FolderExists, Empty };
 
-    explicit TreeModel(QObject *parent = 0);
+    explicit TreeModel(QObject *parent = nullptr);
     ~TreeModel();
 
     QVariant data(const QModelIndex &index, int role) const;

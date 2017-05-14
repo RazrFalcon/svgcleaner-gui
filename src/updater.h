@@ -32,7 +32,7 @@ class Updater : public QObject
     Q_OBJECT
 
 public:
-    Updater(QObject *parent = Q_NULLPTR);
+    Updater(QObject *parent = nullptr);
 
     void checkUpdates(bool manual);
 

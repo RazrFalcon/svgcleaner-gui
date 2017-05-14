@@ -33,17 +33,16 @@ class PathsPage : public BasePreferencesPage
     Q_OBJECT
 
 public:
-    explicit PathsPage(QWidget *parent = 0);
+    explicit PathsPage(QWidget *parent = nullptr);
     ~PathsPage();
 
 private slots:
     void on_chBoxTrimPaths_toggled(bool checked);
-
     void on_chBoxToRelative_toggled(bool checked);
 
 protected:
     void loadConfig() override;
 
 private:
-    Ui::PathsPage *ui;
+    Ui::PathsPage * const ui;
 };

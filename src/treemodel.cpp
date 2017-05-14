@@ -59,6 +59,7 @@ void StatusDelegate::paint(QPainter *p, const QStyleOptionViewItem &opt,
 }
 
 TreeItem::TreeItem(const QString &path, TreeItem *parent)
+    : m_parentItem(parent)
 {
     QFileInfo fi(path);
     if (fi.isDir()) {
@@ -70,7 +71,6 @@ TreeItem::TreeItem(const QString &path, TreeItem *parent)
 
     setSizeBefore(QFile(path).size());
 
-    m_parentItem = parent;
     m_d.path = path;
     m_checkState = Qt::Checked;
 }

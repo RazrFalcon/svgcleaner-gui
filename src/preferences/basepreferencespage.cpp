@@ -24,31 +24,56 @@
 #include <QSpinBox>
 #include <QStyle>
 #include <QComboBox>
+#include <QLabel>
 #include <QDebug>
 
+#include "widgets/dotwidget.h"
 #include "widgets/warningcheckbox.h"
+
 #include "basepreferencespage.h"
+
+#define AsChBox(w) qobject_cast<QCheckBox *>(w)
+#define AsWChBox(w) qobject_cast<WarningCheckBox *>(w)
+#define AsCmbBox(w) qobject_cast<QComboBox *>(w)
+#define AsSpinBox(w) qobject_cast<QSpinBox *>(w)
+
+static int toIntChecked(const QVariant &value)
+{
+    bool ok = true;
+    const int v = value.toInt(&ok);
+    Q_ASSERT(ok);
+
+    return v;
+}
 
 BasePreferencesPage::BasePreferencesPage(QWidget *parent) : QWidget(parent)
 { }
 
 void BasePreferencesPage::addOptWidgets(std::initializer_list<OptWidgetData> list)
 {
+    int idx = 0;
     for (const OptWidgetData &d : list) {
         d.w->setProperty("key", d.key);
-        m_optWidget << d.w;
+        d.w->setProperty("index", idx);
+        m_optWidgets << d.w;
+        idx++;
     }
+
+    m_dotWidgets.resize(list.size());
+    int added = 0;
+    for (DotWidget *w : findChildren<DotWidget*>()) {
+        const int idx = toIntChecked(w->objectName().remove("dot")) - 1;
+        m_dotWidgets[idx] = w;
+
+        added++;
+    }
+    // Check that found dots amout is equal to widgets count.
+    Q_ASSERT(added == (int)list.size());
 }
 
 int BasePreferencesPage::leftMargin() const
 {
-#ifdef Q_OS_MAC
-    // 3 is too much for mac
-    const int factor = 2;
-#else
-    const int factor = 3;
-#endif
-    return style()->pixelMetric(QStyle::PM_LayoutLeftMargin) * factor;
+    return style()->pixelMetric(QStyle::PM_LayoutLeftMargin) * 2;
 }
 
 static void findCmbBoxItem(QComboBox *cmbBox, const QString &value)
@@ -65,36 +90,39 @@ static void findCmbBoxItem(QComboBox *cmbBox, const QString &value)
 void BasePreferencesPage::loadConfig()
 {
     CleanerOptions opt;
-    for (QWidget *w : m_optWidget) {
+    for (QWidget *w : m_optWidgets) {
         const QString key = w->property("key").toString();
         if (w->inherits("QCheckBox")) {
-            qobject_cast<QCheckBox *>(w)->setChecked(opt.flag(key));
+            AsChBox(w)->setChecked(opt.flag(key));
         } else if (w->inherits("WarningCheckBox")) {
-            qobject_cast<WarningCheckBox *>(w)->setChecked(opt.flag(key));
+            AsWChBox(w)->setChecked(opt.flag(key));
         } else if (w->inherits("QSpinBox")) {
-            qobject_cast<QSpinBox *>(w)->setValue(opt.integer(key));
+            AsSpinBox(w)->setValue(opt.integer(key));
         } else if (w->inherits("QComboBox")) {
-            QComboBox *cmbBox = qobject_cast<QComboBox *>(w);
+            QComboBox *cmbBox = AsCmbBox(w);
             findCmbBoxItem(cmbBox, opt.string(key));
         } else {
             Q_UNREACHABLE();
         }
     }
+
+    connectDots();
+    checkDots();
 }
 
 void BasePreferencesPage::saveConfig()
 {
     CleanerOptions opt;
-    for (QWidget *w : m_optWidget) {
+    for (QWidget *w : m_optWidgets) {
         const QString key = w->property("key").toString();
         if (w->inherits("QCheckBox")) {
-            opt.setValue(key, qobject_cast<QCheckBox *>(w)->isChecked());
+            opt.setValue(key, AsChBox(w)->isChecked());
         } else if (w->inherits("WarningCheckBox")) {
-            opt.setValue(key, qobject_cast<WarningCheckBox *>(w)->isChecked());
+            opt.setValue(key, AsWChBox(w)->isChecked());
         } else if (w->inherits("QSpinBox")) {
-            opt.setValue(key, qobject_cast<QSpinBox *>(w)->value());
+            opt.setValue(key, AsSpinBox(w)->value());
         } else if (w->inherits("QComboBox")) {
-            opt.setValue(key, qobject_cast<QComboBox *>(w)->currentData());
+            opt.setValue(key, AsCmbBox(w)->currentData());
         } else {
             Q_UNREACHABLE();
         }
@@ -104,7 +132,7 @@ void BasePreferencesPage::saveConfig()
 void BasePreferencesPage::setupToolTips()
 {
     const Doc &doc = Doc::get();
-    for (QWidget *w : m_optWidget) {
+    for (QWidget *w : m_optWidgets) {
         const QString key = w->property("key").toString();
         qobject_cast<QWidget *>(w)->setToolTip(doc.getDoc(key));
     }
@@ -113,19 +141,101 @@ void BasePreferencesPage::setupToolTips()
 void BasePreferencesPage::restoreDefaults()
 {
     CleanerOptions opt;
-    for (QWidget *w : m_optWidget) {
+    for (QWidget *w : m_optWidgets) {
         const QString key = w->property("key").toString();
         if (w->inherits("QCheckBox")) {
-            qobject_cast<QCheckBox *>(w)->setChecked(opt.defaultFlag(key));
+            AsChBox(w)->setChecked(opt.defaultFlag(key));
         } else if (w->inherits("WarningCheckBox")) {
-            qobject_cast<WarningCheckBox *>(w)->setChecked(opt.defaultFlag(key));
+            AsWChBox(w)->setChecked(opt.defaultFlag(key));
         } else if (w->inherits("QSpinBox")) {
-            qobject_cast<QSpinBox *>(w)->setValue(opt.defaultInt(key));
+            AsSpinBox(w)->setValue(opt.defaultInt(key));
         } else if (w->inherits("QComboBox")) {
-            QComboBox *cmbBox = qobject_cast<QComboBox *>(w);
-            findCmbBoxItem(cmbBox, opt.defaultValue(key).toString());
+            QComboBox *cmbBox = AsCmbBox(w);
+            findCmbBoxItem(cmbBox, opt.defaultString(key));
         } else {
             Q_UNREACHABLE();
         }
     }
+}
+
+void BasePreferencesPage::connectDots()
+{
+    for (QWidget *w : m_optWidgets) {
+        if (w->inherits("QCheckBox")) {
+            connect(AsChBox(w), &QCheckBox::toggled,
+                    this, &BasePreferencesPage::onChBoxToggled);
+        } else if (w->inherits("WarningCheckBox")) {
+            connect(AsWChBox(w), &WarningCheckBox::toggled,
+                    this, &BasePreferencesPage::onChBoxToggled);
+        } else if (w->inherits("QComboBox")) {
+            connect(AsCmbBox(w), SIGNAL(currentIndexChanged(int)),
+                    this, SLOT(onCmbBoxIndexChanged(int)));
+        } else if (w->inherits("QSpinBox")) {
+            connect(AsSpinBox(w), SIGNAL(valueChanged(int)),
+                    this, SLOT(onSpinValueChanged(int)));
+        }
+    }
+}
+
+void BasePreferencesPage::checkDots()
+{
+    for (QWidget *w : m_optWidgets) {
+        if (w->inherits("QCheckBox")) {
+            AsChBox(w)->toggled(AsChBox(w)->isChecked());
+        } else if (w->inherits("WarningCheckBox")) {
+            AsWChBox(w)->toggled(AsWChBox(w)->isChecked());
+        } else if (w->inherits("QComboBox")) {
+            AsCmbBox(w)->currentIndexChanged(AsCmbBox(w)->currentIndex());
+        } else if (w->inherits("QSpinBox")) {
+            AsSpinBox(w)->valueChanged(AsSpinBox(w)->value());
+        }
+    }
+}
+
+void BasePreferencesPage::checkForChanges()
+{
+    bool isChanged = false;
+
+    for (DotWidget *dot : m_dotWidgets) {
+        if (dot->isShowDot()) {
+            isChanged = true;
+            break;
+        }
+    }
+
+    emit hasChanges(isChanged);
+}
+
+void BasePreferencesPage::onChBoxToggled(bool flag)
+{
+    const int idx = toIntChecked(sender()->property("index"));
+    const QString key = sender()->property("key").toString();
+
+    const bool isChanged = flag != CleanerOptions::defaultFlag(key);
+    m_dotWidgets.at(idx)->setShowDot(isChanged);
+
+    checkForChanges();
+}
+
+void BasePreferencesPage::onCmbBoxIndexChanged(int /*idx*/)
+{
+    const int idx = toIntChecked(sender()->property("index"));
+    const QString key = sender()->property("key").toString();
+    const QString data = AsCmbBox(sender())->currentData().toString();
+
+    const bool isChanged = data != CleanerOptions::defaultString(key);
+    m_dotWidgets.at(idx)->setShowDot(isChanged);
+
+    checkForChanges();
+}
+
+void BasePreferencesPage::onSpinValueChanged(int value)
+{
+    const int idx = toIntChecked(sender()->property("index"));
+    const QString key = sender()->property("key").toString();
+
+    const bool isChanged = value != CleanerOptions::defaultInt(key);
+    m_dotWidgets.at(idx)->setShowDot(isChanged);
+
+    checkForChanges();
 }

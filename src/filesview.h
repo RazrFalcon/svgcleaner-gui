@@ -29,7 +29,7 @@ class FilesView : public QTreeView
     Q_OBJECT
 
 public:
-    explicit FilesView(QWidget *parent = 0);
+    explicit FilesView(QWidget *parent = nullptr);
 
     void setReadOnly(bool flag);
 

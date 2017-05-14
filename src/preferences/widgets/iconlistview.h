@@ -31,7 +31,7 @@ class IconListView : public QListView
     Q_OBJECT
 
 public:
-    explicit IconListView(QWidget *parent = 0);
+    explicit IconListView(QWidget *parent = nullptr);
 
     void appendItem(const QString &title, const QIcon &icon);
 
@@ -40,10 +40,10 @@ public:
 
     void prepareSize();
 
+    void setShowDot(int idx, bool flag);
+
 signals:
     void itemSelected(int);
-
-public slots:
 
 private:
     IconListModel * const m_model;

@@ -13,72 +13,8 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QCheckBox" name="chBoxToRelative">
-     <property name="text">
-      <string>Convert path segments into relative ones</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="laySegments">
-     <item>
-      <widget class="QCheckBox" name="chBoxRmUnused">
-       <property name="text">
-        <string>Remove unused path segments</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chBoxConvertSegments">
-       <property name="text">
-        <string>Convert path segments into shorter ones</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chBoxApplyTransformToPaths">
-       <property name="text">
-        <string>Apply transformations to paths</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxTrimPaths">
-     <property name="text">
-      <string>Use compact notation for paths</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="layArcTo">
-     <item>
-      <widget class="WarningCheckBox" name="chBoxJoinArcToFlags">
-       <property name="text">
-        <string>Join ArcTo flags</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRmDuplCmd">
-     <property name="text">
-      <string>Remove subsequent segments commands from paths</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxUseImplicitCommands">
-     <property name="text">
-      <string>Use implicit LineTo commands</string>
-     </property>
-    </widget>
-   </item>
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="6" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -91,6 +27,94 @@
      </property>
     </spacer>
    </item>
+   <item row="5" column="1">
+    <widget class="QCheckBox" name="chBoxUseImplicitCommands">
+     <property name="text">
+      <string>Use implicit LineTo commands</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QCheckBox" name="chBoxTrimPaths">
+     <property name="text">
+      <string>Use compact notation for paths</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QGridLayout" name="laySegments">
+     <item row="0" column="1">
+      <widget class="QCheckBox" name="chBoxRmUnused">
+       <property name="text">
+        <string>Remove unused path segments</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="chBoxApplyTransformToPaths">
+       <property name="text">
+        <string>Apply transformations to paths</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="chBoxConvertSegments">
+       <property name="text">
+        <string>Convert path segments into shorter ones</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="DotWidget" name="dot2" native="true"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="DotWidget" name="dot3" native="true"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="DotWidget" name="dot4" native="true"/>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="1">
+    <widget class="QCheckBox" name="chBoxRmDuplCmd">
+     <property name="text">
+      <string>Remove subsequent segments commands from paths</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QCheckBox" name="chBoxToRelative">
+     <property name="text">
+      <string>Convert path segments into relative ones</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <layout class="QGridLayout" name="layArcTo">
+     <item row="0" column="1">
+      <widget class="WarningCheckBox" name="chBoxJoinArcToFlags">
+       <property name="text">
+        <string>Join ArcTo flags</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="DotWidget" name="dot6" native="true"/>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
+    <widget class="DotWidget" name="dot1" native="true"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="DotWidget" name="dot5" native="true"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="DotWidget" name="dot7" native="true"/>
+   </item>
+   <item row="5" column="0">
+    <widget class="DotWidget" name="dot8" native="true"/>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -98,6 +122,12 @@
    <class>WarningCheckBox</class>
    <extends>QCheckBox</extends>
    <header>src/preferences/widgets/warningcheckbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DotWidget</class>
+   <extends>QWidget</extends>
+   <header>src/preferences/widgets/dotwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

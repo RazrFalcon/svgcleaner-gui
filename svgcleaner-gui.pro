@@ -42,9 +42,10 @@ SOURCES += \
     src/filesview.cpp \
     src/preferences/widgets/iconlistview.cpp \
     src/detailsdialog.cpp \
-    src/exceptions.cpp
+    src/exceptions.cpp \
+    src/preferences/widgets/dotwidget.cpp
 
-HEADERS  += \
+HEADERS += \
     src/mainwindow.h \
     src/treemodel.h \
     src/settings.h \
@@ -67,9 +68,10 @@ HEADERS  += \
     src/filesview.h \
     src/preferences/widgets/iconlistview.h \
     src/detailsdialog.h \
-    src/exceptions.h
+    src/exceptions.h \
+    src/preferences/widgets/dotwidget.h
 
-FORMS    += \
+FORMS += \
     src/mainwindow.ui \
     src/preferences/elementspage.ui \
     src/preferences/attributespage.ui \
@@ -101,5 +103,5 @@ unix:!mac {
     logo.files         += icons/svgcleaner.svg
 
     bin.path            = $$PREFIX/bin
-    bin.files          += svgcleaner-gui
+    bin.files          += $$TARGET
 }

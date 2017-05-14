@@ -57,7 +57,6 @@ ElementsPage::ElementsPage(QWidget *parent) :
         { ui->chBoxResolveUse, Elements::ResolveUse },
     });
 
-    loadConfig();
     setupToolTips();
 }
 

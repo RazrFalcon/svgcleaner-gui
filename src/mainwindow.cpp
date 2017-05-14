@@ -39,7 +39,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_model(new TreeModel(this))
+    m_model(new TreeModel(this)),
+    m_cleaningWatcher(new QFutureWatcher<Task::Output>(this))
 #ifdef WITH_CHECK_UPDATES
     , m_updater(new Updater(this))
 #endif
@@ -148,7 +149,6 @@ void MainWindow::initTree()
 
 void MainWindow::initWatcher()
 {
-    m_cleaningWatcher = new QFutureWatcher<Task::Output>(this);
     connect(m_cleaningWatcher, &QFutureWatcher<Task::Output>::resultReadyAt,
             this, &MainWindow::onResultReadyAt);
     connect(m_cleaningWatcher, &QFutureWatcher<Task::Output>::finished,

@@ -36,8 +36,7 @@ public:
 
 private:
     Doc();
-    Doc(Doc const &) = delete;
-    void operator=(Doc const &) = delete;
+    Q_DISABLE_COPY(Doc)
 
 private:
     QHash<QString, QString> m_values;

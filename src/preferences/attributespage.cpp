@@ -54,7 +54,6 @@ AttributesPage::AttributesPage(QWidget *parent) :
     ui->cmbBoxJoinStyleAttributes->addItem(tr("Some"), "some");
     ui->cmbBoxJoinStyleAttributes->addItem(tr("All"), "all");
 
-    loadConfig();
     setupToolTips();
 }
 

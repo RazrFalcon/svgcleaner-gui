@@ -47,5 +47,6 @@ Doc::Doc()
 QString Doc::getDoc(const QString &key) const
 {
     Q_ASSERT_X(m_values.contains(key) == true, "Doc", qPrintable("unknown key: " + key));
+
     return m_values.value(key);
 }

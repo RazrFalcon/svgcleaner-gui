@@ -40,9 +40,13 @@
 
 #include "preferencesdialog.h"
 
-PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent)
-{    
-    m_listView = new IconListView();
+PreferencesDialog::PreferencesDialog(QWidget *parent)
+    : QDialog(parent),
+      m_listView(new IconListView()),
+      m_stackedWidget(new QStackedWidget()),
+      m_btnGenArgs(new QPushButton()),
+      m_btnBox(new QDialogButtonBox())
+{
     initList();
 
     MainPage *mainPage = new MainPage(this);
@@ -61,25 +65,26 @@ PreferencesDialog::PreferencesDialog(QWidget *parent) : QDialog(parent)
         outputPage,
     };
 
-    m_stackedWidget = new QStackedWidget();
-
-    for (auto *page : m_pages) {
+    for (BasePreferencesPage *page : m_pages) {
         QScrollArea *area = new QScrollArea(this);
         area->setWidget(page);
         area->setWidgetResizable(true);
         area->setFrameShape(QFrame::NoFrame);
 
         m_stackedWidget->addWidget(area);
+
+        connect(page, &BasePreferencesPage::hasChanges,
+                this, &PreferencesDialog::onHasChanges);
+
+        page->loadConfig();
     }
 
-    m_btnGenArgs = new QPushButton();
     m_btnGenArgs->setText(tr("Generate command"));
     m_btnGenArgs->setToolTip(tr("Generate command for CLI version of SVG Cleaner.\n\n"
                                 "It will silently save your current preferences."));
     m_btnGenArgs->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(m_btnGenArgs, &QPushButton::clicked, this, &PreferencesDialog::onGenArgs);
 
-    m_btnBox = new QDialogButtonBox();
     m_btnBox->addButton(QDialogButtonBox::Save);
     m_btnBox->addButton(QDialogButtonBox::RestoreDefaults);
     m_btnBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -126,12 +131,14 @@ void PreferencesDialog::onChangePage(int row)
 
 void PreferencesDialog::onBtnClicked(QAbstractButton *button)
 {
-    if (m_btnBox->buttonRole(button) == QDialogButtonBox::AcceptRole) {
+    const auto role = m_btnBox->buttonRole(button);
+
+    if (role == QDialogButtonBox::AcceptRole) {
         for (BasePreferencesPage *page : m_pages) {
             page->saveConfig();
         }
         accept();
-    } else if (m_btnBox->buttonRole(button) == QDialogButtonBox::ResetRole) {
+    } else if (role == QDialogButtonBox::ResetRole) {
         for (BasePreferencesPage *page : m_pages) {
             page->restoreDefaults();
         }
@@ -150,4 +157,13 @@ void PreferencesDialog::onGenArgs()
                     .arg(CleanerOptions::genArgs().join(' ')));
 
     diag.exec();
+}
+
+void PreferencesDialog::onHasChanges(bool flag)
+{
+    const auto w = static_cast<BasePreferencesPage*>(sender());
+    const int idx = m_pages.indexOf(w);
+    Q_ASSERT(idx >= 0);
+
+    m_listView->setShowDot(idx, flag);
 }

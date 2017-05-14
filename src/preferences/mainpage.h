@@ -33,7 +33,7 @@ class MainPage : public BasePreferencesPage
     Q_OBJECT
 
 public:
-    explicit MainPage(QWidget *parent = 0);
+    explicit MainPage(QWidget *parent = nullptr);
     ~MainPage();
 
     void saveConfig() override;
@@ -56,5 +56,5 @@ private slots:
     void on_btnCheckUpdates_clicked();
 
 private:
-    Ui::MainPage *ui;
+    Ui::MainPage * const ui;
 };

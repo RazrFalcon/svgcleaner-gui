@@ -25,7 +25,7 @@
 #include <QtGlobal>
 
 namespace Utils {
-    inline float cleanerRatio(qint64 sizeBefore, qint64 sizeAfter)
+    static inline float cleanerRatio(qint64 sizeBefore, qint64 sizeAfter)
     {
         return 100.0f - float(sizeAfter) / sizeBefore * 100.0f;
     }

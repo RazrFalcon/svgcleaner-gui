@@ -1,6 +1,7 @@
 0.8.2
 
 Added:
+ - Option changes are highlighted now.
  - Paths -> Apply transformations to paths.
 
 0.8.1

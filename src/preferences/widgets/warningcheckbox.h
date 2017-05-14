@@ -22,24 +22,25 @@
 
 #pragma once
 
-#include <QFrame>
+#include <QWidget>
 
 class QCheckBox;
-class QLabel;
 
-class WarningCheckBox : public QFrame
+class WarningCheckBox : public QWidget
 {
     Q_OBJECT
 
 public:
-    WarningCheckBox(QWidget *parent = Q_NULLPTR);
+    WarningCheckBox(QWidget *parent = nullptr);
 
     void setText(const QString &text);
 
     bool isChecked() const;
     void setChecked(bool flag);
 
+signals:
+    void toggled(bool checked);
+
 private:
-    QCheckBox *m_chbox;
-    QLabel *m_lbl;
+    QCheckBox * const m_chbox;
 };

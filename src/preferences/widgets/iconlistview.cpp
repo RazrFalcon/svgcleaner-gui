@@ -24,13 +24,14 @@
 #include <QApplication>
 #include <QAbstractListModel>
 #include <QPainter>
+#include <QDebug>
 
 #include "iconlistview.h"
 
 class IconDelegate : public QStyledItemDelegate
 {
 public:
-    explicit IconDelegate(QObject *parent = 0) : QStyledItemDelegate(parent) {}
+    explicit IconDelegate(QObject *parent = nullptr) : QStyledItemDelegate(parent) {}
 
     static int widthHint()
     { return iconSize + iconSpacing * 2; }
@@ -43,9 +44,12 @@ private:
                const QModelIndex &index) const
     {
         const QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
+        const bool isShowDot = index.data(Qt::UserRole).toBool();
 
         QStyle *style = QApplication::style();
         style->drawControl(QStyle::CE_ItemViewItem, &opt, p, opt.widget);
+
+        Q_ASSERT(!icon.isNull());
 
         if (!icon.isNull()) {
             QRect r = opt.rect;
@@ -55,11 +59,28 @@ private:
             icon.paint(p, r);
         }
 
-        if (opt.state & QStyle::State_Selected) {
-            p->setPen(opt.palette.color(QPalette::HighlightedText));
-        } else {
-            p->setPen(opt.palette.color(QPalette::Text));
+        if (isShowDot) {
+            p->setRenderHint(QPainter::Antialiasing);
+            p->setPen(Qt::NoPen);
+#ifdef Q_OS_WIN
+            const auto role = QPalette::Highlight;
+#else
+            const auto role = opt.state & QStyle::State_Selected ? QPalette::Text
+                                                                 : QPalette::Highlight;
+#endif
+            p->setBrush(opt.palette.color(role));
+            // TODO: fix magic numbers
+            p->drawEllipse(opt.rect.topLeft() + QPoint(13 + iconSpacing, 6), 4, 4);
         }
+
+#ifdef Q_OS_WIN
+        const auto role = QPalette::Text;
+#else
+        const auto role = opt.state & QStyle::State_Selected ? QPalette::HighlightedText
+                                                             : QPalette::Text;
+#endif
+        p->setPen(opt.palette.color(role));
+        p->setBrush(Qt::NoBrush);
 
         p->drawText(opt.rect.adjusted(0, 0, 0, -iconSpacing), Qt::AlignHCenter | Qt::AlignBottom,
                     index.data().toString());
@@ -80,7 +101,7 @@ private:
 class IconListModel : public QAbstractListModel
 {
 public:
-    explicit IconListModel(QObject *parent = 0) : QAbstractListModel(parent) {}
+    explicit IconListModel(QObject *parent = nullptr) : QAbstractListModel(parent) {}
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const
     { Q_UNUSED(parent); return m_data.count(); }
@@ -95,7 +116,22 @@ public:
             return m_data.at(index.row()).title;
         }
 
+        if (role == Qt::UserRole) {
+            return m_data.at(index.row()).showDot;
+        }
+
         return QVariant();
+    }
+
+    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole)
+    {
+        Q_ASSERT(role == Qt::UserRole);
+
+        m_data[index.row()].showDot = value.toBool();
+
+        dataChanged(index, index);
+
+        return true;
     }
 
     void appendItem(const QString &title, const QIcon &icon)
@@ -109,6 +145,7 @@ private:
     struct Data {
         QString title;
         QIcon icon;
+        bool showDot = false;
 
         Data() {}
         Data(const QString &atitle, const QIcon &aicon) : title(atitle), icon(aicon) {}
@@ -129,9 +166,9 @@ IconListView::IconListView(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     connect(selectionModel(), &QItemSelectionModel::currentRowChanged,
-            [this](const QModelIndex &idx) {
-                emit itemSelected(idx.row());
-            }
+        [this](const QModelIndex &idx) {
+            emit itemSelected(idx.row());
+        }
     );
 }
 
@@ -161,4 +198,13 @@ void IconListView::prepareSize()
 
     setMinimumHeight(m_model->rowCount() * IconDelegate::heightHint(fontMetrics())
                      + fontMetrics().height() * 2);
+}
+
+void IconListView::setShowDot(int idx, bool flag)
+{
+    Q_ASSERT(idx < m_model->rowCount());
+
+    m_model->setData(m_model->index(idx, 0), flag, Qt::UserRole);
+
+    update();
 }

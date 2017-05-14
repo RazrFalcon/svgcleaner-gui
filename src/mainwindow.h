@@ -41,7 +41,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
@@ -86,9 +86,9 @@ protected:
     void closeEvent(QCloseEvent *e);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow * const ui;
     TreeModel * const m_model;
-    QFutureWatcher<Task::Output> *m_cleaningWatcher;
+    QFutureWatcher<Task::Output> * const m_cleaningWatcher;
 
 #ifdef WITH_CHECK_UPDATES
     Updater * const m_updater;

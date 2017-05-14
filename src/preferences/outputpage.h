@@ -33,9 +33,9 @@ class OutputPage : public BasePreferencesPage
     Q_OBJECT
 
 public:
-    explicit OutputPage(QWidget *parent = 0);
+    explicit OutputPage(QWidget *parent = nullptr);
     ~OutputPage();
 
 private:
-    Ui::OutputPage *ui;
+    Ui::OutputPage * const ui;
 };

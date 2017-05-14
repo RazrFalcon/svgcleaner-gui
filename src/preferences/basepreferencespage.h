@@ -27,28 +27,46 @@
 #include "cleaneroptions.h"
 #include "src/doc.h"
 
+class QLabel;
+class DotWidget;
+
 class BasePreferencesPage : public QWidget
 {
+    Q_OBJECT
+
 public:
+    explicit BasePreferencesPage(QWidget *parent = nullptr);
+
+    virtual void loadConfig();
+    virtual void saveConfig();
+    virtual void restoreDefaults();
+
+signals:
+    void hasChanges(bool);
+
+private:
+    void connectDots();
+    void checkDots();
+    void checkForChanges();
+
+private slots:
+    void onChBoxToggled(bool flag);
+    void onCmbBoxIndexChanged(int idx);
+    void onSpinValueChanged(int value);
+
+protected:
     struct OptWidgetData {
         QWidget *w;
         QString key;
     };
 
-public:
-    explicit BasePreferencesPage(QWidget *parent = 0);
-
-    virtual void saveConfig();
-    virtual void restoreDefaults();
-
     void addOptWidgets(std::initializer_list<OptWidgetData> list);
 
     int leftMargin() const;
 
-protected:
-    virtual void loadConfig();
     virtual void setupToolTips();
 
 private:
-    QVector<QWidget*> m_optWidget;
+    QVector<DotWidget*> m_dotWidgets;
+    QVector<QWidget*> m_optWidgets;
 };

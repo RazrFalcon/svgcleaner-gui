@@ -27,24 +27,26 @@
 #include "warningcheckbox.h"
 
 WarningCheckBox::WarningCheckBox(QWidget *parent)
-    : QFrame(parent),
-      m_chbox(new QCheckBox()),
-      m_lbl(new QLabel())
+    : QWidget(parent),
+      m_chbox(new QCheckBox())
 {
     m_chbox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    m_lbl->setPixmap(QPixmap(":/warning.svgz"));
-    m_lbl->setScaledContents(true);
+    QLabel *lbl = new QLabel();
+    lbl->setPixmap(QPixmap(":/warning.svgz"));
+    lbl->setScaledContents(true);
 
     int l = fontMetrics().height() * 0.9;
-    m_lbl->setFixedSize(l, l);
+    lbl->setFixedSize(l, l);
 
     QHBoxLayout *lay = new QHBoxLayout();
     lay->setContentsMargins(0, 0, 0, 0);
     lay->addWidget(m_chbox);
-    lay->addWidget(m_lbl);
+    lay->addWidget(lbl);
     lay->addStretch();
     setLayout(lay);
+
+    connect(m_chbox, &QCheckBox::toggled, this, &WarningCheckBox::toggled);
 }
 
 void WarningCheckBox::setText(const QString &text)

@@ -40,12 +40,11 @@ PathsPage::PathsPage(QWidget *parent) :
         { ui->chBoxConvertSegments, Paths::ConvertSegments },
         { ui->chBoxApplyTransformToPaths, Paths::ApplyTransformToPaths },
         { ui->chBoxTrimPaths, Paths::TrimPaths },
-        { ui->chBoxRmDuplCmd, Paths::RemoveDuplCmdInPaths },
         { ui->chBoxJoinArcToFlags, Paths::JoinArcToFlags },
+        { ui->chBoxRmDuplCmd, Paths::RemoveDuplCmdInPaths },
         { ui->chBoxUseImplicitCommands, Paths::UseImplicitCommands },
     });
 
-    loadConfig();
     setupToolTips();
 }
 
@@ -61,20 +60,29 @@ void PathsPage::loadConfig()
     on_chBoxToRelative_toggled(ui->chBoxToRelative->isChecked());
 }
 
+static void prepareChBox(QCheckBox *chBox, bool checked)
+{
+    chBox->setEnabled(checked);
+
+    if (!checked) {
+        chBox->setChecked(false);
+    } else {
+        chBox->setChecked(CleanerOptions::defaultFlag(chBox->property("key").toString()));
+    }
+}
+
 void PathsPage::on_chBoxTrimPaths_toggled(bool checked)
 {
+    // Set check manually because chBoxJoinArcToFlags is not a QCheckBox.
     ui->chBoxJoinArcToFlags->setEnabled(checked);
     if (!checked) {
-        ui->chBoxJoinArcToFlags->setChecked(false);
+        ui->chBoxJoinArcToFlags->setChecked(CleanerOptions::defaultFlag(Paths::JoinArcToFlags));
     }
 }
 
 void PathsPage::on_chBoxToRelative_toggled(bool checked)
 {
-    ui->chBoxRmUnused->setEnabled(checked);
-    ui->chBoxConvertSegments->setEnabled(checked);
-    if (!checked) {
-        ui->chBoxRmUnused->setChecked(false);
-        ui->chBoxConvertSegments->setChecked(false);
-    }
+    prepareChBox(ui->chBoxRmUnused, checked);
+    prepareChBox(ui->chBoxConvertSegments, checked);
+    prepareChBox(ui->chBoxApplyTransformToPaths, checked);
 }

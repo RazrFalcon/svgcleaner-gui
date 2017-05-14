@@ -46,7 +46,6 @@ OutputPage::OutputPage(QWidget *parent) :
     ui->cmbBoxIndent->addItem(tr("4 spaces"), "4");
     ui->cmbBoxIndent->addItem(tr("Tabs"), "tabs");
 
-    loadConfig();
     setupToolTips();
 }
 

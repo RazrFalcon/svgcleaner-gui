@@ -90,7 +90,7 @@ namespace CleanerKey {
 class CleanerOptions : public QSettings
 {
 public:
-    explicit CleanerOptions(QObject *parent = 0);
+    explicit CleanerOptions(QObject *parent = nullptr);
 
     bool flag(const QString &key);
     int integer(const QString &key);

@@ -22,25 +22,24 @@
 
 #pragma once
 
-#include <QDialog>
+#include <QWidget>
 
-namespace Ui {
-class DetailsDialog;
-}
-
-class DetailsDialog : public QDialog
+class DotWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit DetailsDialog(QWidget *parent = nullptr);
-    ~DetailsDialog();
+    explicit DotWidget(QWidget *parent = nullptr);
 
-    void setDetails(const QString &text);
+    bool isShowDot() const;
+    void setShowDot(bool flag);
+
+    static int leftPadding();
 
 protected:
-    void showEvent(QShowEvent *);
+    void paintEvent(QPaintEvent *);
+    bool eventFilter(QObject *watched, QEvent *event);
 
 private:
-    Ui::DetailsDialog * const ui;
+    bool m_isShow = true;
 };

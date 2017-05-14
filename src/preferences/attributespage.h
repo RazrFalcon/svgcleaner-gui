@@ -33,9 +33,9 @@ class AttributesPage : public BasePreferencesPage
     Q_OBJECT
 
 public:
-    explicit AttributesPage(QWidget *parent = 0);
+    explicit AttributesPage(QWidget *parent = nullptr);
     ~AttributesPage();
 
 private:
-    Ui::AttributesPage *ui;
+    Ui::AttributesPage * const ui;
 };

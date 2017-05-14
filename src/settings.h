@@ -47,7 +47,7 @@ namespace SettingKey {
 class AppSettings : public QSettings
 {
 public:
-    AppSettings(QObject *parent = Q_NULLPTR);
+    AppSettings(QObject *parent = nullptr);
 
     enum SavingMethod { SelectFolder = 1, SameFolder, Overwrite };
 

@@ -13,81 +13,46 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
     <widget class="QCheckBox" name="chBoxRmVersion">
      <property name="text">
       <string>Remove 'version' and 'baseProfile' attributes</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="1" column="1">
     <widget class="QCheckBox" name="chBoxRmNonSvg">
      <property name="text">
       <string>Remove non-SVG attributes</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRmUnrefIds">
-     <property name="text">
-      <string>Remove unreferenced 'id' attributes</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxTrimIds">
-     <property name="text">
-      <string>Trim 'id' attributes</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRmTextAttrs">
-     <property name="text">
-      <string>Remove text-related attributes if there is no text</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRmCoord">
-     <property name="text">
-      <string>Remove unused coordinate attributes</string>
-     </property>
-    </widget>
-   </item>
-   <item>
+   <item row="6" column="1">
     <widget class="QCheckBox" name="chBoxRmDefaultAttrs">
      <property name="text">
       <string>Remove attributes with default values</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="7" column="1">
     <widget class="QCheckBox" name="chBoxXmlnsXlink">
      <property name="text">
       <string>Remove an unused 'xmlns:xlink' attribute</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="8" column="1">
     <widget class="QCheckBox" name="chBoxRmNeedlessAttrs">
      <property name="text">
       <string>Remove attributes that doesn't belong to this element</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="WarningCheckBox" name="chBoxRemoveGradientAttributes">
-     <property name="text">
-      <string>Remove inheritable gradient attributes</string>
-     </property>
-    </widget>
-   </item>
-   <item>
+   <item row="10" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="lblPresAttrs">
        <property name="text">
         <string>Join presentational attributes:</string>
        </property>
@@ -103,52 +68,168 @@
        </property>
       </widget>
      </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
-   <item>
-    <widget class="QLabel" name="label">
+   <item row="4" column="1">
+    <widget class="QCheckBox" name="chBoxRmTextAttrs">
      <property name="text">
-      <string>Apply transformations to:</string>
+      <string>Remove text-related attributes if there is no text</string>
      </property>
     </widget>
    </item>
-   <item>
-    <layout class="QVBoxLayout" name="layTransform">
-     <item>
-      <widget class="QCheckBox" name="chBoxApplyTransformToGradients">
-       <property name="text">
-        <string>gradients</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chBoxApplyTransformToShapes">
-       <property name="text">
-        <string>shapes</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item row="9" column="1">
+    <widget class="WarningCheckBox" name="chBoxRemoveGradientAttributes">
+     <property name="text">
+      <string>Remove inheritable gradient attributes</string>
+     </property>
+    </widget>
    </item>
-   <item>
+   <item row="2" column="1">
+    <widget class="QCheckBox" name="chBoxRmUnrefIds">
+     <property name="text">
+      <string>Remove unreferenced 'id' attributes</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QCheckBox" name="chBoxTrimIds">
+     <property name="text">
+      <string>Trim 'id' attributes</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QCheckBox" name="chBoxRmCoord">
+     <property name="text">
+      <string>Remove unused coordinate attributes</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="1">
     <widget class="QCheckBox" name="chBoxRemoveUnresolvedClasses">
      <property name="text">
       <string>Remove unresolved classes from 'class' attributes</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="11" column="1">
+    <widget class="QLabel" name="lblTransforms">
+     <property name="text">
+      <string>Apply transformations to:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>1</width>
+       <width>20</width>
        <height>1</height>
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="12" column="1">
+    <layout class="QGridLayout" name="layTransform">
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="chBoxApplyTransformToShapes">
+       <property name="text">
+        <string>shapes</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QCheckBox" name="chBoxApplyTransformToGradients">
+       <property name="text">
+        <string>gradients</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" alignment="Qt::AlignVCenter">
+      <widget class="DotWidget" name="dot13" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>8</width>
+         <height>8</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>8</width>
+         <height>8</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="DotWidget" name="dot12" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>8</width>
+         <height>8</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>8</width>
+         <height>8</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0" alignment="Qt::AlignVCenter">
+    <widget class="DotWidget" name="dot1" native="true"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="DotWidget" name="dot2" native="true"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="DotWidget" name="dot3" native="true"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="DotWidget" name="dot4" native="true"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="DotWidget" name="dot5" native="true"/>
+   </item>
+   <item row="5" column="0">
+    <widget class="DotWidget" name="dot6" native="true"/>
+   </item>
+   <item row="6" column="0">
+    <widget class="DotWidget" name="dot7" native="true"/>
+   </item>
+   <item row="7" column="0">
+    <widget class="DotWidget" name="dot8" native="true"/>
+   </item>
+   <item row="8" column="0">
+    <widget class="DotWidget" name="dot9" native="true"/>
+   </item>
+   <item row="9" column="0">
+    <widget class="DotWidget" name="dot10" native="true"/>
+   </item>
+   <item row="10" column="0">
+    <widget class="DotWidget" name="dot11" native="true"/>
+   </item>
+   <item row="13" column="0">
+    <widget class="DotWidget" name="dot14" native="true"/>
    </item>
   </layout>
  </widget>
@@ -157,6 +238,12 @@
    <class>WarningCheckBox</class>
    <extends>QCheckBox</extends>
    <header>src/preferences/widgets/warningcheckbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DotWidget</class>
+   <extends>QWidget</extends>
+   <header>src/preferences/widgets/dotwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

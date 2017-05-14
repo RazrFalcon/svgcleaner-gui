@@ -13,177 +13,242 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
     <widget class="QCheckBox" name="chBoxRmComments">
      <property name="text">
       <string>Remove XML comments</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="1" column="1">
     <widget class="QCheckBox" name="chBoxRmDeclaration">
      <property name="text">
       <string>Remove XML declarations</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="2" column="1">
     <widget class="QCheckBox" name="chBoxRmNonSvg">
      <property name="text">
       <string>Remove non-SVG elements</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRmUnusedDefs">
-     <property name="text">
-      <string>Remove unused referenced elements</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxConvertShapes">
-     <property name="text">
-      <string>Convert basic shapes into paths</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Remove invisible elements:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="layRmElems">
-     <item>
-      <widget class="QCheckBox" name="chBoxRmTitle">
-       <property name="text">
-        <string notr="true">title</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chBoxRmDesc">
-       <property name="text">
-        <string notr="true">desc</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chBoxRmMetadata">
-       <property name="text">
-        <string notr="true">metadata</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Remove duplicated elements:</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QVBoxLayout" name="layRmDuplElems">
-     <item>
-      <widget class="QCheckBox" name="chBoxRmDuplLinearGrad">
-       <property name="text">
-        <string notr="true">linearGradient</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chBoxRmDuplRadialGrad">
-       <property name="text">
-        <string notr="true">radialGradient</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="chBoxRemoveDuplFeGaussianBlur">
-       <property name="text">
-        <string notr="true">feGaussianBlur</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxUngroupGroups">
-     <property name="text">
-      <string>Ungroup groups</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxUngroupDefs">
-     <property name="text">
-      <string>Ungroup 'defs' element</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxGroupByStyle">
-     <property name="text">
-      <string>Group elements by equal styles</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxMergeGradients">
-     <property name="text">
-      <string>Merge gradients</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRegroupGradientStops">
-     <property name="text">
-      <string>Regroup gradient 'stop' elements</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRemoveInvalidStops">
-     <property name="text">
-      <string>Remove invalid 'stop' elements</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxRmInvisible">
-     <property name="text">
-      <string>Remove invisible elements</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="chBoxResolveUse">
-     <property name="text">
-      <string>Resolve 'use' elements</string>
-     </property>
-    </widget>
-   </item>
-   <item>
+   <item row="17" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>1</width>
+       <width>20</width>
        <height>1</height>
       </size>
      </property>
     </spacer>
    </item>
+   <item row="3" column="1">
+    <widget class="QCheckBox" name="chBoxRmUnusedDefs">
+     <property name="text">
+      <string>Remove unused referenced elements</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QCheckBox" name="chBoxConvertShapes">
+     <property name="text">
+      <string>Convert basic shapes into paths</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
+    <widget class="QCheckBox" name="chBoxUngroupGroups">
+     <property name="text">
+      <string>Ungroup groups</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLabel" name="lblInvisibleElems">
+     <property name="text">
+      <string>Remove invisible elements:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <layout class="QGridLayout" name="layRmElems">
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="chBoxRmDesc">
+       <property name="text">
+        <string notr="true">desc</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QCheckBox" name="chBoxRmTitle">
+       <property name="text">
+        <string notr="true">title</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="chBoxRmMetadata">
+       <property name="text">
+        <string notr="true">metadata</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="DotWidget" name="dot6" native="true"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="DotWidget" name="dot7" native="true"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="DotWidget" name="dot8" native="true"/>
+     </item>
+    </layout>
+   </item>
+   <item row="7" column="1">
+    <widget class="QLabel" name="lblDuplicates">
+     <property name="text">
+      <string>Remove duplicated elements:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="1">
+    <layout class="QGridLayout" name="layRmDuplElems">
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="chBoxRemoveDuplFeGaussianBlur">
+       <property name="text">
+        <string notr="true">feGaussianBlur</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QCheckBox" name="chBoxRmDuplRadialGrad">
+       <property name="text">
+        <string notr="true">radialGradient</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QCheckBox" name="chBoxRmDuplLinearGrad">
+       <property name="text">
+        <string notr="true">linearGradient</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="DotWidget" name="dot9" native="true"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="DotWidget" name="dot10" native="true"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="DotWidget" name="dot11" native="true"/>
+     </item>
+    </layout>
+   </item>
+   <item row="10" column="1">
+    <widget class="QCheckBox" name="chBoxUngroupDefs">
+     <property name="text">
+      <string>Ungroup 'defs' element</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="1">
+    <widget class="QCheckBox" name="chBoxGroupByStyle">
+     <property name="text">
+      <string>Group elements by equal styles</string>
+     </property>
+    </widget>
+   </item>
+   <item row="12" column="1">
+    <widget class="QCheckBox" name="chBoxMergeGradients">
+     <property name="text">
+      <string>Merge gradients</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="1">
+    <widget class="QCheckBox" name="chBoxRegroupGradientStops">
+     <property name="text">
+      <string>Regroup gradient 'stop' elements</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="1">
+    <widget class="QCheckBox" name="chBoxRemoveInvalidStops">
+     <property name="text">
+      <string>Remove invalid 'stop' elements</string>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="1">
+    <widget class="QCheckBox" name="chBoxRmInvisible">
+     <property name="text">
+      <string>Remove invisible elements</string>
+     </property>
+    </widget>
+   </item>
+   <item row="16" column="1">
+    <widget class="QCheckBox" name="chBoxResolveUse">
+     <property name="text">
+      <string>Resolve 'use' elements</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="DotWidget" name="dot1" native="true"/>
+   </item>
+   <item row="1" column="0">
+    <widget class="DotWidget" name="dot2" native="true"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="DotWidget" name="dot3" native="true"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="DotWidget" name="dot4" native="true"/>
+   </item>
+   <item row="4" column="0">
+    <widget class="DotWidget" name="dot5" native="true"/>
+   </item>
+   <item row="9" column="0">
+    <widget class="DotWidget" name="dot12" native="true"/>
+   </item>
+   <item row="10" column="0">
+    <widget class="DotWidget" name="dot13" native="true"/>
+   </item>
+   <item row="11" column="0">
+    <widget class="DotWidget" name="dot14" native="true"/>
+   </item>
+   <item row="12" column="0">
+    <widget class="DotWidget" name="dot15" native="true"/>
+   </item>
+   <item row="13" column="0">
+    <widget class="DotWidget" name="dot16" native="true"/>
+   </item>
+   <item row="14" column="0">
+    <widget class="DotWidget" name="dot17" native="true"/>
+   </item>
+   <item row="15" column="0">
+    <widget class="DotWidget" name="dot18" native="true"/>
+   </item>
+   <item row="16" column="0">
+    <widget class="DotWidget" name="dot19" native="true"/>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DotWidget</class>
+   <extends>QWidget</extends>
+   <header>src/preferences/widgets/dotwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

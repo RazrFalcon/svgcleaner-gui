@@ -33,9 +33,9 @@ class ElementsPage : public BasePreferencesPage
     Q_OBJECT
 
 public:
-    explicit ElementsPage(QWidget *parent = 0);
+    explicit ElementsPage(QWidget *parent = nullptr);
     ~ElementsPage();
 
 private:
-    Ui::ElementsPage *ui;
+    Ui::ElementsPage * const ui;
 };
