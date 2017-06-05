@@ -1,5 +1,5 @@
 SVG Cleaner is batch, tunable, crossplatform SVG cleaning program.
-Copyright (C) 2012-2016 Evgeniy Reizner
+Copyright (C) 2012-2017 Evgeniy Reizner
 Copyright (C) 2012 Andrey Bayrak
 
 This program is free software; you can redistribute it and/or modify

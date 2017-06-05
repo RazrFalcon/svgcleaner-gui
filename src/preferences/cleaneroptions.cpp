@@ -76,6 +76,9 @@ namespace CleanerKey {
     namespace Output {
         const QString TrimColors                = "trim-colors";
         const QString SimplifyTransforms        = "simplify-transforms";
+        const QString CoordinatesPrecision      = "coordinates-precision";
+        const QString PropertiesPrecision       = "properties-precision";
+        const QString TransformsPrecision       = "transforms-precision";
         const QString PathsPrecision            = "paths-coordinates-precision";
         const QString Indent                    = "indent";
     }
@@ -159,6 +162,9 @@ QVariant CleanerOptions::defaultValue(const QString &key)
 
         hash.insert(Output::TrimColors, true);
         hash.insert(Output::SimplifyTransforms, true);
+        hash.insert(Output::CoordinatesPrecision, 6);
+        hash.insert(Output::PropertiesPrecision, 6);
+        hash.insert(Output::TransformsPrecision, 8);
         hash.insert(Output::PathsPrecision, 8);
         hash.insert(Output::Indent, "none");
 
@@ -290,6 +296,9 @@ QStringList CleanerOptions::genArgs()
 
     genFlag(Output::TrimColors, list);
     genFlag(Output::SimplifyTransforms, list);
+    genNumFlag(Output::CoordinatesPrecision, list);
+    genNumFlag(Output::PropertiesPrecision, list);
+    genNumFlag(Output::TransformsPrecision, list);
     genNumFlag(Output::PathsPrecision, list);
     genStringFlag(Output::Indent, list);
 

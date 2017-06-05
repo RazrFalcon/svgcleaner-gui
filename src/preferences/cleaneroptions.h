@@ -78,6 +78,9 @@ namespace CleanerKey {
     namespace Output {
         extern const QString TrimColors;
         extern const QString SimplifyTransforms;
+        extern const QString CoordinatesPrecision;
+        extern const QString PropertiesPrecision;
+        extern const QString TransformsPrecision;
         extern const QString PathsPrecision;
         extern const QString Indent;
     }

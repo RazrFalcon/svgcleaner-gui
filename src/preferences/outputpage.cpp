@@ -31,9 +31,14 @@ OutputPage::OutputPage(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->precisionLayout->setContentsMargins(leftMargin(), 0, 0, 0);
+
     addOptWidgets({
         { ui->chBoxRGB, Output::TrimColors },
         { ui->chBoxSimplifyTransforms, Output::SimplifyTransforms },
+        { ui->spinBoxCoordsPrecision, Output::CoordinatesPrecision },
+        { ui->spinBoxPropsPrecision, Output::PropertiesPrecision },
+        { ui->spinBoxTsPrecision, Output::TransformsPrecision },
         { ui->spinBoxPathsPrecision, Output::PathsPrecision },
         { ui->cmbBoxIndent, Output::Indent },
     });

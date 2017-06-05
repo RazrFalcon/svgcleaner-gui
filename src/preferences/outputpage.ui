@@ -6,15 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>557</width>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="1">
+   <item row="2" column="1">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Numeric precision:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -41,7 +48,7 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="8" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="lblIndention">
@@ -75,16 +82,119 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="lblPathsPrecision">
-       <property name="text">
-        <string>Path's coordinates numeric precision:</string>
+   <item row="0" column="0" alignment="Qt::AlignVCenter">
+    <widget class="DotWidget" name="dot1" native="true"/>
+   </item>
+   <item row="1" column="0" alignment="Qt::AlignVCenter">
+    <widget class="DotWidget" name="dot2" native="true"/>
+   </item>
+   <item row="8" column="0" alignment="Qt::AlignVCenter">
+    <widget class="DotWidget" name="dot7" native="true"/>
+   </item>
+   <item row="3" column="1">
+    <layout class="QGridLayout" name="precisionLayout">
+     <item row="1" column="2">
+      <widget class="QSpinBox" name="spinBoxPropsPrecision">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>12</number>
+       </property>
+       <property name="value">
+        <number>8</number>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="lblPathsPrecision_2">
+       <property name="text">
+        <string>coordinates:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QSpinBox" name="spinBoxTsPrecision">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>12</number>
+       </property>
+       <property name="value">
+        <number>8</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QSpinBox" name="spinBoxCoordsPrecision">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>12</number>
+       </property>
+       <property name="value">
+        <number>8</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="lblPathsPrecision">
+       <property name="text">
+        <string>path's coordinates:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="lblPathsPrecision_3">
+       <property name="text">
+        <string>properties:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="DotWidget" name="dot3" native="true"/>
+     </item>
+     <item row="0" column="3">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="lblPathsPrecision_4">
+       <property name="text">
+        <string>transforms:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
       <widget class="QSpinBox" name="spinBoxPathsPrecision">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -103,32 +213,16 @@
        </property>
       </widget>
      </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+     <item row="1" column="0">
+      <widget class="DotWidget" name="dot4" native="true"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="DotWidget" name="dot5" native="true"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="DotWidget" name="dot6" native="true"/>
      </item>
     </layout>
-   </item>
-   <item row="0" column="0" alignment="Qt::AlignVCenter">
-    <widget class="DotWidget" name="dot1" native="true"/>
-   </item>
-   <item row="1" column="0" alignment="Qt::AlignVCenter">
-    <widget class="DotWidget" name="dot2" native="true"/>
-   </item>
-   <item row="2" column="0" alignment="Qt::AlignVCenter">
-    <widget class="DotWidget" name="dot3" native="true"/>
-   </item>
-   <item row="3" column="0" alignment="Qt::AlignVCenter">
-    <widget class="DotWidget" name="dot4" native="true"/>
    </item>
   </layout>
  </widget>
