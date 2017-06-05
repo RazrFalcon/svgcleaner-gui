@@ -9,8 +9,8 @@
  - Output -> Properties numeric precision
  - Output -> Transforms numeric precision
  - Attributes -> *Remove text-related attributes if there is no text* removes `line-height` and `xml:space` now
- - Attributes -> *Join presentational attributes* supports **All** now
- - Output -> *Indention* supports 'Tabs' now
+ - Attributes -> *Join presentational attributes* supports *All* now
+ - Output -> *Indention* supports *Tabs* now
 
 #### Fixed:
  - `stroke-dasharray` and `stroke-dashoffset` processing during transformations applying
