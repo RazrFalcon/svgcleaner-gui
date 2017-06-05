@@ -65,9 +65,9 @@ void AboutDialog::fillManual()
 
 void AboutDialog::fillChangelog()
 {
-    QFile file(":/changelog.txt");
+    QFile file(":/changelog.html");
     file.open(QFile::ReadOnly);
-    ui->textChangelog->setPlainText(file.readAll());
+    ui->textChangelog->setHtml(file.readAll());
 }
 
 void AboutDialog::fillAuthors()

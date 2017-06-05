@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file>short_gplv2.txt</file>
         <file>doc.dat</file>
-        <file>changelog.txt</file>
+        <file>changelog.html</file>
     </qresource>
 </RCC>

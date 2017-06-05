@@ -62,7 +62,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QPlainTextEdit" name="textChangelog"/>
+        <widget class="QTextBrowser" name="textChangelog"/>
        </item>
       </layout>
      </widget>
