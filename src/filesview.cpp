@@ -79,6 +79,7 @@ void FilesView::dropEvent(QDropEvent *event)
             if (suffix == "svg" || suffix == "svgz") {
                 emit fileDropped(path);
             } else {
+                // TODO: show only once
                 QMessageBox::warning(this, tr("Warning"),
                                      tr("You can drop only svg(z) files or folders."));
             }

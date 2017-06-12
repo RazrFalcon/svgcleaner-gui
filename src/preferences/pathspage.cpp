@@ -56,14 +56,31 @@ PathsPage::~PathsPage()
 void PathsPage::loadConfig()
 {
     BasePreferencesPage::loadConfig();
-    on_chBoxTrimPaths_toggled(ui->chBoxTrimPaths->isChecked());
-    on_chBoxToRelative_toggled(ui->chBoxToRelative->isChecked());
+
+    updateChildren();
+
+    // Connect only after config is loaded because this slots should be invoked only by a user.
+    connect(ui->chBoxToRelative, &QCheckBox::toggled, this, &PathsPage::onChBoxToRelativeToggled);
+    connect(ui->chBoxTrimPaths, &QCheckBox::toggled, this, &PathsPage::onChBoxTrimPathsToggled);
+}
+
+void PathsPage::updateChildren()
+{
+    {
+        const bool flag = ui->chBoxToRelative->isChecked();
+        ui->chBoxRmUnused->setEnabled(flag);
+        ui->chBoxConvertSegments->setEnabled(flag);
+        ui->chBoxApplyTransformToPaths->setEnabled(flag);
+    }
+
+    {
+        const bool flag = ui->chBoxTrimPaths->isChecked();
+        ui->chBoxJoinArcToFlags->setEnabled(flag);
+    }
 }
 
 static void prepareChBox(QCheckBox *chBox, bool checked)
 {
-    chBox->setEnabled(checked);
-
     if (!checked) {
         chBox->setChecked(false);
     } else {
@@ -71,18 +88,22 @@ static void prepareChBox(QCheckBox *chBox, bool checked)
     }
 }
 
-void PathsPage::on_chBoxTrimPaths_toggled(bool checked)
+void PathsPage::onChBoxToRelativeToggled(bool checked)
+{
+    prepareChBox(ui->chBoxRmUnused, checked);
+    prepareChBox(ui->chBoxConvertSegments, checked);
+    prepareChBox(ui->chBoxApplyTransformToPaths, checked);
+
+    updateChildren();
+}
+
+void PathsPage::onChBoxTrimPathsToggled(bool checked)
 {
     // Set check manually because chBoxJoinArcToFlags is not a QCheckBox.
     ui->chBoxJoinArcToFlags->setEnabled(checked);
     if (!checked) {
         ui->chBoxJoinArcToFlags->setChecked(CleanerOptions::defaultFlag(Paths::JoinArcToFlags));
     }
-}
 
-void PathsPage::on_chBoxToRelative_toggled(bool checked)
-{
-    prepareChBox(ui->chBoxRmUnused, checked);
-    prepareChBox(ui->chBoxConvertSegments, checked);
-    prepareChBox(ui->chBoxApplyTransformToPaths, checked);
+    updateChildren();
 }

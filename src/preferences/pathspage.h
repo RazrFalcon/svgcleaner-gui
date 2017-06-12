@@ -36,9 +36,12 @@ public:
     explicit PathsPage(QWidget *parent = nullptr);
     ~PathsPage();
 
+private:
+    void updateChildren();
+
 private slots:
-    void on_chBoxTrimPaths_toggled(bool checked);
-    void on_chBoxToRelative_toggled(bool checked);
+    void onChBoxToRelativeToggled(bool checked);
+    void onChBoxTrimPathsToggled(bool checked);
 
 protected:
     void loadConfig() override;
