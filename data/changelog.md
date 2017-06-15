@@ -1,3 +1,14 @@
+### 0.9.1
+#### Changed:
+ - Unresolved inherited attributes will produce a warning and not error now
+
+#### Fixed:
+ - Text processing
+ - `xml:space`processing
+ - Parsing of the `transform` list separated by comma
+ - Additional whitespace during ArcTo writing
+ - Fixed paths settings saving
+
 ### 0.9.0
 
 #### Added:
