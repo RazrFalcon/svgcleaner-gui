@@ -7,7 +7,7 @@
  - `xml:space`processing
  - Parsing of the `transform` list separated by comma
  - Additional whitespace during ArcTo writing
- - Fixed paths settings saving
+ - Paths settings saving
 
 ### 0.9.0
 
