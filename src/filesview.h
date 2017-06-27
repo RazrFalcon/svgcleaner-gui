@@ -31,6 +31,7 @@ class FilesView : public QTreeView
 public:
     explicit FilesView(QWidget *parent = nullptr);
 
+    bool isReadOnly() const;
     void setReadOnly(bool flag);
 
 signals:

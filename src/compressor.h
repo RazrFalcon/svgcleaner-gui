@@ -24,7 +24,8 @@
 
 #include <QString>
 
-namespace CompressorName {
+namespace CompressorName
+{
     extern const QString SevenZip;
     extern const QString Zopfli;
 }
@@ -32,8 +33,21 @@ namespace CompressorName {
 class Compressor
 {
 public:
-    enum Type { None, SevenZip, Zopfli };
-    enum Level { Lowest, Low, Normal, Optimal, Ultra };
+    enum Type
+    {
+        None,
+        SevenZip,
+        Zopfli,
+    };
+
+    enum Level
+    {
+        Lowest,
+        Low,
+        Normal,
+        Optimal,
+        Ultra,
+    };
 
     Compressor(Type t) : m_type(t) {}
     static Compressor fromName(const QString &aname) noexcept;

@@ -22,7 +22,8 @@
 
 #include "enums.h"
 
-namespace Cleaner {
+namespace Cleaner
+{
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
     const QString Name = "svgcleaner-cli";
 #else

@@ -24,8 +24,10 @@
 
 #include <QSettings>
 
-namespace CleanerKey {
-    namespace Elements {
+namespace CleanerKey
+{
+    namespace Elements
+    {
         extern const QString RemoveComments;
         extern const QString RemoveDeclaration;
         extern const QString RemoveNonSvgElements;
@@ -47,7 +49,8 @@ namespace CleanerKey {
         extern const QString ResolveUse;
     }
 
-    namespace Attributes {
+    namespace Attributes
+    {
         extern const QString RemoveVersion;
         extern const QString RemoveNonSvgAttributes;
         extern const QString RemoveUnrefIds;
@@ -64,7 +67,8 @@ namespace CleanerKey {
         extern const QString RemoveUnresolvedClasses;
     }
 
-    namespace Paths {
+    namespace Paths
+    {
         extern const QString PathsToRelative;
         extern const QString RemoveUnusedSegments;
         extern const QString ConvertSegments;
@@ -75,7 +79,8 @@ namespace CleanerKey {
         extern const QString UseImplicitCommands;
     }
 
-    namespace Output {
+    namespace Output
+    {
         extern const QString TrimColors;
         extern const QString SimplifyTransforms;
         extern const QString CoordinatesPrecision;
@@ -85,7 +90,8 @@ namespace CleanerKey {
         extern const QString Indent;
     }
 
-    namespace Other {
+    namespace Other
+    {
         extern const QString Multipass;
         extern const QString AllowBiggerFile;
         extern const QString CopyOnError;

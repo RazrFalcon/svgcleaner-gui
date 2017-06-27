@@ -142,7 +142,8 @@ public:
     }
 
 private:
-    struct Data {
+    struct Data
+    {
         QString title;
         QIcon icon;
         bool showDot = false;

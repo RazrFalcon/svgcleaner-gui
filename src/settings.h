@@ -24,7 +24,8 @@
 
 #include <QSettings>
 
-namespace SettingKey {
+namespace SettingKey
+{
     extern const QString LastPath;
     extern const QString OutputFolder;
     extern const QString FilePrefix;
@@ -49,7 +50,12 @@ class AppSettings : public QSettings
 public:
     AppSettings(QObject *parent = nullptr);
 
-    enum SavingMethod { SelectFolder = 1, SameFolder, Overwrite };
+    enum SavingMethod
+    {
+        SelectFolder = 1,
+        SameFolder,
+        Overwrite,
+    };
 
     bool flag(const QString &key);
     int integer(const QString &key);

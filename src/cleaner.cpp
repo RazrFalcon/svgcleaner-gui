@@ -61,7 +61,8 @@ Task::Output Task::_cleanFile(const Task::Config &config)
 
     // unzip svgz
     QString inputFile = config.inputPath;
-    const bool isInputFileCompressed = QFileInfo(config.inputPath).suffix().toLower() == "svgz";
+    const QString inSuffix = QFileInfo(config.inputPath).suffix().toLower();
+    const bool isInputFileCompressed = inSuffix == "svgz";
     if (isInputFileCompressed) {
         inputFile = config.outputPath;
         Compressor::unzip(config.inputPath, inputFile);
@@ -79,7 +80,6 @@ Task::Output Task::_cleanFile(const Task::Config &config)
     // process output
     if (cleanerMsg.contains("Error:")) {
         // NOTE: have to keep it in sync with CLI
-        // TODO: option to allow bigger files
         if (isInputFileCompressed) {
             // remove decompressed file
             QFile().remove(inputFile);
@@ -106,7 +106,8 @@ Task::Output Task::_cleanFile(const Task::Config &config)
 
     if (shouldCompress) {
         outPath += "z";
-        Compressor(config.compressorType).zip(config.compressionLevel, config.outputPath, outPath);
+        Compressor(config.compressorType).zip(config.compressionLevel,
+                                              config.outputPath, outPath);
     }
 
     Output::OkData okData;

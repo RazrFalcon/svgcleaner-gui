@@ -22,8 +22,10 @@
 
 #include "cleaneroptions.h"
 
-namespace CleanerKey {
-    namespace Elements {
+namespace CleanerKey
+{
+    namespace Elements
+    {
         const QString RemoveComments            = "remove-comments";
         const QString RemoveDeclaration         = "remove-declarations";
         const QString RemoveNonSvgElements      = "remove-nonsvg-elements";
@@ -45,7 +47,8 @@ namespace CleanerKey {
         const QString ResolveUse                = "resolve-use";
     }
 
-    namespace Attributes {
+    namespace Attributes
+    {
         const QString RemoveVersion             = "remove-version";
         const QString RemoveNonSvgAttributes    = "remove-nonsvg-attributes";
         const QString RemoveUnrefIds            = "remove-unreferenced-ids";
@@ -62,7 +65,8 @@ namespace CleanerKey {
         const QString RemoveUnresolvedClasses   = "remove-unresolved-classes";
     }
 
-    namespace Paths {
+    namespace Paths
+    {
         const QString PathsToRelative           = "paths-to-relative";
         const QString RemoveUnusedSegments      = "remove-unused-segments";
         const QString ConvertSegments           = "convert-segments";
@@ -73,7 +77,8 @@ namespace CleanerKey {
         const QString UseImplicitCommands       = "use-implicit-cmds";
     }
 
-    namespace Output {
+    namespace Output
+    {
         const QString TrimColors                = "trim-colors";
         const QString SimplifyTransforms        = "simplify-transforms";
         const QString CoordinatesPrecision      = "coordinates-precision";
@@ -83,7 +88,8 @@ namespace CleanerKey {
         const QString Indent                    = "indent";
     }
 
-    namespace Other {
+    namespace Other
+    {
         const QString Multipass                 = "multipass";
         const QString AllowBiggerFile           = "allow-bigger-file";
         const QString CopyOnError               = "copy-on-error";

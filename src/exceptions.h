@@ -27,7 +27,8 @@
 class IoException : public std::exception
 {
 public:
-    enum Type {
+    enum Type
+    {
         WriteFailed,
         MkdirFailed,
     };

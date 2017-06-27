@@ -34,6 +34,11 @@ FilesView::FilesView(QWidget *parent) : QTreeView(parent)
     viewport()->installEventFilter(this);
 }
 
+bool FilesView::isReadOnly() const
+{
+    return m_readOnly;
+}
+
 void FilesView::setReadOnly(bool flag)
 {
     m_readOnly = flag;
@@ -41,14 +46,14 @@ void FilesView::setReadOnly(bool flag)
 
 void FilesView::dragEnterEvent(QDragEnterEvent *event)
 {
-    if (!m_readOnly) {
+    if (!isReadOnly()) {
         event->accept();
     }
 }
 
 void FilesView::dragMoveEvent(QDragMoveEvent *event)
 {
-    if (!m_readOnly) {
+    if (!isReadOnly()) {
         event->accept();
     }
 }
@@ -91,9 +96,9 @@ void FilesView::dropEvent(QDropEvent *event)
 
 bool FilesView::eventFilter(QObject *obj, QEvent *event)
 {
-    if (m_readOnly) {
+    if (isReadOnly()) {
         // ignore mouse and keyboard events in readonly mode
-        if (obj == viewport() && m_readOnly) {
+        if (obj == viewport() && isReadOnly()) {
             switch (event->type()) {
                 case QEvent::MouseButtonPress :
                 case QEvent::MouseButtonRelease :
@@ -104,7 +109,7 @@ bool FilesView::eventFilter(QObject *obj, QEvent *event)
                 }
                 default: break;
             }
-        } else if (obj == this && m_readOnly) {
+        } else if (obj == this && isReadOnly()) {
             switch (event->type()) {
                 case QEvent::KeyPress :
                 case QEvent::KeyRelease : {

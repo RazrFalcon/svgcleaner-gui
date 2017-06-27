@@ -4,7 +4,7 @@
 
 #### Fixed:
  - Text processing
- - `xml:space`processing
+ - `xml:space` processing
  - Parsing of the `transform` list separated by comma
  - Additional whitespace during ArcTo writing
  - Paths settings saving

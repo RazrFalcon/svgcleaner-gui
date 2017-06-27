@@ -46,33 +46,39 @@ public:
         bool compressOnlySvgz = false;
     };
 
-    class Output {
+    class Output
+    {
     public:
-        struct OkData {
+        struct OkData
+        {
             float ratio = 0;
             qint64 outSize = 0;
             QString outputPath;
         };
 
-        struct WarningData {
+        struct WarningData
+        {
             QString msg;
         };
 
-        struct ErrorData {
+        struct ErrorData
+        {
             QString msg;
         };
 
         Output() {}
         Output(TreeItem *treeItem) : m_treeItem(treeItem) {}
 
-        static Output ok(const OkData &data, TreeItem *treeItem) {
+        static Output ok(const OkData &data, TreeItem *treeItem)
+        {
             Output s(treeItem);
             s.m_type = Status::Ok;
             s.m_ok = data;
             return s;
         }
 
-        static Output warning(const OkData &data, const QString &warnMsg, TreeItem *treeItem) {
+        static Output warning(const OkData &data, const QString &warnMsg, TreeItem *treeItem)
+        {
             Output s(treeItem);
             s.m_type = Status::Warning;
             s.m_ok = data;
@@ -80,7 +86,8 @@ public:
             return s;
         }
 
-        static Output error(const QString &errMsg, TreeItem *treeItem) {
+        static Output error(const QString &errMsg, TreeItem *treeItem)
+        {
             Output s(treeItem);
             s.m_type = Status::Error;
             s.m_err.msg = errMsg;

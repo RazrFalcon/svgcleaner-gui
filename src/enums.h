@@ -24,8 +24,15 @@
 
 #include <QString>
 
-enum class Status { None, Ok, Warning, Error };
+enum class Status
+{
+    None,
+    Ok,
+    Warning,
+    Error,
+};
 
-namespace Cleaner {
+namespace Cleaner
+{
     extern const QString Name;
 }

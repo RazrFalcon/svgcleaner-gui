@@ -26,7 +26,8 @@
 #include "process.h"
 #include "compressor.h"
 
-namespace CompressorName {
+namespace CompressorName
+{
     const QString SevenZip = "7za";
     const QString Zopfli = "zopfli";
 }

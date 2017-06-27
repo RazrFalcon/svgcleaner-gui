@@ -27,8 +27,10 @@
 
 #include "enums.h"
 
-namespace Column {
-    enum Column {
+namespace Column
+{
+    enum Column
+    {
         Name,
         SizeBefore,
         SizeAfter,
@@ -54,7 +56,8 @@ struct FolderStats
     qint64 sizeAfter = 0;
 };
 
-struct TreeItemData {
+struct TreeItemData
+{
     QString title;
     QString path;
     QString outPath;
@@ -126,7 +129,13 @@ private:
 class TreeModel : public QAbstractItemModel
 {
 public:
-    enum class AddResult { Ok, FileExists, FolderExists, Empty };
+    enum class AddResult
+    {
+        Ok,
+        FileExists,
+        FolderExists,
+        Empty,
+    };
 
     explicit TreeModel(QObject *parent = nullptr);
     ~TreeModel();

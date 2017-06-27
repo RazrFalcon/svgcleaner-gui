@@ -28,6 +28,7 @@
 #include "src/doc.h"
 
 class QLabel;
+
 class DotWidget;
 
 class BasePreferencesPage : public QWidget
@@ -55,7 +56,8 @@ private slots:
     void onSpinValueChanged(int value);
 
 protected:
-    struct OptWidgetData {
+    struct OptWidgetData
+    {
         QWidget *w;
         QString key;
     };

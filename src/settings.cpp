@@ -26,7 +26,8 @@
 #include "compressor.h"
 #include "settings.h"
 
-namespace SettingKey {
+namespace SettingKey
+{
     const QString LastPath              = "LastPath";
     const QString OutputFolder          = "OutputFolder";
     const QString FilePrefix            = "FilePrefix";

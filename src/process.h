@@ -27,7 +27,8 @@
 class ProcessException : public std::exception
 {
 public:
-    enum Type {
+    enum Type
+    {
         FailedToStart,
         Timeout,
         NonZeroExitCode,
