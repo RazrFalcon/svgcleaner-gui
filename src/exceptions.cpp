@@ -33,5 +33,6 @@ QString IoException::explain() const {
             return qApp->translate("IoException", "Failed to create an output folder: '%1'.")
                        .arg(m_text);
         }
+        default : Q_UNREACHABLE();
     }
 }

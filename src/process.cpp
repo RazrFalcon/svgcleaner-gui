@@ -73,5 +73,6 @@ QString ProcessException::explain() const
             return qApp->translate("ProcessException", "Process '%1' was crashed:\n%2")
                         .arg(m_name).arg(m_output);
         }
+        default : Q_UNREACHABLE();
     }
 }
