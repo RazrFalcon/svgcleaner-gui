@@ -554,7 +554,7 @@ void MainWindow::onResultReadyAt(int idx)
 
     if (res.type() == Status::Error) {
         item->setStatus(Status::Error);
-        item->setStatusText(res.errorData().msg);
+        item->setStatusText(res.errorMsg());
         m_model->itemEditFinished(item);
         return;
     }
@@ -568,9 +568,9 @@ void MainWindow::onResultReadyAt(int idx)
     if (res.type() == Status::Ok) {
         item->setStatus(Status::Ok);
     } else if (res.type() == Status::Warning) {
-        auto wd = res.warningData();
+        auto wd = res.warningMsg();
         item->setStatus(Status::Warning);
-        item->setStatusText(wd.msg);
+        item->setStatusText(wd);
     } else {
         Q_UNREACHABLE();
     }

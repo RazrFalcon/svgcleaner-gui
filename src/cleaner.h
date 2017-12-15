@@ -82,7 +82,7 @@ public:
             Output s(treeItem);
             s.m_type = Status::Warning;
             s.m_ok = data;
-            s.m_warning.msg = warnMsg;
+            s.m_msg = warnMsg;
             return s;
         }
 
@@ -90,7 +90,7 @@ public:
         {
             Output s(treeItem);
             s.m_type = Status::Error;
-            s.m_err.msg = errMsg;
+            s.m_msg = errMsg;
             return s;
         }
 
@@ -103,16 +103,16 @@ public:
             return m_ok;
         }
 
-        const WarningData& warningData() const
+        QString warningMsg() const
         {
             Q_ASSERT(m_type == Status::Warning);
-            return m_warning;
+            return m_msg;
         }
 
-        const ErrorData& errorData() const
+        QString errorMsg() const
         {
             Q_ASSERT(m_type == Status::Error);
-            return m_err;
+            return m_msg;
         }
 
         TreeItem* item() const
@@ -124,8 +124,7 @@ public:
     private:
         Status m_type = Status::None;
         OkData m_ok;
-        WarningData m_warning;
-        ErrorData m_err;
+        QString m_msg;
         TreeItem *m_treeItem = nullptr;
     };
 
