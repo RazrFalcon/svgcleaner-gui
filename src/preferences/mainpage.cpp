@@ -76,6 +76,9 @@ void MainPage::loadConfig()
     ui->groupBoxZip->setChecked(settings.flag(SettingKey::UseCompression));
 
     int compressorIdx = ui->cmbBoxZip->findData(settings.string(SettingKey::Compressor));
+    if (compressorIdx == -1) {
+        compressorIdx = 0;
+    }
     ui->cmbBoxZip->setCurrentIndex(compressorIdx);
 
     ui->cmbBoxZipLevel->setCurrentIndex(settings.integer(SettingKey::CompressionLevel));

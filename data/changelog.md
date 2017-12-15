@@ -1,3 +1,7 @@
+### 0.9.2
+#### Fixed:
+ - HiDPI support.
+
 ### 0.9.1
 #### Changed:
  - Unresolved inherited attributes will produce a warning and not error now

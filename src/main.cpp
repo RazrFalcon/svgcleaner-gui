@@ -42,9 +42,7 @@ int main(int argc, char *argv[])
     a.setApplicationName("SVG Cleaner");
     a.setApplicationVersion(ver.toString());
 
-#ifdef Q_OS_MAC
     a.setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 
     if (!findCleaner()) {
         exeErr(Cleaner::Name);

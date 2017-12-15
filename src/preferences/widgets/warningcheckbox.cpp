@@ -23,6 +23,7 @@
 #include <QHBoxLayout>
 #include <QCheckBox>
 #include <QLabel>
+#include <QPainter>
 
 #include "warningcheckbox.h"
 
@@ -32,8 +33,16 @@ WarningCheckBox::WarningCheckBox(QWidget *parent)
 {
     m_chbox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
+    QIcon warnIcon(":/warning.svgz");
+
+    QImage img(64, 64, QImage::Format_ARGB32);
+    img.fill(Qt::transparent);
+    QPainter p(&img);
+    warnIcon.paint(&p, QRect(0, 0, 64, 64));
+    p.end();
+
     QLabel *lbl = new QLabel();
-    lbl->setPixmap(QPixmap(":/warning.svgz"));
+    lbl->setPixmap(QPixmap::fromImage(img));
     lbl->setScaledContents(true);
 
     int l = fontMetrics().height() * 0.9;

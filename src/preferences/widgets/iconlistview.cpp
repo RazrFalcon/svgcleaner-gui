@@ -93,7 +93,6 @@ private:
     }
 
 private:
-    // TODO: maybe depend on scale factor/dpi
     static constexpr int iconSize = 64;
     static constexpr int iconSpacing = 4;
 };
