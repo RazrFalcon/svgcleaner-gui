@@ -27,7 +27,8 @@
 
 #include "filesview.h"
 
-FilesView::FilesView(QWidget *parent) : QTreeView(parent)
+FilesView::FilesView(QWidget *parent)
+    : QTreeView(parent)
 {
     setAcceptDrops(true);
     installEventFilter(this);

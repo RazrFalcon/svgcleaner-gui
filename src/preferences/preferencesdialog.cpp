@@ -41,11 +41,11 @@
 #include "preferencesdialog.h"
 
 PreferencesDialog::PreferencesDialog(QWidget *parent)
-    : QDialog(parent),
-      m_listView(new IconListView()),
-      m_stackedWidget(new QStackedWidget()),
-      m_btnGenArgs(new QPushButton()),
-      m_btnBox(new QDialogButtonBox())
+    : QDialog(parent)
+    , m_listView(new IconListView())
+    , m_stackedWidget(new QStackedWidget())
+    , m_btnGenArgs(new QPushButton())
+    , m_btnBox(new QDialogButtonBox())
 {
     initList();
 

@@ -22,7 +22,6 @@
 
 #include <QFile>
 
-#include "exceptions.h"
 #include "process.h"
 #include "compressor.h"
 
@@ -38,9 +37,9 @@ Compressor Compressor::fromName(const QString &aname) noexcept
         return Compressor(SevenZip);
     } else if (aname == Compressor(Zopfli).name()) {
         return Compressor(Zopfli);
-    } else {
-        Q_UNREACHABLE();
     }
+
+    Q_UNREACHABLE();
 }
 
 bool Compressor::isAvailable() const
@@ -87,7 +86,6 @@ QString Compressor::levelToString(Level v) const noexcept
     }
 
     Q_UNREACHABLE();
-    return QString();
 }
 
 QString Compressor::name() const noexcept
@@ -97,6 +95,7 @@ QString Compressor::name() const noexcept
         case SevenZip : return CompressorName::SevenZip;
         case Zopfli : return CompressorName::Zopfli;
     }
+
     Q_UNREACHABLE();
 }
 
@@ -105,12 +104,12 @@ static void writeFile(const QString &path, const QByteArray &data)
     QFile file(path);
     if (file.open(QFile::WriteOnly)) {
         const qint64 size = file.write(data);
-        if (size != data.size()) {
-            throw IoException(IoException::WriteFailed, path);
+        if (size == data.size()) {
+            return;
         }
-    } else {
-        throw IoException(IoException::WriteFailed, path);
     }
+
+    throw QString("Failed to write a file: '%1'.").arg(path);
 }
 
 // only 7za can unzip files

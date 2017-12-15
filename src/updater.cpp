@@ -29,9 +29,9 @@
 
 #include "updater.h"
 
-Updater::Updater(QObject *parent) :
-    QObject(parent),
-    m_manager(new QNetworkAccessManager(this))
+Updater::Updater(QObject *parent)
+    : QObject(parent)
+    , m_manager(new QNetworkAccessManager(this))
 {
     connect(m_manager, &QNetworkAccessManager::finished,
             this, &Updater::onRequestFinished);

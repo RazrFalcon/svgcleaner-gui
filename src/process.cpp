@@ -37,43 +37,22 @@ QByteArray Process::run(const QString &name, const QStringList &args,
 
     proc.start(path, args);
     if (!proc.waitForStarted()) {
-        throw ProcessException(ProcessException::Type::FailedToStart, name);
+        throw tr("Process '%1' failed to start.").arg(name);
     }
 
     if (!proc.waitForFinished(timeout)) {
-        throw ProcessException(ProcessException::Type::Timeout, name);
+        throw tr("Process '%1' was shutdown by timeout.").arg(name);
     }
 
     const QByteArray output = proc.readAll();
 
     if (proc.exitCode() != 0) {
-        throw ProcessException(ProcessException::Type::NonZeroExitCode, name, output);
+        throw tr("Process '%1' exit with error:\n%2").arg(name).arg(QString(output));
     }
 
     if (proc.exitStatus() != QProcess::NormalExit) {
-        throw ProcessException(ProcessException::Type::Crashed, name, output);
+        throw tr("Process '%1' was crashed:\n%2").arg(name).arg(QString(output));
     }
 
     return output;
-}
-
-QString ProcessException::explain() const
-{
-    switch (m_type) {
-        case Type::FailedToStart : {
-            return qApp->translate("ProcessException", "Process '%1' failed to start.")
-                        .arg(m_name);
-        }
-        case Type::Timeout : {
-            return qApp->translate("ProcessException", "Process '%1' was shutdown by timeout.")
-                        .arg(m_name);
-        }
-        case Type::NonZeroExitCode :
-        case Type::Crashed : {
-            return qApp->translate("ProcessException", "Process '%1' was crashed:\n%2")
-                        .arg(m_name).arg(m_output);
-        }
-    }
-
-    Q_UNREACHABLE();
 }

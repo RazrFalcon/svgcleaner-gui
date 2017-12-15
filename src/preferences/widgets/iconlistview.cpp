@@ -31,7 +31,9 @@
 class IconDelegate : public QStyledItemDelegate
 {
 public:
-    explicit IconDelegate(QObject *parent = nullptr) : QStyledItemDelegate(parent) {}
+    explicit IconDelegate(QObject *parent = nullptr)
+        : QStyledItemDelegate(parent)
+    {}
 
     static int widthHint()
     { return iconSize + iconSpacing * 2; }
@@ -100,7 +102,9 @@ private:
 class IconListModel : public QAbstractListModel
 {
 public:
-    explicit IconListModel(QObject *parent = nullptr) : QAbstractListModel(parent) {}
+    explicit IconListModel(QObject *parent = nullptr)
+        : QAbstractListModel(parent)
+    {}
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const
     { Q_UNUSED(parent); return m_data.count(); }
@@ -156,8 +160,8 @@ private:
 };
 
 IconListView::IconListView(QWidget *parent)
-    : QListView(parent),
-      m_model(new IconListModel(this))
+    : QListView(parent)
+    , m_model(new IconListModel(this))
 {
     setModel(m_model);
     setItemDelegate(new IconDelegate(this));

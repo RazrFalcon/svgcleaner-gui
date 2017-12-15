@@ -211,8 +211,8 @@ bool TreeItem::hasChild(const QString &path) const
 }
 
 TreeModel::TreeModel(QObject *parent)
-    : QAbstractItemModel(parent),
-      m_rootItem(new TreeItem("Root"))
+    : QAbstractItemModel(parent)
+    ,  m_rootItem(new TreeItem("Root"))
 {
     QPixmapCache::insert("check.svgz", QPixmap(":/check.svgz"));
     QPixmapCache::insert("warning.svgz", QPixmap(":/warning.svgz"));

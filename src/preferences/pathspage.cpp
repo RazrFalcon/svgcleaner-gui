@@ -25,9 +25,9 @@
 
 using namespace CleanerKey;
 
-PathsPage::PathsPage(QWidget *parent) :
-    BasePreferencesPage(parent),
-    ui(new Ui::PathsPage)
+PathsPage::PathsPage(QWidget *parent)
+    : BasePreferencesPage(parent)
+    , ui(new Ui::PathsPage)
 {
     ui->setupUi(this);
 

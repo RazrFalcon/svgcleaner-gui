@@ -26,9 +26,9 @@
 #include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
-AboutDialog::AboutDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AboutDialog)
+AboutDialog::AboutDialog(QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
     ui->lblTitle->setText(qApp->applicationName() + " " + qApp->applicationVersion());
@@ -97,10 +97,6 @@ void AboutDialog::fillBuiltWith()
     QString text;
     text += "<ul>";
     text += "<li>" + genLink("svgcleaner", "https://github.com/RazrFalcon/svgcleaner") + "</li>";
-    text += "<ul>";
-    text += "<li>" + genLink("libsvgdom", "https://github.com/RazrFalcon/libsvgdom") + "</li>";
-    text += "<li>" + genLink("libsvgparser", "https://github.com/RazrFalcon/libsvgparser") + "</li>";
-    text += "</ul>";
     text += "<li>" + genLink("Qt", "https://www.qt.io/") + "</li>";
     text += "<li>" + genLink("7-Zip", "http://www.7-zip.org/") + "</li>";
     text += "<li>" + genLink("Zopfli", "https://github.com/google/zopfli") + "</li>";

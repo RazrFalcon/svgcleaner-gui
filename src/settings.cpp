@@ -47,8 +47,8 @@ namespace SettingKey
     const QString LastUpdatesCheck      = "LastUpdatesCheck";
 }
 
-AppSettings::AppSettings(QObject *parent) :
-    QSettings(QSettings::NativeFormat, QSettings::UserScope, "SVGCleaner", "svgcleaner", parent)
+AppSettings::AppSettings(QObject *parent)
+    : QSettings(QSettings::NativeFormat, QSettings::UserScope, "SVGCleaner", "svgcleaner", parent)
 {}
 
 bool AppSettings::flag(const QString &key)

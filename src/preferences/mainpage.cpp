@@ -35,9 +35,9 @@ namespace CompressorTitle {
     static const QString Zopfli   = "Zopfli";
 }
 
-MainPage::MainPage(QWidget *parent) :
-    BasePreferencesPage(parent),
-    ui(new Ui::MainPage)
+MainPage::MainPage(QWidget *parent)
+    : BasePreferencesPage(parent)
+    , ui(new Ui::MainPage)
 {
     ui->setupUi(this);
 

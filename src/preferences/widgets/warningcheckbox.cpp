@@ -28,8 +28,8 @@
 #include "warningcheckbox.h"
 
 WarningCheckBox::WarningCheckBox(QWidget *parent)
-    : QWidget(parent),
-      m_chbox(new QCheckBox())
+    : QWidget(parent)
+    ,  m_chbox(new QCheckBox())
 {
     m_chbox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 

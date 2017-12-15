@@ -96,9 +96,9 @@ namespace CleanerKey
     }
 }
 
-CleanerOptions::CleanerOptions(QObject *parent) :
-    QSettings(QSettings::NativeFormat, QSettings::UserScope,
-              "SVGCleaner", "svgcleaner-options", parent)
+CleanerOptions::CleanerOptions(QObject *parent)
+    : QSettings(QSettings::NativeFormat, QSettings::UserScope,
+                "SVGCleaner", "svgcleaner-options", parent)
 {}
 
 bool CleanerOptions::flag(const QString &key)

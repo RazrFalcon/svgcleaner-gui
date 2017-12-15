@@ -25,9 +25,9 @@
 
 using namespace CleanerKey;
 
-ElementsPage::ElementsPage(QWidget *parent) :
-    BasePreferencesPage(parent),
-    ui(new Ui::ElementsPage)
+ElementsPage::ElementsPage(QWidget *parent)
+    : BasePreferencesPage(parent)
+    , ui(new Ui::ElementsPage)
 {
     ui->setupUi(this);
 

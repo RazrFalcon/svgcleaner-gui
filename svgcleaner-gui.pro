@@ -18,68 +18,67 @@ unix:!mac:TARGET = svgcleaner-gui
 DEFINES += QT_NO_FOREACH
 
 TEMPLATE = app
+CONFIG += C++11
 
 SOURCES += \
+    src/aboutdialog.cpp \
+    src/cleaner.cpp \
+    src/compressor.cpp \
+    src/detailsdialog.cpp \
+    src/doc.cpp \
+    src/enums.cpp \
+    src/filesview.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
-    src/treemodel.cpp \
-    src/settings.cpp \
-    src/preferences/preferencesdialog.cpp \
-    src/preferences/elementspage.cpp \
     src/preferences/attributespage.cpp \
-    src/preferences/outputpage.cpp \
-    src/aboutdialog.cpp \
-    src/preferences/pathspage.cpp \
-    src/preferences/cleaneroptions.cpp \
     src/preferences/basepreferencespage.cpp \
+    src/preferences/cleaneroptions.cpp \
+    src/preferences/elementspage.cpp \
     src/preferences/mainpage.cpp \
-    src/cleaner.cpp \
-    src/doc.cpp \
-    src/preferences/widgets/warningcheckbox.cpp \
-    src/enums.cpp \
-    src/process.cpp \
-    src/compressor.cpp \
-    src/filesview.cpp \
+    src/preferences/outputpage.cpp \
+    src/preferences/pathspage.cpp \
+    src/preferences/preferencesdialog.cpp \
+    src/preferences/widgets/dotwidget.cpp \
     src/preferences/widgets/iconlistview.cpp \
-    src/detailsdialog.cpp \
-    src/exceptions.cpp \
-    src/preferences/widgets/dotwidget.cpp
+    src/preferences/widgets/warningcheckbox.cpp \
+    src/process.cpp \
+    src/settings.cpp \
+    src/treemodel.cpp
 
 HEADERS += \
-    src/mainwindow.h \
-    src/treemodel.h \
-    src/settings.h \
-    src/preferences/preferencesdialog.h \
-    src/preferences/elementspage.h \
-    src/preferences/attributespage.h \
-    src/preferences/outputpage.h \
     src/aboutdialog.h \
-    src/preferences/pathspage.h \
-    src/preferences/cleaneroptions.h \
-    src/preferences/basepreferencespage.h \
-    src/preferences/mainpage.h \
     src/cleaner.h \
-    src/enums.h \
-    src/utils.h \
+    src/compressor.h \
+    src/detailsdialog.h \
     src/doc.h \
+    src/enums.h \
+    src/filesview.h \
+    src/mainwindow.h \
+    src/preferences/attributespage.h \
+    src/preferences/basepreferencespage.h \
+    src/preferences/cleaneroptions.h \
+    src/preferences/elementspage.h \
+    src/preferences/mainpage.h \
+    src/preferences/outputpage.h \
+    src/preferences/pathspage.h \
+    src/preferences/preferencesdialog.h \
+    src/preferences/widgets/dotwidget.h \
+    src/preferences/widgets/iconlistview.h \
     src/preferences/widgets/warningcheckbox.h \
     src/process.h \
-    src/compressor.h \
-    src/filesview.h \
-    src/preferences/widgets/iconlistview.h \
-    src/detailsdialog.h \
-    src/exceptions.h \
-    src/preferences/widgets/dotwidget.h
+    src/settings.h \
+    src/treemodel.h \
+    src/utils.h
 
 FORMS += \
-    src/mainwindow.ui \
-    src/preferences/elementspage.ui \
-    src/preferences/attributespage.ui \
-    src/preferences/outputpage.ui \
     src/aboutdialog.ui \
-    src/preferences/pathspage.ui \
+    src/detailsdialog.ui \
+    src/mainwindow.ui \
+    src/preferences/attributespage.ui \
+    src/preferences/elementspage.ui \
     src/preferences/mainpage.ui \
-    src/detailsdialog.ui
+    src/preferences/outputpage.ui \
+    src/preferences/pathspage.ui
 
 contains(DEFINES, WITH_CHECK_UPDATES) {
     SOURCES += src/updater.cpp

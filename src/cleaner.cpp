@@ -22,7 +22,6 @@
 
 #include <QDir>
 
-#include "exceptions.h"
 #include "utils.h"
 #include "cleaner.h"
 #include "process.h"
@@ -38,10 +37,8 @@ Task::Output Task::cleanFile(const Task::Config &config)
 
     try {
         return _cleanFile(config);
-    } catch (const IoException &e) {
-        return Output::error(e.explain(), config.treeItem);
-    } catch (const ProcessException &e) {
-        return Output::error(e.explain(), config.treeItem);
+    } catch (const QString &s) {
+        return Output::error(s, config.treeItem);
     }
 }
 
@@ -52,7 +49,7 @@ Task::Output Task::_cleanFile(const Task::Config &config)
     if (!QFileInfo().exists(outFolder)) {
         const bool flag = QDir().mkpath(outFolder);
         if (!flag) {
-            throw IoException(IoException::MkdirFailed, outFolder);
+            throw tr("Failed to create an output folder:\n'%1'.").arg(outFolder);
         }
     }
 

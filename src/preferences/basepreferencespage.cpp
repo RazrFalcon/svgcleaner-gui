@@ -46,8 +46,9 @@ static int toIntChecked(const QVariant &value)
     return v;
 }
 
-BasePreferencesPage::BasePreferencesPage(QWidget *parent) : QWidget(parent)
-{ }
+BasePreferencesPage::BasePreferencesPage(QWidget *parent)
+    : QWidget(parent)
+{}
 
 void BasePreferencesPage::addOptWidgets(std::initializer_list<OptWidgetData> list)
 {

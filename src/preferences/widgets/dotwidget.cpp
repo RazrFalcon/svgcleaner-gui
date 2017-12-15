@@ -27,7 +27,8 @@
 
 static const int DotWidth = 8;
 
-DotWidget::DotWidget(QWidget *parent) : QWidget(parent)
+DotWidget::DotWidget(QWidget *parent)
+    : QWidget(parent)
 {
     installEventFilter(this);
 
