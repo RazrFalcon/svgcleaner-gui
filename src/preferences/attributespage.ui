@@ -246,6 +246,22 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>chBoxRmVersion</tabstop>
+  <tabstop>chBoxRmNonSvg</tabstop>
+  <tabstop>chBoxRmUnrefIds</tabstop>
+  <tabstop>chBoxTrimIds</tabstop>
+  <tabstop>chBoxRmTextAttrs</tabstop>
+  <tabstop>chBoxRmCoord</tabstop>
+  <tabstop>chBoxRmDefaultAttrs</tabstop>
+  <tabstop>chBoxXmlnsXlink</tabstop>
+  <tabstop>chBoxRmNeedlessAttrs</tabstop>
+  <tabstop>chBoxRemoveGradientAttributes</tabstop>
+  <tabstop>cmbBoxJoinStyleAttributes</tabstop>
+  <tabstop>chBoxApplyTransformToGradients</tabstop>
+  <tabstop>chBoxApplyTransformToShapes</tabstop>
+  <tabstop>chBoxRemoveUnresolvedClasses</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

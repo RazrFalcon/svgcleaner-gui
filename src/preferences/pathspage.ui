@@ -130,6 +130,16 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>chBoxToRelative</tabstop>
+  <tabstop>chBoxRmUnused</tabstop>
+  <tabstop>chBoxConvertSegments</tabstop>
+  <tabstop>chBoxApplyTransformToPaths</tabstop>
+  <tabstop>chBoxTrimPaths</tabstop>
+  <tabstop>chBoxJoinArcToFlags</tabstop>
+  <tabstop>chBoxRmDuplCmd</tabstop>
+  <tabstop>chBoxUseImplicitCommands</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

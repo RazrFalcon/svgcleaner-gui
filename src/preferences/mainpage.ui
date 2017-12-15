@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>442</width>
-    <height>539</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -369,6 +369,21 @@ but sometimes this should be allowed.</string>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>rBtnSave1</tabstop>
+  <tabstop>rBtnSave2</tabstop>
+  <tabstop>rBtnSave3</tabstop>
+  <tabstop>spinBoxJobs</tabstop>
+  <tabstop>chBoxMultipass</tabstop>
+  <tabstop>chBoxAllowBigger</tabstop>
+  <tabstop>chBoxCopyOnError</tabstop>
+  <tabstop>groupBoxZip</tabstop>
+  <tabstop>cmbBoxZip</tabstop>
+  <tabstop>cmbBoxZipLevel</tabstop>
+  <tabstop>chBoxSvgzOnly</tabstop>
+  <tabstop>chBoxCheckUpdates</tabstop>
+  <tabstop>btnCheckUpdates</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

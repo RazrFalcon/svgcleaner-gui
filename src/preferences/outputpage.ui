@@ -234,6 +234,15 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>chBoxRGB</tabstop>
+  <tabstop>chBoxSimplifyTransforms</tabstop>
+  <tabstop>spinBoxCoordsPrecision</tabstop>
+  <tabstop>spinBoxPropsPrecision</tabstop>
+  <tabstop>spinBoxTsPrecision</tabstop>
+  <tabstop>spinBoxPathsPrecision</tabstop>
+  <tabstop>cmbBoxIndent</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>601</height>
+    <height>638</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -249,6 +249,27 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>chBoxRmComments</tabstop>
+  <tabstop>chBoxRmDeclaration</tabstop>
+  <tabstop>chBoxRmNonSvg</tabstop>
+  <tabstop>chBoxRmUnusedDefs</tabstop>
+  <tabstop>chBoxConvertShapes</tabstop>
+  <tabstop>chBoxRmTitle</tabstop>
+  <tabstop>chBoxRmDesc</tabstop>
+  <tabstop>chBoxRmMetadata</tabstop>
+  <tabstop>chBoxRmDuplLinearGrad</tabstop>
+  <tabstop>chBoxRmDuplRadialGrad</tabstop>
+  <tabstop>chBoxRemoveDuplFeGaussianBlur</tabstop>
+  <tabstop>chBoxUngroupGroups</tabstop>
+  <tabstop>chBoxUngroupDefs</tabstop>
+  <tabstop>chBoxGroupByStyle</tabstop>
+  <tabstop>chBoxMergeGradients</tabstop>
+  <tabstop>chBoxRegroupGradientStops</tabstop>
+  <tabstop>chBoxRemoveInvalidStops</tabstop>
+  <tabstop>chBoxRmInvisible</tabstop>
+  <tabstop>chBoxResolveUse</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
