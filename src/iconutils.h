@@ -20,48 +20,11 @@
 **
 ****************************************************************************/
 
-#include <QHBoxLayout>
-#include <QCheckBox>
-#include <QLabel>
-#include <QPainter>
+#pragma once
 
-#include "src/iconutils.h"
-#include "warningcheckbox.h"
+#include <QPixmap>
 
-WarningCheckBox::WarningCheckBox(QWidget *parent)
-    : QWidget(parent)
-    ,  m_chbox(new QCheckBox())
+namespace IconUtils
 {
-    m_chbox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-
-    QLabel *lbl = new QLabel();
-    int l = fontMetrics().height() * 0.9;
-    lbl->setFixedSize(l, l);
-    lbl->setPixmap(IconUtils::renderIcon(":/warning.svgz", l));
-    lbl->setScaledContents(true);
-
-
-    QHBoxLayout *lay = new QHBoxLayout();
-    lay->setContentsMargins(0, 0, 0, 0);
-    lay->addWidget(m_chbox);
-    lay->addWidget(lbl);
-    lay->addStretch();
-    setLayout(lay);
-
-    connect(m_chbox, &QCheckBox::toggled, this, &WarningCheckBox::toggled);
-}
-
-void WarningCheckBox::setText(const QString &text)
-{
-    m_chbox->setText(text);
-}
-
-bool WarningCheckBox::isChecked() const
-{
-    return m_chbox->isChecked();
-}
-
-void WarningCheckBox::setChecked(bool flag)
-{
-    m_chbox->setChecked(flag);
+    QPixmap renderIcon(const QString &path, int width);
 }

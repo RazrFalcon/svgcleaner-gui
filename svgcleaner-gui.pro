@@ -28,6 +28,7 @@ SOURCES += \
     src/doc.cpp \
     src/enums.cpp \
     src/filesview.cpp \
+    src/iconutils.cpp \
     src/main.cpp \
     src/mainwindow.cpp \
     src/preferences/attributespage.cpp \
@@ -53,6 +54,7 @@ HEADERS += \
     src/doc.h \
     src/enums.h \
     src/filesview.h \
+    src/iconutils.h \
     src/mainwindow.h \
     src/preferences/attributespage.h \
     src/preferences/basepreferencespage.h \

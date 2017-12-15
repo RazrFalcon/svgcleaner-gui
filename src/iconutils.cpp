@@ -20,48 +20,38 @@
 **
 ****************************************************************************/
 
-#include <QHBoxLayout>
-#include <QCheckBox>
-#include <QLabel>
+#include <QGuiApplication>
+#include <QScreen>
+#include <QIcon>
 #include <QPainter>
+#include <QPixmapCache>
 
-#include "src/iconutils.h"
-#include "warningcheckbox.h"
+#include "iconutils.h"
 
-WarningCheckBox::WarningCheckBox(QWidget *parent)
-    : QWidget(parent)
-    ,  m_chbox(new QCheckBox())
+namespace IconUtils {
+
+QPixmap renderIcon(const QString &path, int width)
 {
-    m_chbox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    QPixmap pix;
+    if (QPixmapCache::find(path, &pix)) {
+        return pix;
+    }
 
-    QLabel *lbl = new QLabel();
-    int l = fontMetrics().height() * 0.9;
-    lbl->setFixedSize(l, l);
-    lbl->setPixmap(IconUtils::renderIcon(":/warning.svgz", l));
-    lbl->setScaledContents(true);
+    const auto ratio = qApp->screens().first()->devicePixelRatio();
+    width *= ratio;
 
+    QIcon warnIcon(path);
 
-    QHBoxLayout *lay = new QHBoxLayout();
-    lay->setContentsMargins(0, 0, 0, 0);
-    lay->addWidget(m_chbox);
-    lay->addWidget(lbl);
-    lay->addStretch();
-    setLayout(lay);
+    QImage img(width, width, QImage::Format_ARGB32);
+    img.fill(Qt::transparent);
+    QPainter p(&img);
+    warnIcon.paint(&p, QRect(0, 0, width, width));
+    p.end();
 
-    connect(m_chbox, &QCheckBox::toggled, this, &WarningCheckBox::toggled);
+    pix = QPixmap::fromImage(img);
+    QPixmapCache::insert(path, pix);
+
+    return pix;
 }
 
-void WarningCheckBox::setText(const QString &text)
-{
-    m_chbox->setText(text);
-}
-
-bool WarningCheckBox::isChecked() const
-{
-    return m_chbox->isChecked();
-}
-
-void WarningCheckBox::setChecked(bool flag)
-{
-    m_chbox->setChecked(flag);
 }
