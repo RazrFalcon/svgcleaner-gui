@@ -37,7 +37,8 @@ void StatusDelegate::paint(QPainter *p, const QStyleOptionViewItem &opt,
     initStyleOption(&opt2, index);
     opt2.text = QString();
 
-    const auto iconL = opt.fontMetrics.height();
+    auto iconL = opt.fontMetrics.height();
+    iconL -= iconL % 2;
     const auto offset = (opt.rect.height() - iconL) / 2;
     const auto iconRect = QRect(opt.rect.x() + offset, opt.rect.y() + offset, iconL, iconL);
 
