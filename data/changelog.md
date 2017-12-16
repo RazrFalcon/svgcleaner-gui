@@ -1,6 +1,16 @@
 ### 0.9.2
+#### Added
+ - Elements -> *Group elements by equal styles* can group two nodes now.
+ - Elements -> *Group elements by equal styles* can group into `svg` node now.
+ - `defs` element is always the first child of an `svg` now.
+
 #### Fixed:
- - HiDPI support.
+ - Groups ungrouping inside a switch element.
+ - Complex groups ungrouping.
+ - Elements -> *Group elements by equal styles* recursive processing.
+ - Crash if path has an implicit MoveTo after ClosePath.
+ - Attributes -> *Remove unresolved classes from 'class' attributes* option had no effect.
+ - HiDPI support in GUI.
 
 ### 0.9.1
 #### Changed:
