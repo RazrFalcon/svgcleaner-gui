@@ -40,8 +40,13 @@ OutputPage::OutputPage(QWidget *parent)
         { ui->spinBoxPropsPrecision, Output::PropertiesPrecision },
         { ui->spinBoxTsPrecision, Output::TransformsPrecision },
         { ui->spinBoxPathsPrecision, Output::PathsPrecision },
+        { ui->cmbBoxListSeparator, Output::ListSeparator },
         { ui->cmbBoxIndent, Output::Indent },
     });
+
+    ui->cmbBoxListSeparator->addItem(tr("Space"), "space");
+    ui->cmbBoxListSeparator->addItem(tr("Comma"), "comma");
+    ui->cmbBoxListSeparator->addItem(tr("Comma-Space"), "comma-space");
 
     ui->cmbBoxIndent->addItem(tr("None"), "none");
     ui->cmbBoxIndent->addItem(tr("No spaces"), "0");

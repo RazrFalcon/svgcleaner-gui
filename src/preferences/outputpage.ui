@@ -89,7 +89,7 @@
     <widget class="DotWidget" name="dot2" native="true"/>
    </item>
    <item row="8" column="0" alignment="Qt::AlignVCenter">
-    <widget class="DotWidget" name="dot7" native="true"/>
+    <widget class="DotWidget" name="dot8" native="true"/>
    </item>
    <item row="3" column="1">
     <layout class="QGridLayout" name="precisionLayout">
@@ -223,6 +223,43 @@
       <widget class="DotWidget" name="dot6" native="true"/>
      </item>
     </layout>
+   </item>
+   <item row="4" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="lblIndention_2">
+       <property name="text">
+        <string>Number list separator:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cmbBoxListSeparator">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <widget class="DotWidget" name="dot7" native="true"/>
    </item>
   </layout>
  </widget>

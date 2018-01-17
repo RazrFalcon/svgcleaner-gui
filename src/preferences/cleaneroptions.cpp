@@ -85,6 +85,7 @@ namespace CleanerKey
         const QString PropertiesPrecision       = "properties-precision";
         const QString TransformsPrecision       = "transforms-precision";
         const QString PathsPrecision            = "paths-coordinates-precision";
+        const QString ListSeparator             = "list-separator";
         const QString Indent                    = "indent";
     }
 
@@ -172,6 +173,7 @@ QVariant CleanerOptions::defaultValue(const QString &key)
         hash.insert(Output::PropertiesPrecision, 6);
         hash.insert(Output::TransformsPrecision, 8);
         hash.insert(Output::PathsPrecision, 8);
+        hash.insert(Output::ListSeparator, "space");
         hash.insert(Output::Indent, "none");
 
         hash.insert(Other::Multipass, false);
@@ -306,6 +308,7 @@ QStringList CleanerOptions::genArgs()
     genNumFlag(Output::PropertiesPrecision, list);
     genNumFlag(Output::TransformsPrecision, list);
     genNumFlag(Output::PathsPrecision, list);
+    genStringFlag(Output::ListSeparator, list);
     genStringFlag(Output::Indent, list);
 
     genSimpleFlag(Other::Multipass, list);

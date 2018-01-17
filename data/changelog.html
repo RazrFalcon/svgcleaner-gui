@@ -1,6 +1,33 @@
+<h3>0.9.3</h3>
+
+<h4>Added:</h4>
+
+<ul>
+<li>Output -&gt; Number list separator</li>
+<li>The <code>marker</code> attribute removing.</li>
+<li>Quotes escape in attribute values.</li>
+</ul>
+
+<h4>Changed:</h4>
+
+<ul>
+<li>Attributes with <code>inherit</code> or <code>currentColor</code> values and without a proper parent is an error now.</li>
+</ul>
+
+<h4>Fixed:</h4>
+
+<ul>
+<li>Groups removing with transform and non-SVG child.</li>
+<li>Transform to path applying when a path has a style defined in a parent element.</li>
+<li>Multipass processing.</li>
+<li><code>marker</code> property resolving from CSS.</li>
+<li>The value of the <code>unicode</code> attribute is always escaped now.</li>
+<li>Fixed paths preprocessing.</li>
+</ul>
+
 <h3>0.9.2</h3>
 
-<h4>Added</h4>
+<h4>Added:</h4>
 
 <ul>
 <li>Elements -&gt; <em>Group elements by equal styles</em> can group two nodes now.</li>
@@ -15,7 +42,7 @@
 <li>Complex groups ungrouping.</li>
 <li>Elements -&gt; <em>Group elements by equal styles</em> recursive processing.</li>
 <li>Crash if path has an implicit MoveTo after ClosePath.</li>
-<li>Attributes -&gt; <em>Remove unresolved classes from &#39;class&#39; attributes</em> option had no effect.</li>
+<li>Attributes -&gt; <em>Remove unresolved classes from <code>class</code> attributes</em> option had no effect.</li>
 <li>HiDPI support in GUI.</li>
 </ul>
 

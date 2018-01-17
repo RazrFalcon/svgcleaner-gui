@@ -87,6 +87,7 @@ namespace CleanerKey
         extern const QString PropertiesPrecision;
         extern const QString TransformsPrecision;
         extern const QString PathsPrecision;
+        extern const QString ListSeparator;
         extern const QString Indent;
     }
 

@@ -1,5 +1,22 @@
+### 0.9.3
+#### Added:
+ - Output -> Number list separator
+ - The `marker` attribute removing.
+ - Quotes escape in attribute values.
+
+#### Changed:
+ - Attributes with `inherit` or `currentColor` values and without a proper parent is an error now.
+
+#### Fixed:
+ - Groups removing with transform and non-SVG child.
+ - Transform to path applying when a path has a style defined in a parent element.
+ - Multipass processing.
+ - `marker` property resolving from CSS.
+ - The value of the `unicode` attribute is always escaped now.
+ - Fixed paths preprocessing.
+
 ### 0.9.2
-#### Added
+#### Added:
  - Elements -> *Group elements by equal styles* can group two nodes now.
  - Elements -> *Group elements by equal styles* can group into `svg` node now.
  - `defs` element is always the first child of an `svg` now.
@@ -9,7 +26,7 @@
  - Complex groups ungrouping.
  - Elements -> *Group elements by equal styles* recursive processing.
  - Crash if path has an implicit MoveTo after ClosePath.
- - Attributes -> *Remove unresolved classes from 'class' attributes* option had no effect.
+ - Attributes -> *Remove unresolved classes from `class` attributes* option had no effect.
  - HiDPI support in GUI.
 
 ### 0.9.1
