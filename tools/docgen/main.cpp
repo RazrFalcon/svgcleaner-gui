@@ -76,11 +76,18 @@ int main(int argc, char *argv[])
         }
     }
 
-    for (const QFileInfo &fi : QDir(workDir).entryInfoList({ "*.rst" })) {
+    for (const QFileInfo &fi : QDir(workDir).entryInfoList({ "*.adoc" })) {
         const QString outPath = workDir + "/" + fi.completeBaseName() + ".html";
         qDebug() << "Gen HTML from" << fi.fileName();
-        if (!runProcess("rst2html.py", { "--stylesheet=" + data.stylesheet,
-                                         fi.absoluteFilePath(), outPath })) {
+
+        const auto res = runProcess("asciidoctor", {
+            "-a", "stylesheet!",
+            "--no-header-footer",
+            fi.absoluteFilePath(),
+            "-o", outPath
+        });
+
+        if (!res) {
             return 1;
         }
     }
@@ -115,8 +122,8 @@ int main(int argc, char *argv[])
 
 bool preStartChecks()
 {
-    if (!isExeExist("rst2html.py", { "-h" })) {
-        qDebug() << "rst2html.py not found";
+    if (!isExeExist("asciidoctor", { "-h" })) {
+        qDebug() << "asciidoctor not found";
         return false;
     }
     return true;
