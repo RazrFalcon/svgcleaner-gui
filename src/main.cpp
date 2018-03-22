@@ -36,7 +36,7 @@ void exeErr(const QString &name);
 
 int main(int argc, char *argv[])
 {
-    const QVersionNumber ver(0, 9, 3);
+    const QVersionNumber ver(0, 9, 4);
 
     QApplication a(argc, argv);
     a.setApplicationName("SVG Cleaner");

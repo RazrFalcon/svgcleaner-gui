@@ -1,3 +1,12 @@
+### 0.9.4
+#### Changed:
+ - Documentation formatting.
+
+#### Fixed:
+ - Crash during `defs` processing.
+ - Crash during `use` resolving.
+ - Elements -> *Resolve 'use' elements* does not resolve used `use` now.
+
 ### 0.9.3
 #### Added:
  - Output -> Number list separator
