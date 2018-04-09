@@ -1,3 +1,10 @@
+### 0.9.5
+#### Added
+ - Removal of the `transform` attribute with a default value.
+
+#### Fixed
+ - Attributes resolving during the `defs` regrouping.
+
 ### 0.9.4
 #### Changed:
  - Documentation formatting.

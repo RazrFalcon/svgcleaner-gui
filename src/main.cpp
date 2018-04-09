@@ -36,7 +36,9 @@ void exeErr(const QString &name);
 
 int main(int argc, char *argv[])
 {
-    const QVersionNumber ver(0, 9, 4);
+    const QVersionNumber ver(0, 9, 5);
+
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QApplication a(argc, argv);
     a.setApplicationName("SVG Cleaner");
