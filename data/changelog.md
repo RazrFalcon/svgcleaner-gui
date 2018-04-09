@@ -1,11 +1,11 @@
-### 0.9.5
-#### Added
+## 0.9.5
+#### Added:
  - Removal of the `transform` attribute with a default value.
 
-#### Fixed
+#### Fixed:
  - Attributes resolving during the `defs` regrouping.
 
-### 0.9.4
+## 0.9.4
 #### Changed:
  - Documentation formatting.
 
@@ -14,7 +14,7 @@
  - Crash during `use` resolving.
  - Elements -> *Resolve 'use' elements* does not resolve used `use` now.
 
-### 0.9.3
+## 0.9.3
 #### Added:
  - Output -> Number list separator
  - The `marker` attribute removing.
@@ -31,7 +31,7 @@
  - The value of the `unicode` attribute is always escaped now.
  - Fixed paths preprocessing.
 
-### 0.9.2
+## 0.9.2
 #### Added:
  - Elements -> *Group elements by equal styles* can group two nodes now.
  - Elements -> *Group elements by equal styles* can group into `svg` node now.
@@ -45,7 +45,7 @@
  - Attributes -> *Remove unresolved classes from `class` attributes* option had no effect.
  - HiDPI support in GUI.
 
-### 0.9.1
+## 0.9.1
 #### Changed:
  - Unresolved inherited attributes will produce a warning and not error now
 
@@ -56,8 +56,7 @@
  - Additional whitespace during ArcTo writing
  - Paths settings saving
 
-### 0.9.0
-
+## 0.9.0
 #### Added:
  - Option changes are highlighted now
  - Main -> Copy on error
@@ -73,8 +72,7 @@
 #### Fixed:
  - `stroke-dasharray` and `stroke-dashoffset` processing during transformations applying
 
-### 0.8.1
-
+## 0.8.1
 #### Added:
  - Elements -> *Group elements by equal styles* can group by `transform` now
  - `overflow` attribute cleaning
@@ -83,8 +81,7 @@
  - Incorrect grouping in Elements -> *Group elements by equal styles*
  - Processing gradients with one stop children
 
-### 0.8.0
-
+## 0.8.0
 #### Added:
  - Elements -> Group elements by equal styles
  - Elements -> Resolve 'use' elements
@@ -103,8 +100,7 @@
 #### Removed:
  - Attributes -> Move presentational attributes to the parent group
 
-### 0.7.1
-
+## 0.7.1
 #### Added:
  - Attributes -> *Remove unresolved classes from 'class' attributes* option
  - Changelog tab with this text
@@ -120,6 +116,5 @@
 #### Removed:
  - Time column
 
-### 0.7.0
-
+## 0.7.0
  - Initial release
