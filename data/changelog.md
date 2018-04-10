@@ -2,8 +2,12 @@
 #### Added:
  - Removal of the `transform` attribute with a default value.
 
+#### Changed:
+ - A default `Transform` will be printed as `matrix(1 0 0 1 0)` and not as an empty string.
+
 #### Fixed:
  - Attributes resolving during the `defs` regrouping.
+ - Text with `xml:space` preprocessing.
 
 ## 0.9.4
 #### Changed:
